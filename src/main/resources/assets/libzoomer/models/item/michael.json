@@ -1,0 +1,14 @@
+{
+	"parent": "item/generated",
+	"textures": {
+    	"layer0": "libzoomer:item/michael"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "scoping": 1
+            },
+            "model": "libzoomer:item/michael_active"
+        }
+    ]
+}

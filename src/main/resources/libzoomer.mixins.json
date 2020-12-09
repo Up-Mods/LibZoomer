@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "io.github.joaoh1.libzoomer.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "GameRendererMixin",
+    "ModelPredicateProviderRegistryMixin",
+    "MouseMixin",
+    "PlayerHeldItemFeatureRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

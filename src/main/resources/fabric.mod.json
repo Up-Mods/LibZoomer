@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "libzoomer",
+  "version": "${version}",
+  "name": "LibZoomer",
+  "description": "This is boring.",
+  "authors": [
+    "joaoh1"
+  ],
+  "contact": {
+    "homepage": "https://curseforge.com/",
+    "sources": "https://github.com/"
+  },
+  "license": "MIT",
+  "icon": "assets/libzoomer/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.joaoh1.libzoomer.ExampleMod"
+    ]
+  },
+  "mixins": [
+    "libzoomer.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.8.8",
+    "fabric": ">=0.13.0",
+    "minecraft": ">=1.16.0"
+  }
+}
