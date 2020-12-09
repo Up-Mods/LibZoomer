@@ -54,11 +54,13 @@ public class MouseMixin {
 			if (instance.getZoom()) {
 				double zoomDivisor = instance.getZoomDivisor();
 				double transitionDivisor = instance.getTransitionMode().getInternalDivisor();
-				this.finalO = instance.getMouseModifier().applyXModifier(this.cursorDeltaX, o, e, zoomDivisor, transitionDivisor);
-				this.finalP = instance.getMouseModifier().applyYModifier(this.cursorDeltaY, p, e, zoomDivisor, transitionDivisor);
+				o = instance.getMouseModifier().applyXModifier(this.cursorDeltaX, o, e, zoomDivisor, transitionDivisor);
+				p = instance.getMouseModifier().applyYModifier(this.cursorDeltaY, p, e, zoomDivisor, transitionDivisor);
 				this.modifyMouse = true;
 			}
 		}
+		this.finalO = o;
+		this.finalP = p;
 	}
 
 	@ModifyArgs(
