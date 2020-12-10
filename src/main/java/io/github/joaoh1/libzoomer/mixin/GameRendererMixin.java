@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import io.github.joaoh1.libzoomer.api.ZoomHelper;
 import io.github.joaoh1.libzoomer.api.ZoomInstance;
+import io.github.joaoh1.libzoomer.api.ZoomOverlay;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
@@ -107,8 +108,9 @@ public class GameRendererMixin {
 		RenderSystem.defaultAlphaFunc();
 		RenderSystem.enableBlend();
 		for (ZoomInstance instance : ZoomHelper.zoomInstances) {
-			instance.getZoomOverlay().tick(instance.getZoom(), instance.getZoomDivisor());
-			instance.getZoomOverlay().renderOverlay();
+			ZoomOverlay overlay = instance.getZoomOverlay();
+			overlay.tick(instance.getZoom(), instance.getZoomDivisor(), instance.getTransitionMode().getInternalMultiplier());
+			overlay.renderOverlay();
 		}
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.enableAlphaTest();
