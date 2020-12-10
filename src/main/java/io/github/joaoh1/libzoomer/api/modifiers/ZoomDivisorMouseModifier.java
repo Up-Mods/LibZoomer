@@ -13,13 +13,13 @@ public class ZoomDivisorMouseModifier implements MouseModifier {
     }
 
     @Override
-    public double applyXModifier(double cursorXDelta, double o, double mouseUpdateDelta, double targetDivisor, double transitionDivisor) {
-        return o * transitionDivisor;
+    public double applyXModifier(double cursorXDelta, double o, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier) {
+        return o * transitionMultiplier;
     }
 
     @Override
-    public double applyYModifier(double cursorYDelta, double p, double mouseUpdateDelta, double targetDivisor, double transitionDivisor) {
-        return p * transitionDivisor;
+    public double applyYModifier(double cursorYDelta, double p, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier) {
+        return p * transitionMultiplier;
     }
 
     @Override
