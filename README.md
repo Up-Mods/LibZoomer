@@ -6,7 +6,7 @@ A library that allows other mods to create zooms and custom spyglasses easily. C
 
 ## Usage
 
-Calm down, the mod isn't ready yet! Also, don't use it as an API yet, Michael is still here.
+Calm down, the mod isn't ready yet! Also, don't use it as an API yet, Michael is still here and I will break API stuff.
 
 ## Download
 

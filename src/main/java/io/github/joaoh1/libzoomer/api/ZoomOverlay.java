@@ -10,5 +10,5 @@ public interface ZoomOverlay {
 
     void renderOverlay();
 
-    void tick(boolean active, double divisor);
+    void tick(boolean active, double divisor, double transitionMultiplier);
 }

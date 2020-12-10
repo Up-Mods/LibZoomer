@@ -9,5 +9,5 @@ public interface TransitionMode {
 
     void tick(double divisor);
 
-    double getInternalDivisor();
+    double getInternalMultiplier();
 }
