@@ -9,10 +9,20 @@ public class NoZoomOverlay implements ZoomOverlay {
     public Identifier getIdentifier() {
         return new Identifier("libzoomer:no_overlay");
     }
+
+    @Override
+    public boolean getActive() {
+        return false;
+    }
     
     @Override
     public MinecraftClient setClient(MinecraftClient newClient) {
         return null;
+    }
+
+    @Override
+    public boolean cancelOverlayRendering() {
+        return false;
     }
 
     @Override

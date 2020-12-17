@@ -20,6 +20,11 @@ public class CinematicCameraMouseModifier implements MouseModifier {
     }
 
     @Override
+    public boolean getActive() {
+        return this.active;
+    }
+
+    @Override
     public double applyXModifier(double cursorXDelta, double o, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier) {
         if (this.cinematicCameraEnabled) {
             this.cursorXZoomSmoother.clear();
@@ -48,13 +53,10 @@ public class CinematicCameraMouseModifier implements MouseModifier {
     @Override
     public void tick(boolean active, boolean cinematicCameraEnabled) {
         this.cinematicCameraEnabled = cinematicCameraEnabled;
-        if (this.active != active) {
-            if (active == false) {
-                this.cursorXZoomSmoother.clear();
-                this.cursorYZoomSmoother.clear();
-            }
-            this.active = active;
+        this.active = active;
+        if (this.active == false) {
+            this.cursorXZoomSmoother.clear();
+            this.cursorYZoomSmoother.clear();
         }
     }
-    
 }

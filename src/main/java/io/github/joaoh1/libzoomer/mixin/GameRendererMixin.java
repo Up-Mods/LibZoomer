@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import io.github.joaoh1.libzoomer.api.OverlayCancellingHelper;
 import io.github.joaoh1.libzoomer.api.ZoomHelper;
 import io.github.joaoh1.libzoomer.api.ZoomInstance;
 import io.github.joaoh1.libzoomer.api.ZoomOverlay;
@@ -38,12 +39,13 @@ public class GameRendererMixin {
 				break;
 			}
 
+			boolean zoom = instance.getZoom();
 			double divisor = 1.0F;
-			if (instance.getZoom()) {
+			if (zoom) {
 				divisor = instance.getZoomDivisor();
 			}
 
-			instance.getTransitionMode().tick(divisor);
+			instance.getTransitionMode().tick(zoom, divisor);
 		}
 	}
 
@@ -62,11 +64,6 @@ public class GameRendererMixin {
 
 			if (instance.getTransitionActive()) {
 				instanceIsZoomed = true;
-			} else {
-				if (instance.getZoom()) {
-					instance.setTransitionActive(true);
-					instanceIsZoomed = true;
-				}
 			}
 			
 			if (instanceIsZoomed) {
@@ -76,10 +73,6 @@ public class GameRendererMixin {
 				}
 				zoomedIn = true;
 				zoomedFov = instance.getTransitionMode().applyZoom(zoomedFov, divisor, tickDelta);
-				
-				if (zoomedFov == fov && !instance.getZoom()) {
-					instance.setTransitionActive(false);
-				}
 			}
 		}
 
@@ -107,10 +100,17 @@ public class GameRendererMixin {
 
 		RenderSystem.defaultAlphaFunc();
 		RenderSystem.enableBlend();
+		OverlayCancellingHelper.setCancelOverlayRender(false);
 		for (ZoomInstance instance : ZoomHelper.zoomInstances) {
 			ZoomOverlay overlay = instance.getZoomOverlay();
 			overlay.tick(instance.getZoom(), instance.getZoomDivisor(), instance.getTransitionMode().getInternalMultiplier());
-			overlay.renderOverlay();
+			if (overlay.getActive()) {
+				if (overlay.cancelOverlayRendering()) {
+					OverlayCancellingHelper.setCancelOverlayRender(true);
+				}
+				
+				overlay.renderOverlay();	
+			}
 		}
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.enableAlphaTest();

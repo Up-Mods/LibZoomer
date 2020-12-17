@@ -10,6 +10,11 @@ public class NoMouseModifier implements MouseModifier {
     }
 
     @Override
+    public boolean getActive() {
+        return false;
+    }
+
+    @Override
     public double applyXModifier(double cursorXDelta, double o, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier) {
         return o;
     }

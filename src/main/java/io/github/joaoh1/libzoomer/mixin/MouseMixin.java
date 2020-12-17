@@ -51,7 +51,7 @@ public class MouseMixin {
 		this.modifyMouse = false;
 		for (ZoomInstance instance : ZoomHelper.zoomInstances) {
 			instance.getMouseModifier().tick(instance.getZoom(), this.client.options.smoothCameraEnabled);
-			if (instance.getZoom()) {
+			if (instance.getModifierActive()) {
 				double zoomDivisor = instance.getZoomDivisor();
 				double transitionDivisor = instance.getTransitionMode().getInternalMultiplier();
 				o = instance.getMouseModifier().applyXModifier(this.cursorDeltaX, o, e, zoomDivisor, transitionDivisor);

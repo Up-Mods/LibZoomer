@@ -27,7 +27,7 @@ public class ExampleMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		KeyBinding zoomKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.libzoomer.zoom", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C, "key.libzoomer.category"));
+		KeyBinding zoomKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.libzoomer.zoom", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.libzoomer.category"));
 		ZoomInstance zoomInstance = ZoomHelper.registerInstance(new ZoomInstance(new Identifier("libzoomer:zoom"), 10.0F, new SmoothTransitionMode(0.5f), new ZoomDivisorMouseModifier(), new SpyglassZoomOverlay(new Identifier("libzoomer:textures/misc/michael.png"))));
 		ZoomInstance electricBoogaloo = ZoomHelper.registerInstance(new ZoomInstance(new Identifier("libzoomer:zoom2"), 3.0F, new InstantTransitionMode(), new CinematicCameraMouseModifier()));
 		for (ZoomInstance instance : ZoomHelper.zoomInstances) {

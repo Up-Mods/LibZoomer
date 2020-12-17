@@ -5,9 +5,11 @@ import net.minecraft.util.Identifier;
 public interface TransitionMode {
     Identifier getIdentifier();
 
+    boolean getActive();
+
     double applyZoom(double fov, double divisor, float tickDelta);
 
-    void tick(double divisor);
+    void tick(boolean active, double divisor);
 
     double getInternalMultiplier();
 }

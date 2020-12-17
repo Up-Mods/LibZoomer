@@ -6,7 +6,11 @@ import net.minecraft.util.Identifier;
 public interface ZoomOverlay {
     Identifier getIdentifier();
 
+    boolean getActive();
+
     MinecraftClient setClient(MinecraftClient newClient);
+
+    boolean cancelOverlayRendering();
 
     void renderOverlay();
 
