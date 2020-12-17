@@ -35,18 +35,16 @@ public class GameRendererMixin {
     )
     private void tickInstances(CallbackInfo info) {
         for (ZoomInstance instance : ZoomHelper.zoomInstances) {
-            if (instance.getZoomDivisor() == 1.0F) {
-                break;
+            if (instance.getZoomDivisor() != 1.0F) {
+                boolean zoom = instance.getZoom();
+                double divisor = 1.0F;
+                if (zoom) {
+                    divisor = instance.getZoomDivisor();
+                }
+    
+                instance.getZoomOverlay().tick(instance.getZoom(), instance.getZoomDivisor(), instance.getTransitionMode().getInternalMultiplier());
+                instance.getTransitionMode().tick(zoom, divisor);
             }
-
-            boolean zoom = instance.getZoom();
-            double divisor = 1.0F;
-            if (zoom) {
-                divisor = instance.getZoomDivisor();
-            }
-
-            instance.getZoomOverlay().tick(instance.getZoom(), instance.getZoomDivisor(), instance.getTransitionMode().getInternalMultiplier());
-            instance.getTransitionMode().tick(zoom, divisor);
         }
     }
 
@@ -61,19 +59,13 @@ public class GameRendererMixin {
         double zoomedFov = fov;
         
         for (ZoomInstance instance : ZoomHelper.zoomInstances) {
-            boolean instanceIsZoomed = false;
-
             if (instance.getTransitionActive()) {
-                instanceIsZoomed = true;
-            }
-            
-            if (instanceIsZoomed) {
                 double divisor = 1.0F;
                 if (instance.getZoom()) {
                     divisor = instance.getZoomDivisor();
                 }
                 zoomedIn = true;
-                zoomedFov = instance.getTransitionMode().applyZoom(zoomedFov, divisor, tickDelta);
+                zoomedFov = instance.getTransitionMode().applyZoom(zoomedFov, divisor, tickDelta);   
             }
         }
 
