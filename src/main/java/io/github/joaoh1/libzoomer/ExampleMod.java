@@ -8,6 +8,7 @@ import io.github.joaoh1.libzoomer.api.ZoomHelper;
 import io.github.joaoh1.libzoomer.api.ZoomInstance;
 import io.github.joaoh1.libzoomer.api.modifiers.CinematicCameraMouseModifier;
 import io.github.joaoh1.libzoomer.api.modifiers.ZoomDivisorMouseModifier;
+import io.github.joaoh1.libzoomer.api.overlays.NoZoomOverlay;
 import io.github.joaoh1.libzoomer.api.overlays.SpyglassZoomOverlay;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -28,10 +29,20 @@ public class ExampleMod implements ModInitializer {
     @Override
     public void onInitialize() {
         KeyBinding zoomKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.libzoomer.zoom", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.libzoomer.category"));
-        ZoomInstance zoomInstance = ZoomHelper.registerInstance(new ZoomInstance(new Identifier("libzoomer:zoom"), 10.0F, new SmoothTransitionMode(0.5f), new ZoomDivisorMouseModifier(), new SpyglassZoomOverlay(new Identifier("libzoomer:textures/misc/michael.png"))));
-        ZoomInstance electricBoogaloo = ZoomHelper.registerInstance(new ZoomInstance(new Identifier("libzoomer:zoom2"), 3.0F, new InstantTransitionMode(), new CinematicCameraMouseModifier()));
+        ZoomInstance zoomInstance = ZoomHelper.registerInstance(new ZoomInstance(
+            new Identifier("libzoomer:zoom"),
+            10.0F, new SmoothTransitionMode(0.5f),
+            new ZoomDivisorMouseModifier(),
+            new SpyglassZoomOverlay(new Identifier("libzoomer:textures/misc/michael.png"))
+        ));
+        ZoomInstance electricBoogaloo = ZoomHelper.registerInstance(new ZoomInstance(
+            new Identifier("libzoomer:zoom2"),
+            3.0F, new InstantTransitionMode(),
+            new CinematicCameraMouseModifier(),
+            new NoZoomOverlay()
+        ));
         for (ZoomInstance instance : ZoomHelper.zoomInstances) {
-            System.out.println("Id: " + instance.getInstanceId() + " | Zooming:" + instance.getZoom() + " | Divisor: " + instance.getZoomDivisor());
+            System.out.println("Id: " + instance.getInstanceId() + " | Zooming: " + instance.getZoom() + " | Divisor: " + instance.getZoomDivisor());
         }
         Registry.register(Registry.ITEM, new Identifier("libzoomer:michael"), MICHAEL_ITEM);
 
