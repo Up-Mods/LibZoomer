@@ -2,7 +2,7 @@
 
 # LibZoomer
 
-A library that allows other mods to create zooms and custom spyglasses easily. Currently has the basics done but is very messy.
+A library that allows other mods to create zooms and custom spyglasses easily. Currently has the basics done but it's still being polished for usage by Ok Zoomer (and also for other mods).
 
 ## Usage
 
@@ -21,4 +21,4 @@ This mod is available for download on the following services:
 
 ## License
 
-This mod is licensed under the MIT license. You can freely include this mod on any mod with no permission. Usage of this mod's code on other projects or derivatives of this mod are allowed as long as attribution is given.
+This mod is licensed under the MIT license. You can freely Jar-in-Jar this mod on any mod with no permission. Usage of this mod's code on other projects or derivatives of this mod is allowed as long as attribution is given.
