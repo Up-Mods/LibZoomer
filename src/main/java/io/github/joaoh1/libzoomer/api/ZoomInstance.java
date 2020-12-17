@@ -11,11 +11,8 @@ public class ZoomInstance {
     private double defaultZoomDivisor;
     private double zoomDivisor;
     private TransitionMode transition;
-    private boolean isTransitionActive;
     private MouseModifier modifier;
-    private boolean isModifierActive;
     private ZoomOverlay overlay;
-    private boolean isOverlayActive;
 
     public ZoomInstance(Identifier instanceId, float defaultZoomDivisor, TransitionMode transition, MouseModifier modifier, ZoomOverlay overlay) {
         this.instanceId = instanceId;
@@ -77,16 +74,8 @@ public class ZoomInstance {
         return this.transition;
     }
 
-    public TransitionMode setTransitionMode(TransitionMode transition) {
-        return this.transition = transition;
-    }
-
     public boolean getTransitionActive() {
-        return this.isTransitionActive;
-    }
-
-    public boolean setTransitionActive(boolean newActive) {
-        return this.isTransitionActive = newActive;
+        return this.transition.getActive();
     }
 
     public MouseModifier getMouseModifier() {
@@ -98,11 +87,7 @@ public class ZoomInstance {
     }
 
     public boolean getModifierActive() {
-        return this.isModifierActive;
-    }
-
-    public boolean setModifierActive(boolean newActive) {
-        return this.isModifierActive = newActive;
+        return this.modifier.getActive();
     }
 
     public ZoomOverlay getZoomOverlay() {
@@ -114,10 +99,6 @@ public class ZoomInstance {
     }
 
     public boolean getOverlayActive() {
-        return this.isOverlayActive;
-    }
-
-    public boolean setOverlayActive(boolean newActive) {
-        return this.isOverlayActive = newActive;
+        return this.overlay.getActive();
     }
 }
