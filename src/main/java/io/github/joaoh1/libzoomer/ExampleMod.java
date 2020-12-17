@@ -23,27 +23,27 @@ import net.minecraft.util.registry.Registry;
 
 //TODO - Eliminate Michael and the keybind
 public class ExampleMod implements ModInitializer {
-	public static Item MICHAEL_ITEM = new SpyglassItem(new FabricItemSettings().group(ItemGroup.TOOLS).maxCount(1));
+    public static Item MICHAEL_ITEM = new SpyglassItem(new FabricItemSettings().group(ItemGroup.TOOLS).maxCount(1));
 
-	@Override
-	public void onInitialize() {
-		KeyBinding zoomKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.libzoomer.zoom", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.libzoomer.category"));
-		ZoomInstance zoomInstance = ZoomHelper.registerInstance(new ZoomInstance(new Identifier("libzoomer:zoom"), 10.0F, new SmoothTransitionMode(0.5f), new ZoomDivisorMouseModifier(), new SpyglassZoomOverlay(new Identifier("libzoomer:textures/misc/michael.png"))));
-		ZoomInstance electricBoogaloo = ZoomHelper.registerInstance(new ZoomInstance(new Identifier("libzoomer:zoom2"), 3.0F, new InstantTransitionMode(), new CinematicCameraMouseModifier()));
-		for (ZoomInstance instance : ZoomHelper.zoomInstances) {
-			System.out.println("Id: " + instance.getInstanceId() + " | Zooming:" + instance.getZoom() + " | Divisor: " + instance.getZoomDivisor());
-		}
-		Registry.register(Registry.ITEM, new Identifier("libzoomer:michael"), MICHAEL_ITEM);
+    @Override
+    public void onInitialize() {
+        KeyBinding zoomKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.libzoomer.zoom", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.libzoomer.category"));
+        ZoomInstance zoomInstance = ZoomHelper.registerInstance(new ZoomInstance(new Identifier("libzoomer:zoom"), 10.0F, new SmoothTransitionMode(0.5f), new ZoomDivisorMouseModifier(), new SpyglassZoomOverlay(new Identifier("libzoomer:textures/misc/michael.png"))));
+        ZoomInstance electricBoogaloo = ZoomHelper.registerInstance(new ZoomInstance(new Identifier("libzoomer:zoom2"), 3.0F, new InstantTransitionMode(), new CinematicCameraMouseModifier()));
+        for (ZoomInstance instance : ZoomHelper.zoomInstances) {
+            System.out.println("Id: " + instance.getInstanceId() + " | Zooming:" + instance.getZoom() + " | Divisor: " + instance.getZoomDivisor());
+        }
+        Registry.register(Registry.ITEM, new Identifier("libzoomer:michael"), MICHAEL_ITEM);
 
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (client.player == null) return;
-			if (client.options.getPerspective().isFirstPerson() && (client.player.isUsingItem() && client.player.getActiveItem().isOf(MICHAEL_ITEM))) {
-				zoomInstance.setZoom(true);
-			} else {
-				zoomInstance.setZoom(false);
-			}
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (client.player == null) return;
+            if (client.options.getPerspective().isFirstPerson() && (client.player.isUsingItem() && client.player.getActiveItem().isOf(MICHAEL_ITEM))) {
+                zoomInstance.setZoom(true);
+            } else {
+                zoomInstance.setZoom(false);
+            }
 
-			electricBoogaloo.setZoom(zoomKey.isPressed());
-		});
-	}
+            electricBoogaloo.setZoom(zoomKey.isPressed());
+        });
+    }
 }
