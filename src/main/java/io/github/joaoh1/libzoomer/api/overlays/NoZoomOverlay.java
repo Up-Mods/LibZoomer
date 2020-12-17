@@ -21,16 +21,8 @@ public class NoZoomOverlay implements ZoomOverlay {
     }
 
     @Override
-    public boolean cancelOverlayRendering() {
-        return false;
-    }
-
-    @Override
     public void renderOverlay() {}
 
     @Override
     public void tick(boolean active, double divisor, double transitionMultiplier) {}
-
-    @Override
-    public void tickBeforeRender() {}
 }
