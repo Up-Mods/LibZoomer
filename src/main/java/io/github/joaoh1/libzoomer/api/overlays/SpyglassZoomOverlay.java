@@ -96,13 +96,17 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
 
     @Override
     public void tick(boolean active, double divisor, double transitionMultiplier) {
-        float f = this.client.getLastFrameDuration();
         this.active = active;
-        this.scale = MathHelper.lerp(0.5F * f, this.scale, 1.125F);
-        if (this.client.options.getPerspective().isFirstPerson()) {
-           if (!this.active) {
-              this.scale = 0.5F;
-           }
+    }
+
+    @Override
+    public void tickBeforeRender() {
+        float lastFrameDuration = this.client.getLastFrameDuration();
+        this.scale = MathHelper.lerp(0.5F * lastFrameDuration, this.scale, 1.125F);
+        if (!this.active) {
+            if (this.client.options.getPerspective().isFirstPerson()) {
+                this.scale = 0.5F;
+            }
         }
     }
 }

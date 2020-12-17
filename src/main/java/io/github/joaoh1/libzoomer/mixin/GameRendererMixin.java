@@ -45,6 +45,7 @@ public class GameRendererMixin {
 				divisor = instance.getZoomDivisor();
 			}
 
+			instance.getZoomOverlay().tick(instance.getZoom(), instance.getZoomDivisor(), instance.getTransitionMode().getInternalMultiplier());
 			instance.getTransitionMode().tick(zoom, divisor);
 		}
 	}
@@ -103,7 +104,7 @@ public class GameRendererMixin {
 		OverlayCancellingHelper.setCancelOverlayRender(false);
 		for (ZoomInstance instance : ZoomHelper.zoomInstances) {
 			ZoomOverlay overlay = instance.getZoomOverlay();
-			overlay.tick(instance.getZoom(), instance.getZoomDivisor(), instance.getTransitionMode().getInternalMultiplier());
+			overlay.tickBeforeRender();
 			if (overlay.getActive()) {
 				if (overlay.cancelOverlayRendering()) {
 					OverlayCancellingHelper.setCancelOverlayRender(true);
