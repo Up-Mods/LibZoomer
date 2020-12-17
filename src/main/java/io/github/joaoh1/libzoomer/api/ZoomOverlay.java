@@ -10,11 +10,11 @@ public interface ZoomOverlay {
 
     MinecraftClient setClient(MinecraftClient newClient);
 
-    boolean cancelOverlayRendering();
+    default boolean cancelOverlayRendering() { return false; }
 
     void renderOverlay();
 
     void tick(boolean active, double divisor, double transitionMultiplier);
 
-    void tickBeforeRender();
+    default void tickBeforeRender() {}
 }
