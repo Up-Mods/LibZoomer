@@ -60,8 +60,28 @@ public class ZoomInstance {
         return this.zoomDivisor;
     }
 
+    public double setZoomDivisor(double newDivisor) {
+        return this.zoomDivisor = newDivisor;
+    }
+
+    public double resetZoomDivisor() {
+        return this.zoomDivisor = this.defaultZoomDivisor;
+    }
+
+    public double getDefaultZoomDivisor() {
+        return this.defaultZoomDivisor;
+    }
+
+    public double setDefaultZoomDivisor(double newDivisor) {
+        return this.defaultZoomDivisor = newDivisor;
+    }
+
     public TransitionMode getTransitionMode() {
         return this.transition;
+    }
+
+    public TransitionMode setTransitionMode(TransitionMode transition) {
+        return this.transition = transition;
     }
 
     public boolean getTransitionActive() {
