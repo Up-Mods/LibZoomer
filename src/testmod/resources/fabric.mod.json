@@ -1,0 +1,31 @@
+{
+    "schemaVersion": 1,
+    "id": "libzoomertest",
+    "version": "${version}",
+    "name": "LibZoomer Testmod",
+    "description": "LibZoomer's testmod. Contains Michael and friends!",
+    "authors": [
+      "boredomh1"
+    ],
+    "contact": {
+      "homepage": "https://curseforge.com/",
+      "sources": "https://github.com/"
+    },
+    "license": "MIT",
+    "icon": "assets/libzoomer/icon.png",
+    "environment": "*",
+    "entrypoints": {
+      "main": [
+        "io.github.joaoh1.libzoomertest.LibZoomerTestMod"
+      ]
+    },
+    "mixins": [
+      "libzoomer.mixins.json"
+    ],
+    "depends": {
+      "fabricloader": ">=0.8.8",
+      "fabric": ">=0.13.0",
+      "minecraft": ">1.16.4"
+    }
+  }
+  

@@ -15,6 +15,13 @@ if (System.env.GITHUB_ACTIONS == "true") {
 	version = project.mod_version
 }
 
+sourceSets {
+	testmod {
+		compileClasspath += main.compileClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
+}
+
 repositories {
 	mavenCentral()
 }
@@ -26,6 +33,10 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	afterEvaluate {
+		testmodImplementation sourceSets.main.output
+	}
 }
 
 processResources {
