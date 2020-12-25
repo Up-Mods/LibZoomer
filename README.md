@@ -4,6 +4,8 @@
 
 A library that allows other mods to create zooms and custom spyglasses easily. Currently has the basics done but it's still being polished for usage by Ok Zoomer (and also for other mods).
 
+The target is Minecraft 1.17+, since that version introduces spyglasses.
+
 ## Usage
 
 Calm down, the mod isn't ready yet! Also, don't use it as an API yet, Michael is still here and I will break API stuff.

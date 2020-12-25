@@ -1,4 +1,4 @@
-package io.github.joaoh1.libzoomer;
+package io.github.joaoh1.libzoomertest;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -22,21 +22,22 @@ import net.minecraft.item.SpyglassItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-//TODO - Eliminate Michael and the keybind
-public class ExampleMod implements ModInitializer {
+public class LibZoomerTestMod implements ModInitializer {
+    // Michael. He's a reimplementation of the spyglass. Tests if the spyglass can be replicated.
     public static Item MICHAEL_ITEM = new SpyglassItem(new FabricItemSettings().group(ItemGroup.TOOLS).maxCount(1));
 
     @Override
     public void onInitialize() {
-        KeyBinding zoomKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.libzoomer.zoom", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.libzoomer.category"));
+        // Michelle. She's an implementation of a very simple zoom key. Tests if there are zoom instance conflicts and spyglass-unrelated things.
+        KeyBinding michelle = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.libzoomertest.michelle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.libzoomertest.category"));
         ZoomInstance zoomInstance = ZoomHelper.registerInstance(new ZoomInstance(
-            new Identifier("libzoomer:zoom"),
+            new Identifier("libzoomertest:zoom"),
             10.0F, new SmoothTransitionMode(0.5f),
             new ZoomDivisorMouseModifier(),
-            new SpyglassZoomOverlay(new Identifier("libzoomer:textures/misc/michael.png"))
+            new SpyglassZoomOverlay(new Identifier("libzoomertest:textures/misc/michael.png"))
         ));
         ZoomInstance electricBoogaloo = ZoomHelper.registerInstance(new ZoomInstance(
-            new Identifier("libzoomer:zoom2"),
+            new Identifier("libzoomertest:zoom2"),
             3.0F, new InstantTransitionMode(),
             new CinematicCameraMouseModifier(),
             new NoZoomOverlay()
@@ -44,7 +45,7 @@ public class ExampleMod implements ModInitializer {
         for (ZoomInstance instance : ZoomHelper.zoomInstances) {
             System.out.println("Id: " + instance.getInstanceId() + " | Zooming: " + instance.getZoom() + " | Divisor: " + instance.getZoomDivisor());
         }
-        Registry.register(Registry.ITEM, new Identifier("libzoomer:michael"), MICHAEL_ITEM);
+        Registry.register(Registry.ITEM, new Identifier("libzoomertest:michael"), MICHAEL_ITEM);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
@@ -54,7 +55,7 @@ public class ExampleMod implements ModInitializer {
                 zoomInstance.setZoom(false);
             }
 
-            electricBoogaloo.setZoom(zoomKey.isPressed());
+            electricBoogaloo.setZoom(michelle.isPressed());
         });
     }
 }
