@@ -18,7 +18,7 @@ public class InGameHudMixin {
     @Inject(
         at = @At(
             value = "INVOKE_ASSIGN",
-            target = "net/minecraft/client/options/Perspective.isFirstPerson()Z"
+            target = "net/minecraft/client/option/Perspective.isFirstPerson()Z"
         ),
         method = "render"
     )
