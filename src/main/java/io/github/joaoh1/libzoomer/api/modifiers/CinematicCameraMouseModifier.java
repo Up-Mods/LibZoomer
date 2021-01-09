@@ -5,6 +5,7 @@ import net.minecraft.client.util.SmoothUtil;
 import net.minecraft.util.Identifier;
 
 public class CinematicCameraMouseModifier implements MouseModifier {
+    private Identifier transitionId = new Identifier("libzoomer:cinematic_camera");
     private boolean active;
     private boolean cinematicCameraEnabled;
     private final SmoothUtil cursorXZoomSmoother = new SmoothUtil();
@@ -16,7 +17,7 @@ public class CinematicCameraMouseModifier implements MouseModifier {
     
     @Override
     public Identifier getIdentifier() {
-        return new Identifier("libzoomer:cinematic_camera");
+        return this.transitionId;
     }
 
     @Override

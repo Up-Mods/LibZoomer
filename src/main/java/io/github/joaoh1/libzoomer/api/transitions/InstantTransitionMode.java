@@ -4,12 +4,11 @@ import io.github.joaoh1.libzoomer.api.TransitionMode;
 import net.minecraft.util.Identifier;
 
 public class InstantTransitionMode implements TransitionMode {
-    private Identifier transitionId;
+    private Identifier transitionId = new Identifier("libzoomer:no_transition");
     private boolean active;
     private double internalMultiplier;
 
     public InstantTransitionMode() {
-        this.transitionId = new Identifier("libzoomer:no_transition");
         this.active = false;
         this.internalMultiplier = 1.0;
     }

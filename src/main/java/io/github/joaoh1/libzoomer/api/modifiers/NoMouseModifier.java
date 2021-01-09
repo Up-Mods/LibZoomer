@@ -4,9 +4,11 @@ import io.github.joaoh1.libzoomer.api.MouseModifier;
 import net.minecraft.util.Identifier;
 
 public class NoMouseModifier implements MouseModifier {
+    private Identifier transitionId = new Identifier("libzoomer:no_modifier");
+    
     @Override
     public Identifier getIdentifier() {
-        return new Identifier("libzoomer:no_modifier");
+        return this.transitionId;
     }
 
     @Override
