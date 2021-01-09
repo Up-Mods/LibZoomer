@@ -4,6 +4,7 @@ import io.github.joaoh1.libzoomer.api.MouseModifier;
 import net.minecraft.util.Identifier;
 
 public class ZoomDivisorMouseModifier implements MouseModifier {
+    private Identifier transitionId = new Identifier("libzoomer:zoom_divisor");
     private boolean active;
 
     public ZoomDivisorMouseModifier() {
@@ -12,7 +13,7 @@ public class ZoomDivisorMouseModifier implements MouseModifier {
 
     @Override
     public Identifier getIdentifier() {
-        return new Identifier("libzoomer:zoom_divisor");
+        return this.transitionId;
     }
 
     @Override
