@@ -5,9 +5,11 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
 
 public class NoZoomOverlay implements ZoomOverlay {
+    private Identifier transitionId = new Identifier("libzoomer:no_overlay");
+
     @Override
     public Identifier getIdentifier() {
-        return new Identifier("libzoomer:no_overlay");
+        return this.transitionId;
     }
 
     @Override
