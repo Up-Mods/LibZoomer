@@ -9,14 +9,9 @@ public class ContainingMouseModifier implements MouseModifier {
     private boolean active;
     private MouseModifier[] modifiers;
 
-    public ContainingMouseModifier(boolean active, MouseModifier[] modifiers) {
-        this.active = active;
+    public ContainingMouseModifier(MouseModifier[] modifiers) {
+        this.active = false;
         this.modifiers = modifiers;
-    }
-
-    public ContainingMouseModifier(boolean active) {
-        this.active = active;
-        this.modifiers = new MouseModifier[]{};
     }
 
     @Override
@@ -49,8 +44,13 @@ public class ContainingMouseModifier implements MouseModifier {
 
     @Override
     public void tick(boolean active, boolean cinematicCameraEnabled) {
+        boolean generalActive = false;
         for (MouseModifier modifier : modifiers) {
             modifier.tick(active, cinematicCameraEnabled);
+            if (!generalActive) {
+                generalActive = modifier.getActive();
+            }
         }
+        this.active = generalActive;
     }
 }
