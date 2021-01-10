@@ -28,7 +28,7 @@ public class ContainingMouseModifier implements MouseModifier {
     public double applyXModifier(double cursorXDelta, double o, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier) {
         double returnedValue = o;
         for (MouseModifier modifier : modifiers) {
-            returnedValue = modifier.applyXModifier(cursorXDelta, o, mouseUpdateDelta, targetDivisor, transitionMultiplier);
+            returnedValue = modifier.applyXModifier(cursorXDelta, returnedValue, mouseUpdateDelta, targetDivisor, transitionMultiplier);
         }
         return returnedValue;
     }
@@ -37,7 +37,7 @@ public class ContainingMouseModifier implements MouseModifier {
     public double applyYModifier(double cursorYDelta, double p, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier) {
         double returnedValue = p;
         for (MouseModifier modifier : modifiers) {
-            returnedValue = modifier.applyYModifier(cursorYDelta, p, mouseUpdateDelta, targetDivisor, transitionMultiplier);
+            returnedValue = modifier.applyYModifier(cursorYDelta, returnedValue, mouseUpdateDelta, targetDivisor, transitionMultiplier);
         }
         return returnedValue;
     }
