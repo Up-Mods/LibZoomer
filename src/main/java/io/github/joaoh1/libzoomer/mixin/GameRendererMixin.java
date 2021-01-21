@@ -36,7 +36,7 @@ public class GameRendererMixin {
     private void tickInstances(CallbackInfo info) {
         for (ZoomInstance instance : ZoomHelper.zoomInstances) {
             boolean zoom = instance.getZoom();
-            if (zoom || (instance.getTransitionActive() || instance.getOverlayActive())) {
+            if (zoom || (instance.isTransitionActive() || instance.isOverlayActive())) {
                 double divisor = 1.0F;
                 if (zoom) {
                     divisor = instance.getZoomDivisor();
@@ -59,7 +59,7 @@ public class GameRendererMixin {
         double zoomedFov = fov;
         
         for (ZoomInstance instance : ZoomHelper.zoomInstances) {
-            if (instance.getTransitionActive()) {
+            if (instance.isTransitionActive()) {
                 double divisor = 1.0F;
                 if (instance.getZoom()) {
                     divisor = instance.getZoomDivisor();
