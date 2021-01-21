@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-import io.github.joaoh1.libzoomer.api.ZoomHelper;
+import io.github.joaoh1.libzoomer.api.ZoomRegistry;
 import io.github.joaoh1.libzoomer.api.ZoomInstance;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
@@ -49,7 +49,7 @@ public class MouseMixin {
     )
     public void applyZoomChanges2(CallbackInfo ci, double e, double o, double p) {
         this.modifyMouse = false;
-        for (ZoomInstance instance : ZoomHelper.zoomInstances) {
+        for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             instance.getMouseModifier().tick(instance.getZoom(), this.client.options.smoothCameraEnabled);
             if (instance.isModifierActive()) {
                 double zoomDivisor = instance.getZoomDivisor();
