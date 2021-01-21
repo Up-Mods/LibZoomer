@@ -5,6 +5,9 @@ import io.github.joaoh1.libzoomer.api.overlays.NoZoomOverlay;
 import io.github.joaoh1.libzoomer.api.transitions.InstantTransitionMode;
 import net.minecraft.util.Identifier;
 
+/**
+ * The zoom instance is essentially the zoom. It contains all the values and sub-instances required to zoom.
+ */
 public class ZoomInstance {
     private Identifier instanceId;
     private boolean zoom;
