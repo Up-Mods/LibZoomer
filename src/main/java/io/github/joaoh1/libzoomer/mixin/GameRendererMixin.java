@@ -15,10 +15,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import io.github.joaoh1.libzoomer.api.OverlayCancellingHelper;
 import io.github.joaoh1.libzoomer.api.ZoomHelper;
 import io.github.joaoh1.libzoomer.api.ZoomInstance;
 import io.github.joaoh1.libzoomer.api.ZoomOverlay;
+import io.github.joaoh1.libzoomer.impl.OverlayCancellingHelper;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {

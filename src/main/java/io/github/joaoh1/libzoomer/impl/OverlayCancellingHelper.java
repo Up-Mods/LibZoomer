@@ -1,4 +1,4 @@
-package io.github.joaoh1.libzoomer.api;
+package io.github.joaoh1.libzoomer.impl;
 
 public class OverlayCancellingHelper {
     private static boolean cancelOverlayRender;
