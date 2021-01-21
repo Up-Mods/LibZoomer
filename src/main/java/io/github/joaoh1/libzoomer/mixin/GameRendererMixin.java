@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import io.github.joaoh1.libzoomer.api.ZoomHelper;
+import io.github.joaoh1.libzoomer.api.ZoomRegistry;
 import io.github.joaoh1.libzoomer.api.ZoomInstance;
 import io.github.joaoh1.libzoomer.api.ZoomOverlay;
 import io.github.joaoh1.libzoomer.impl.OverlayCancellingHelper;
@@ -34,7 +34,7 @@ public class GameRendererMixin {
         method = "tick()V"
     )
     private void tickInstances(CallbackInfo info) {
-        for (ZoomInstance instance : ZoomHelper.zoomInstances) {
+        for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             boolean zoom = instance.getZoom();
             if (zoom || (instance.isTransitionActive() || instance.isOverlayActive())) {
                 double divisor = 1.0F;
@@ -58,7 +58,7 @@ public class GameRendererMixin {
         boolean zoomedIn = false;
         double zoomedFov = fov;
         
-        for (ZoomInstance instance : ZoomHelper.zoomInstances) {
+        for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             if (instance.isTransitionActive()) {
                 double divisor = 1.0F;
                 if (instance.getZoom()) {
@@ -94,7 +94,7 @@ public class GameRendererMixin {
         RenderSystem.defaultAlphaFunc();
         RenderSystem.enableBlend();
         OverlayCancellingHelper.setCancelOverlayRender(false);
-        for (ZoomInstance instance : ZoomHelper.zoomInstances) {
+        for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             ZoomOverlay overlay = instance.getZoomOverlay();
             overlay.tickBeforeRender();
             if (overlay.getActive()) {

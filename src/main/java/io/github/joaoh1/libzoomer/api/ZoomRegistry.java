@@ -3,8 +3,8 @@ package io.github.joaoh1.libzoomer.api;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ZoomHelper {
-    public static final Set<ZoomInstance> zoomInstances = new HashSet<>();
+public class ZoomRegistry {
+    private static final Set<ZoomInstance> zoomInstances = new HashSet<>();
 
     public static ZoomInstance registerInstance(ZoomInstance instance) {
         for (ZoomInstance zoomInstance : zoomInstances) {
@@ -13,5 +13,9 @@ public class ZoomHelper {
             }
         }
         return zoomInstances.add(instance) ? instance : null;
+    }
+
+    public static Set<ZoomInstance> getZoomInstances() {
+        return zoomInstances;
     }
 }
