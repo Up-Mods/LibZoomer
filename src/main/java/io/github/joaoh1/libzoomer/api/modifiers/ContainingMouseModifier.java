@@ -4,6 +4,10 @@ import io.github.joaoh1.libzoomer.api.MouseModifier;
 import net.minecraft.util.Identifier;
 
 //A sin was probably committed by using a lot of for each loops
+//TODO - Consider if Ok Zoomer or LibZoomer is a better place for this
+/**
+ * A mouse modifier that contains multiple mouse modifiers.
+ */
 public class ContainingMouseModifier implements MouseModifier {
     private Identifier transitionId = new Identifier("libzoomer:modifier_container");
     private boolean active;

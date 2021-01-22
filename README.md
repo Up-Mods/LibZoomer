@@ -2,11 +2,15 @@
 
 # LibZoomer
 
-A library that allows other mods to create zooms and custom spyglasses easily. The target is Minecraft 1.17+, since that version introduces spyglasses.
+A library that allows other mods to create zooms and custom spyglasses easily. The currrent supported versions are Minecraft 1.17 snapshots, since that version introduces spyglasses.
 
 ## Usage
 
-Calm down, the mod isn't ready yet! Also, don't use it as an API yet, the initial release still have to come and I won't have mercy on the API.
+**WARNING:** This API is still not polished enough for a 1.0.0 release, expect breaking changes on the 0.X.X releases.
+
+LibZoomer provides zooming through zoom instances, which contains three sub-instances: transition modes, mouse modifiers and zoom overlays. A zoom instance can be created with different subinstances, which can be either provided by the library or implemented by the mod itself. In order to a zoom instance to be functional, it must be registered by the ZoomRegistry. In order to make the instance zoom in, the instance's zoom state must be set to true, which can be done using the `setZoom` method, the vice-versa can be done by setting it to false.
+
+A better guide will be written later, feel free to take a look on this mod's testmod if you want an example.
 
 ## Download
 
