@@ -20,6 +20,11 @@
   "depends": {
     "fabricloader": ">=0.8.8",
     "fabric": ">=0.13.0",
-    "minecraft": ">1.16.4"
+    "minecraft": ">1.16.5"
+  },
+  "custom": {
+    "modmenu": {
+      "badges": ["library"]
+    }
   }
 }
