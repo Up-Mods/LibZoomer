@@ -90,8 +90,7 @@ public class GameRendererMixin {
     )
     public void injectZoomOverlay(float tickDelta, long startTime, boolean tick, CallbackInfo info) {
         if (this.client.options.hudHidden) return;
-
-        RenderSystem.defaultAlphaFunc();
+        
         RenderSystem.enableBlend();
         OverlayCancellingHelper.setCancelOverlayRender(false);
         for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
@@ -105,8 +104,7 @@ public class GameRendererMixin {
                 overlay.renderOverlay();	
             }
         }
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.enableAlphaTest();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.clear(256, MinecraftClient.IS_SYSTEM_MAC);
     }
 }

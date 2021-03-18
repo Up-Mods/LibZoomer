@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.joaoh1.libzoomer.api.ZoomOverlay;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
@@ -52,8 +53,8 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         RenderSystem.defaultBlendFunc();
-        RenderSystem.disableAlphaTest();
-        this.client.getTextureManager().bindTexture(this.textureId);
+        RenderSystem.setShader(GameRenderer::method_34542);
+        RenderSystem.setShaderTexture(0, this.textureId);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
         float f = Math.min(scaledWidth, scaledHeight);
@@ -69,6 +70,7 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
         bufferBuilder.vertex(l, k, -90.0D).texture(1.0F, 0.0F).next();
         bufferBuilder.vertex(j, k, -90.0D).texture(0.0F, 0.0F).next();
         tessellator.draw();
+        RenderSystem.setShader(GameRenderer::method_34540);
         RenderSystem.disableTexture();
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
         bufferBuilder.vertex(0.0D, scaledHeight, -90.0D).color(0, 0, 0, 255).next();
@@ -91,8 +93,7 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
         RenderSystem.enableTexture();
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
-        RenderSystem.enableAlphaTest();
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     @Override
