@@ -7,21 +7,21 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import io.github.joaoh1.libzoomer.impl.SpyglassHelper;
-import net.minecraft.client.item.ModelPredicateProvider;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.item.UnclampedModelPredicateProvider;
 import net.minecraft.util.Identifier;
 
 @Mixin(ModelPredicateProviderRegistry.class)
 public class ModelPredicateProviderRegistryMixin {
     @Shadow
-    private static ModelPredicateProvider register(Identifier id, ModelPredicateProvider provider) {
+    private static UnclampedModelPredicateProvider register(Identifier id, UnclampedModelPredicateProvider provider) {
         return null;
     }
 
     @Inject(at = @At("TAIL"), method = "<clinit>")
     private static void addScopingPredicateToModdedSpyglasses(CallbackInfo ci) {
-        register(new Identifier("scoping"), (itemStack, clientWorld, livingEntity, i) -> {
-            return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack && livingEntity.getActiveItem().isIn(SpyglassHelper.SPYGLASSES) ? 1.0F : 0.0F;
+        register(new Identifier("scoping"), (stack, clientWorld, entity, i) -> {
+            return entity != null && entity.isUsingItem() && entity.getActiveItem() == stack && entity.getActiveItem().isIn(SpyglassHelper.SPYGLASSES) ? 1.0F : 0.0F;
         });
     }
 }
