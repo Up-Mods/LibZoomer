@@ -1,4 +1,4 @@
-package io.github.joaoh1.libzoomer.mixin;
+package io.github.ennuil.libzoomer.mixin;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-import io.github.joaoh1.libzoomer.api.ZoomRegistry;
-import io.github.joaoh1.libzoomer.api.ZoomInstance;
+import io.github.ennuil.libzoomer.api.ZoomInstance;
+import io.github.ennuil.libzoomer.api.ZoomRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 

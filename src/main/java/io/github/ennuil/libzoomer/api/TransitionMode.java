@@ -1,4 +1,4 @@
-package io.github.joaoh1.libzoomer.api;
+package io.github.ennuil.libzoomer.api;
 
 import net.minecraft.util.Identifier;
 

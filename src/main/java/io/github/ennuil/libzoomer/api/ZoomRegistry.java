@@ -1,4 +1,4 @@
-package io.github.joaoh1.libzoomer.api;
+package io.github.ennuil.libzoomer.api;
 
 import java.util.HashSet;
 import java.util.Set;

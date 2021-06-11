@@ -1,6 +1,6 @@
-package io.github.joaoh1.libzoomer.api.transitions;
+package io.github.ennuil.libzoomer.api.transitions;
 
-import io.github.joaoh1.libzoomer.api.TransitionMode;
+import io.github.ennuil.libzoomer.api.TransitionMode;
 import net.minecraft.util.Identifier;
 
 public class InstantTransitionMode implements TransitionMode {

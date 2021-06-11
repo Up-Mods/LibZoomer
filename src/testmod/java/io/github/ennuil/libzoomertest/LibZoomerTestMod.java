@@ -1,15 +1,15 @@
-package io.github.joaoh1.libzoomertest;
+package io.github.ennuil.libzoomertest;
 
 import org.lwjgl.glfw.GLFW;
 
-import io.github.joaoh1.libzoomer.api.transitions.InstantTransitionMode;
-import io.github.joaoh1.libzoomer.api.transitions.SmoothTransitionMode;
-import io.github.joaoh1.libzoomer.api.ZoomRegistry;
-import io.github.joaoh1.libzoomer.api.ZoomInstance;
-import io.github.joaoh1.libzoomer.api.modifiers.CinematicCameraMouseModifier;
-import io.github.joaoh1.libzoomer.api.modifiers.ZoomDivisorMouseModifier;
-import io.github.joaoh1.libzoomer.api.overlays.NoZoomOverlay;
-import io.github.joaoh1.libzoomer.api.overlays.SpyglassZoomOverlay;
+import io.github.ennuil.libzoomer.api.ZoomInstance;
+import io.github.ennuil.libzoomer.api.ZoomRegistry;
+import io.github.ennuil.libzoomer.api.modifiers.CinematicCameraMouseModifier;
+import io.github.ennuil.libzoomer.api.modifiers.ZoomDivisorMouseModifier;
+import io.github.ennuil.libzoomer.api.overlays.NoZoomOverlay;
+import io.github.ennuil.libzoomer.api.overlays.SpyglassZoomOverlay;
+import io.github.ennuil.libzoomer.api.transitions.InstantTransitionMode;
+import io.github.ennuil.libzoomer.api.transitions.SmoothTransitionMode;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;

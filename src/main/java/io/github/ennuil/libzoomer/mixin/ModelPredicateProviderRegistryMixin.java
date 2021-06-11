@@ -1,4 +1,4 @@
-package io.github.joaoh1.libzoomer.mixin;
+package io.github.ennuil.libzoomer.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.github.joaoh1.libzoomer.impl.SpyglassHelper;
+import io.github.ennuil.libzoomer.impl.SpyglassHelper;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.item.UnclampedModelPredicateProvider;
 import net.minecraft.util.Identifier;

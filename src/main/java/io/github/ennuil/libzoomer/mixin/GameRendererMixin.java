@@ -1,4 +1,4 @@
-package io.github.joaoh1.libzoomer.mixin;
+package io.github.ennuil.libzoomer.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
@@ -15,10 +15,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import io.github.joaoh1.libzoomer.api.ZoomRegistry;
-import io.github.joaoh1.libzoomer.api.ZoomInstance;
-import io.github.joaoh1.libzoomer.api.ZoomOverlay;
-import io.github.joaoh1.libzoomer.impl.OverlayCancellingHelper;
+import io.github.ennuil.libzoomer.api.ZoomInstance;
+import io.github.ennuil.libzoomer.api.ZoomOverlay;
+import io.github.ennuil.libzoomer.api.ZoomRegistry;
+import io.github.ennuil.libzoomer.impl.OverlayCancellingHelper;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
