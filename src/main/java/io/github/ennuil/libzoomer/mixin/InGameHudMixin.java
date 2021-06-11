@@ -1,4 +1,4 @@
-package io.github.joaoh1.libzoomer.mixin;
+package io.github.ennuil.libzoomer.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.github.joaoh1.libzoomer.impl.OverlayCancellingHelper;
+import io.github.ennuil.libzoomer.impl.OverlayCancellingHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 

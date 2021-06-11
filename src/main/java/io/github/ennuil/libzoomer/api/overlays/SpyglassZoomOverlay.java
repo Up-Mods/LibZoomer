@@ -1,8 +1,8 @@
-package io.github.joaoh1.libzoomer.api.overlays;
+package io.github.ennuil.libzoomer.api.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import io.github.joaoh1.libzoomer.api.ZoomOverlay;
+import io.github.ennuil.libzoomer.api.ZoomOverlay;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;

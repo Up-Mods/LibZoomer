@@ -1,4 +1,4 @@
-package io.github.joaoh1.libzoomer.impl;
+package io.github.ennuil.libzoomer.impl;
 
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.item.Item;

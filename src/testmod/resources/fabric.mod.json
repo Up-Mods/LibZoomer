@@ -5,7 +5,7 @@
     "name": "LibZoomer Testmod",
     "description": "LibZoomer's testmod. Contains Michael and friends!",
     "authors": [
-      "boredomh1"
+      "EnnuiL"
     ],
     "contact": {
       "homepage": "https://curseforge.com/",
@@ -16,7 +16,7 @@
     "environment": "*",
     "entrypoints": {
       "main": [
-        "io.github.joaoh1.libzoomertest.LibZoomerTestMod"
+        "io.github.ennuil.libzoomertest.LibZoomerTestMod"
       ]
     },
     "depends": {

@@ -1,8 +1,8 @@
-package io.github.joaoh1.libzoomer.api;
+package io.github.ennuil.libzoomer.api;
 
-import io.github.joaoh1.libzoomer.api.modifiers.NoMouseModifier;
-import io.github.joaoh1.libzoomer.api.overlays.NoZoomOverlay;
-import io.github.joaoh1.libzoomer.api.transitions.InstantTransitionMode;
+import io.github.ennuil.libzoomer.api.modifiers.NoMouseModifier;
+import io.github.ennuil.libzoomer.api.overlays.NoZoomOverlay;
+import io.github.ennuil.libzoomer.api.transitions.InstantTransitionMode;
 import net.minecraft.util.Identifier;
 
 /**

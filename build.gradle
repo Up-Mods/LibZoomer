@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'org.quiltmc.loom' version '0.8.3'
 	id 'maven-publish'
 }
 
@@ -23,14 +23,15 @@ sourceSets {
 }
 
 repositories {
+	maven { url 'https://maven.fabricmc.net/' }
 	mavenCentral()
 }
 
 dependencies {
 	// To change the versions, see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	mappings "org.quiltmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "org.quiltmc:quilt-loader:${project.loader_version}"
 	
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
@@ -54,13 +55,8 @@ tasks.withType(JavaCompile).configureEach {
 	// If Javadoc is generated, this must be specified in that task too.
 	it.options.encoding = "UTF-8"
 
-	// The Minecraft launcher currently installs Java 8 for users, so your mod probably wants to target Java 8 too
-	// JDK 9 introduced a new way of specifying this that will make sure no newer classes or methods are used.
-	// We'll use that if it's available, but otherwise we'll use the older option.
-	def targetVersion = 16
-	if (JavaVersion.current().isJava9Compatible()) {
-		 it.options.release = targetVersion
-	}
+	// Minecraft 1.17 (21w19a) upwards uses Java 16.
+	it.options.release = 16
 }
 
 java {

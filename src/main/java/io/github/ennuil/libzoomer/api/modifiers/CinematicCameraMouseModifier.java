@@ -1,6 +1,6 @@
-package io.github.joaoh1.libzoomer.api.modifiers;
+package io.github.ennuil.libzoomer.api.modifiers;
 
-import io.github.joaoh1.libzoomer.api.MouseModifier;
+import io.github.ennuil.libzoomer.api.MouseModifier;
 import net.minecraft.client.util.SmoothUtil;
 import net.minecraft.util.Identifier;
 
