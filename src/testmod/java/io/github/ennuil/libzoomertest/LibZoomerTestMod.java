@@ -32,7 +32,7 @@ public class LibZoomerTestMod implements ModInitializer {
         KeyBinding michelle = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.libzoomertest.michelle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.libzoomertest.category"));
         ZoomInstance zoomInstance = ZoomRegistry.registerInstance(new ZoomInstance(
             new Identifier("libzoomertest:zoom"),
-            10.0F, new SmoothTransitionMode(0.5f),
+            10.0F, new SmoothTransitionMode(),
             new ZoomDivisorMouseModifier(),
             new SpyglassZoomOverlay(new Identifier("libzoomertest:textures/misc/michael.png"))
         ));
