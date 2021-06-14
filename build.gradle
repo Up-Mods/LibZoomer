@@ -57,6 +57,14 @@ tasks.withType(JavaCompile).configureEach {
 
 	// Minecraft 1.17 (21w19a) upwards uses Java 16.
 	it.options.release = 16
+
+	// Jitpack is bad, so we use toolchains.
+	// TODO - Avoid this, somehow
+	if (System.env.JITPACK == "true") {
+		javaCompiler = javaToolchains.compilerFor {
+        	languageVersion = JavaLanguageVersion.of(16)
+    	}
+	}
 }
 
 java {
