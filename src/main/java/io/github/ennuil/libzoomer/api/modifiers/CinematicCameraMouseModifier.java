@@ -10,9 +10,11 @@ public class CinematicCameraMouseModifier implements MouseModifier {
     private boolean cinematicCameraEnabled;
     private final SmoothUtil cursorXZoomSmoother = new SmoothUtil();
     private final SmoothUtil cursorYZoomSmoother = new SmoothUtil();
+    private double oldMultiplier;
 
     public CinematicCameraMouseModifier() {
         this.active = false;
+        this.oldMultiplier = 1.0F;
     }
     
     @Override
@@ -26,29 +28,35 @@ public class CinematicCameraMouseModifier implements MouseModifier {
     }
 
     @Override
-    public double applyXModifier(double cursorXDelta, double o, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier) {
+    public double applyXModifier(double rawCursorDeltaX, double cursorDeltaX, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
         if (this.cinematicCameraEnabled) {
             this.cursorXZoomSmoother.clear();
-            return o;
+            return cursorDeltaX;
         }
-        double multiplier = mouseUpdateDelta;
-        if (cursorXDelta != 0) {
-            multiplier *= (o / cursorXDelta);
+        double multiplier = mouseUpdateTimeDelta;
+        if (rawCursorDeltaX != 0) {
+            multiplier *= (cursorDeltaX / rawCursorDeltaX);
+        } else {
+            multiplier = this.oldMultiplier;
         }
-        return this.cursorXZoomSmoother.smooth(o, multiplier);
+        this.oldMultiplier = multiplier;
+        return this.cursorXZoomSmoother.smooth(cursorDeltaX, multiplier);
     }
 
     @Override
-    public double applyYModifier(double cursorYDelta, double p, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier) {
+    public double applyYModifier(double rawCursorDeltaY, double cursorDeltaY, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
         if (this.cinematicCameraEnabled) {
-            this.cursorYZoomSmoother.clear();
-            return p;
+            this.cursorXZoomSmoother.clear();
+            return cursorDeltaY;
         }
-        double multiplier = mouseUpdateDelta;
-        if (cursorYDelta != 0) {
-            multiplier *= (p / cursorYDelta);
+        double multiplier = mouseUpdateTimeDelta;
+        if (rawCursorDeltaY != 0) {
+            multiplier *= (cursorDeltaY / rawCursorDeltaY);
+        } else {
+            multiplier = this.oldMultiplier;
         }
-        return this.cursorYZoomSmoother.smooth(p, multiplier);
+        this.oldMultiplier = multiplier;
+        return this.cursorYZoomSmoother.smooth(cursorDeltaY, multiplier);
     }
 
     @Override

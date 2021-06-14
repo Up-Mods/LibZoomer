@@ -19,26 +19,26 @@ public interface MouseModifier {
     boolean getActive();
 
     /**
-     * Modifies the mouse's X delta to the value returned on this method.
-     * @param cursorXDelta The original X delta.
-     * @param o The current X delta.
-     * @param mouseUpdateDelta The delta of the mouse update time.
+     * Modifies the cursor's X delta to the value returned on this method.
+     * @param rawCursorDeltaX The X delta without any calculations (like sensitivity, spyglass, etc.).
+     * @param cursorDeltaX The X delta after the calculators.
+     * @param mouseUpdateTimeDelta The delta of the mouse update time.
      * @param targetDivisor The current zoom divisor.
      * @param transitionMultiplier The transition mode's internal multiplier.
-     * @return The X delta that will replace o.
+     * @return The X delta that will replace the cursor's X delta.
      */
-    double applyXModifier(double cursorXDelta, double o, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier);
+    double applyXModifier(double rawCursorDeltaX, double cursorDeltaX, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier);
 
     /**
-     * Modifies the mouse's Y delta to the value returned on this method.
-     * @param cursorXDelta The original Y delta.
-     * @param p The current Y delta.
-     * @param mouseUpdateDelta The delta of the mouse update time.
+     * Modifies the cursor's Y delta to the value returned on this method.
+     * @param rawCursorDeltaY The Y delta without any calculations (like sensitivity, spyglass, etc.).
+     * @param cursorDeltaY The Y delta after the calculators.
+     * @param mouseUpdateTimeDelta The delta of the mouse update time.
      * @param targetDivisor The current zoom divisor.
      * @param transitionMultiplier The transition mode's internal multiplier.
-     * @return The Y delta that will replace p.
+     * @return The Y delta that will replace the cursor's Y delta.
      */
-    double applyYModifier(double cursorYDelta, double p, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier);
+    double applyYModifier(double rawCursorDeltaY, double cursorDeltaY, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier);
 
     /**
      * The tick method. Used in order to keep the internal variables accurate.
