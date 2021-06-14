@@ -17,13 +17,13 @@ public class NoMouseModifier implements MouseModifier {
     }
 
     @Override
-    public double applyXModifier(double cursorXDelta, double o, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier) {
-        return o;
+    public double applyXModifier(double rawCursorDeltaX, double cursorDeltaX, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
+        return cursorDeltaX;
     }
 
     @Override
-    public double applyYModifier(double cursorYDelta, double p, double mouseUpdateDelta, double targetDivisor, double transitionMultiplier) {
-        return p;
+    public double applyYModifier(double rawCursorDeltaY, double cursorDeltaY, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
+        return cursorDeltaY;
     }
 
     @Override

@@ -8,8 +8,8 @@
     "EnnuiL"
   ],
   "contact": {
-    "homepage": "https://curseforge.com/",
-    "sources": "https://github.com/"
+    "homepage": "https://modrinth.com/mod/libzoomer",
+    "sources": "https://github.com/EnnuiL/LibZoomer"
   },
   "license": "MIT",
   "icon": "assets/libzoomer/icon.png",
@@ -18,9 +18,8 @@
     "libzoomer.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.8.8",
-    "fabric": ">=0.13.0",
-    "minecraft": ">1.16.5"
+    "fabricloader": ">=0.13.1",
+    "fabric": ">=0.34.0"
   },
   "custom": {
     "modmenu": {
