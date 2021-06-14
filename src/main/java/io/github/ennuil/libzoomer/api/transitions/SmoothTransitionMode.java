@@ -12,16 +12,14 @@ public class SmoothTransitionMode implements TransitionMode {
     private float internalMultiplier;
     private float lastInternalMultiplier;
 
-    public SmoothTransitionMode() {
-        this.smoothMultiplier = 0.5f;
-        this.internalMultiplier = 1.0F;
-        this.lastInternalMultiplier = 1.0F;
-    }
-
     public SmoothTransitionMode(float smoothMultiplier) {
         this.smoothMultiplier = smoothMultiplier;
         this.internalMultiplier = 1.0F;
         this.lastInternalMultiplier = 1.0F;
+    }
+
+    public SmoothTransitionMode() {
+        this(0.5f);
     }
     
     @Override
