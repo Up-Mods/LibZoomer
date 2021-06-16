@@ -20,25 +20,25 @@ public interface MouseModifier {
 
     /**
      * Modifies the cursor's X delta to the value returned on this method.
-     * @param rawCursorDeltaX The X delta without any calculations (like sensitivity, spyglass, etc.).
-     * @param cursorDeltaX The X delta after the calculators.
+     * @param cursorSensitivity The cursor sensitivity that is applied to the cursor delta.
+     * @param cursorDeltaX The X delta after the calculations.
      * @param mouseUpdateTimeDelta The delta of the mouse update time.
      * @param targetDivisor The current zoom divisor.
      * @param transitionMultiplier The transition mode's internal multiplier.
      * @return The X delta that will replace the cursor's X delta.
      */
-    double applyXModifier(double rawCursorDeltaX, double cursorDeltaX, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier);
+    double applyXModifier(double cursorDeltaX, double cursorSensitivity, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier);
 
     /**
      * Modifies the cursor's Y delta to the value returned on this method.
-     * @param rawCursorDeltaY The Y delta without any calculations (like sensitivity, spyglass, etc.).
-     * @param cursorDeltaY The Y delta after the calculators.
+     * @param cursorSensitivity The cursor sensitivity that is applied to the cursor delta.
+     * @param cursorDeltaY The Y delta after the calculations.
      * @param mouseUpdateTimeDelta The delta of the mouse update time.
      * @param targetDivisor The current zoom divisor.
      * @param transitionMultiplier The transition mode's internal multiplier.
      * @return The Y delta that will replace the cursor's Y delta.
      */
-    double applyYModifier(double rawCursorDeltaY, double cursorDeltaY, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier);
+    double applyYModifier(double cursorDeltaY, double cursorSensitivity, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier);
 
     /**
      * The tick method. Used in order to keep the internal variables accurate.

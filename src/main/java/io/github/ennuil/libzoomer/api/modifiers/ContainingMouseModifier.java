@@ -29,19 +29,19 @@ public class ContainingMouseModifier implements MouseModifier {
     }
 
     @Override
-    public double applyXModifier(double rawCursorDeltaX, double cursorDeltaX, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
+    public double applyXModifier(double cursorDeltaX, double cursorSensitivity, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
         double returnedValue = cursorDeltaX;
         for (MouseModifier modifier : modifiers) {
-            returnedValue = modifier.applyXModifier(rawCursorDeltaX, returnedValue, mouseUpdateTimeDelta, targetDivisor, transitionMultiplier);
+            returnedValue = modifier.applyXModifier(returnedValue, cursorSensitivity, mouseUpdateTimeDelta, targetDivisor, transitionMultiplier);
         }
         return returnedValue;
     }
 
     @Override
-    public double applyYModifier(double rawCursorDeltaY, double cursorDeltaY, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
+    public double applyYModifier(double cursorDeltaY, double cursorSensitivity, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
         double returnedValue = cursorDeltaY;
         for (MouseModifier modifier : modifiers) {
-            returnedValue = modifier.applyYModifier(rawCursorDeltaY, returnedValue, mouseUpdateTimeDelta, targetDivisor, transitionMultiplier);
+            returnedValue = modifier.applyYModifier(returnedValue, cursorSensitivity, mouseUpdateTimeDelta, targetDivisor, transitionMultiplier);
         }
         return returnedValue;
     }

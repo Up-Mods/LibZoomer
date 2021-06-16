@@ -29,13 +29,30 @@ public class MouseMixin {
     private double cursorDeltaY;
 
     @Unique
+    private double cursorSensitivity;
+
+    @Unique
     private boolean modifyMouse;
 
     @Unique
-    private double finalO;
+    private double finalCursorDeltaX;
 
     @Unique
-    private double finalP;
+    private double finalCursorDeltaY;
+
+    // Mixin really hates me doing the way saner way of doing this, so, we went with the cursed one
+    @Inject(
+        at = @At(
+            value = "FIELD",
+            target = "net.minecraft.client.option/GameOptions.smoothCameraEnabled:Z"
+        ),
+        method = "updateMouse()V",
+        locals = LocalCapture.CAPTURE_FAILHARD,
+        cancellable = true
+    )
+    public void getSensitivity(CallbackInfo ci, double e, double f, double g, double h) {
+        this.cursorSensitivity = h;
+    }
 
     @Inject(
         at = @At(
@@ -47,20 +64,20 @@ public class MouseMixin {
         locals = LocalCapture.CAPTURE_FAILHARD,
         cancellable = true
     )
-    public void applyZoomChanges2(CallbackInfo ci, double e, double o, double p) {
+    public void applyZoomChanges(CallbackInfo ci, double e, double o, double p) {
         this.modifyMouse = false;
         for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             instance.getMouseModifier().tick(instance.getZoom(), this.client.options.smoothCameraEnabled);
             if (instance.isModifierActive()) {
                 double zoomDivisor = instance.getZoomDivisor();
                 double transitionDivisor = instance.getTransitionMode().getInternalMultiplier();
-                o = instance.getMouseModifier().applyXModifier(this.cursorDeltaX, o, e, zoomDivisor, transitionDivisor);
-                p = instance.getMouseModifier().applyYModifier(this.cursorDeltaY, p, e, zoomDivisor, transitionDivisor);
+                o = instance.getMouseModifier().applyXModifier(o, cursorSensitivity, e, zoomDivisor, transitionDivisor);
+                p = instance.getMouseModifier().applyYModifier(p, cursorSensitivity, e, zoomDivisor, transitionDivisor);
                 this.modifyMouse = true;
             }
         }
-        this.finalO = o;
-        this.finalP = p;
+        this.finalCursorDeltaX = o;
+        this.finalCursorDeltaY = p;
     }
 
     @ModifyArgs(
@@ -72,8 +89,8 @@ public class MouseMixin {
     )
     private void modifyTutorialUpdate(Args args) {
         if (this.modifyMouse == false) return;
-        args.set(0, finalO);
-        args.set(1, finalP);
+        args.set(0, finalCursorDeltaX);
+        args.set(1, finalCursorDeltaY);
     }
 
     @ModifyArgs(
@@ -85,7 +102,7 @@ public class MouseMixin {
     )
     private void modifyLookDirection(Args args) {
         if (this.modifyMouse == false) return;
-        args.set(0, finalO);
-        args.set(1, finalP * (this.client.options.invertYMouse ? -1 : 1));
+        args.set(0, finalCursorDeltaX);
+        args.set(1, finalCursorDeltaY * (this.client.options.invertYMouse ? -1 : 1));
     }
 }
