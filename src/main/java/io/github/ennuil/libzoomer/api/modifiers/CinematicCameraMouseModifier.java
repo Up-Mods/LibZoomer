@@ -10,11 +10,13 @@ public class CinematicCameraMouseModifier implements MouseModifier {
     private boolean cinematicCameraEnabled;
     private final SmoothUtil cursorXZoomSmoother = new SmoothUtil();
     private final SmoothUtil cursorYZoomSmoother = new SmoothUtil();
-    private double oldMultiplier;
+    private double oldMultiplierX;
+    private double oldMultiplierY;
 
     public CinematicCameraMouseModifier() {
         this.active = false;
-        this.oldMultiplier = 1.0F;
+        this.oldMultiplierX = 1.0F;
+        this.oldMultiplierY = 1.0F;
     }
     
     @Override
@@ -37,25 +39,25 @@ public class CinematicCameraMouseModifier implements MouseModifier {
         if (rawCursorDeltaX != 0) {
             multiplier *= (cursorDeltaX / rawCursorDeltaX);
         } else {
-            multiplier = this.oldMultiplier;
+            multiplier = this.oldMultiplierX;
         }
-        this.oldMultiplier = multiplier;
+        this.oldMultiplierX = multiplier;
         return this.cursorXZoomSmoother.smooth(cursorDeltaX, multiplier);
     }
 
     @Override
     public double applyYModifier(double rawCursorDeltaY, double cursorDeltaY, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
         if (this.cinematicCameraEnabled) {
-            this.cursorXZoomSmoother.clear();
+            this.cursorYZoomSmoother.clear();
             return cursorDeltaY;
         }
         double multiplier = mouseUpdateTimeDelta;
         if (rawCursorDeltaY != 0) {
             multiplier *= (cursorDeltaY / rawCursorDeltaY);
         } else {
-            multiplier = this.oldMultiplier;
+            multiplier = this.oldMultiplierY;
         }
-        this.oldMultiplier = multiplier;
+        this.oldMultiplierY = multiplier;
         return this.cursorYZoomSmoother.smooth(cursorDeltaY, multiplier);
     }
 

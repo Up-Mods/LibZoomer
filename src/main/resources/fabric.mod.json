@@ -3,7 +3,7 @@
   "id": "libzoomer",
   "version": "${version}",
   "name": "LibZoomer",
-  "description": "A library that allows for easy zooming.",
+  "description": "A library that allows for easy and powerful zooming.",
   "authors": [
     "EnnuiL"
   ],

@@ -33,7 +33,7 @@ public class SmoothTransitionMode implements TransitionMode {
     }
 
     @Override
-    public double applyZoom(double fov, double divisor, float tickDelta) {
+    public double applyZoom(double fov, float tickDelta) {
         fovMultiplier = MathHelper.lerp(tickDelta, this.lastInternalMultiplier, this.internalMultiplier);
         return fov * fovMultiplier;
     }

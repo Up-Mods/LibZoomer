@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 public class InstantTransitionMode implements TransitionMode {
     private Identifier transitionId = new Identifier("libzoomer:no_transition");
     private boolean active;
+    private double divisor;
     private double internalMultiplier;
 
     public InstantTransitionMode() {
@@ -24,14 +25,15 @@ public class InstantTransitionMode implements TransitionMode {
     }
 
     @Override
-    public double applyZoom(double fov, double divisor, float tickDelta) {
-        this.internalMultiplier = 1.0 / divisor;
-        return fov / divisor;
+    public double applyZoom(double fov, float tickDelta) {
+        this.internalMultiplier = 1.0 / this.divisor;
+        return fov / this.divisor;
     }
 
     @Override
     public void tick(boolean active, double divisor) {
         this.active = active;
+        this.divisor = divisor;
     }
 
     @Override
