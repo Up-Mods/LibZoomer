@@ -26,7 +26,7 @@ public interface TransitionMode {
      * @param tickDelta The current tick delta.
      * @return The zoomed FOV.
      */
-    double applyZoom(double fov, double divisor, float tickDelta);
+    double applyZoom(double fov, float tickDelta);
 
     /**
      * The tick method. Used in order to keep the internal variables accurate.

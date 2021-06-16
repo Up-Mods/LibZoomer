@@ -6,26 +6,37 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.github.ennuil.libzoomer.impl.OverlayCancellingHelper;
+import io.github.ennuil.libzoomer.api.ZoomInstance;
+import io.github.ennuil.libzoomer.api.ZoomOverlay;
+import io.github.ennuil.libzoomer.api.ZoomRegistry;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
     @Unique
-    private boolean cancelOverlay;
+    private boolean shouldCancelOverlay = false;
 
     @Inject(
         at = @At(
-            value = "INVOKE_ASSIGN",
-            target = "net/minecraft/client/option/Perspective.isFirstPerson()Z"
+            value = "INVOKE",
+            target = "net/minecraft/client/MinecraftClient.getLastFrameDuration()F"
         ),
-        method = "render"
+        method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V"
     )
-    public void canCancelOverlay(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
-        this.cancelOverlay = OverlayCancellingHelper.getCancelOverlayRender();
+    public void injectZoomOverlay(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+        shouldCancelOverlay = false;
+        for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
+            ZoomOverlay overlay = instance.getZoomOverlay();
+            overlay.tickBeforeRender();
+            if (overlay.getActive()) {
+                if (overlay.cancelOverlayRendering()) shouldCancelOverlay = true;
+                overlay.renderOverlay();
+            }
+        }
     }
 
+    // Yes, there is a renderOverlay for being frozen...
     @Inject(
         at = @At("HEAD"),
         method = {
@@ -34,7 +45,19 @@ public class InGameHudMixin {
         },
         cancellable = true
     )
-    public void cancelOverlay(CallbackInfo ci) {
-        if (this.cancelOverlay) ci.cancel();
+    public void cancelOverlay(float scale, CallbackInfo ci) {
+        if (shouldCancelOverlay) ci.cancel();
+    }
+
+    // ...which is why we set cancelOverlayRender to false before that!
+    @Inject(
+        at = @At(
+            value = "INVOKE",
+            target = "net/minecraft/client/network/ClientPlayerEntity.getFrozenTicks()I"
+        ),
+        method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V"
+    )
+    public void disableOverlayCancelling(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+        if (shouldCancelOverlay) shouldCancelOverlay = false;
     }
 }
