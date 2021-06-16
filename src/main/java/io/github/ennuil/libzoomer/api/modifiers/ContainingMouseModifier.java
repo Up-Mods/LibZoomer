@@ -4,7 +4,6 @@ import io.github.ennuil.libzoomer.api.MouseModifier;
 import net.minecraft.util.Identifier;
 
 //A sin was probably committed by using a lot of for each loops
-//TODO - Consider if Ok Zoomer or LibZoomer is a better place for this
 /**
  * A mouse modifier that contains multiple mouse modifiers.
  */
