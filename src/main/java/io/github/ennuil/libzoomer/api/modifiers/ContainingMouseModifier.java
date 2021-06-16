@@ -47,10 +47,10 @@ public class ContainingMouseModifier implements MouseModifier {
     }
 
     @Override
-    public void tick(boolean active, boolean cinematicCameraEnabled) {
+    public void tick(boolean active) {
         boolean generalActive = false;
         for (MouseModifier modifier : modifiers) {
-            modifier.tick(active, cinematicCameraEnabled);
+            modifier.tick(active);
             if (!generalActive) {
                 generalActive = modifier.getActive();
             }

@@ -27,5 +27,5 @@ public class NoMouseModifier implements MouseModifier {
     }
 
     @Override
-    public void tick(boolean active, boolean cinematicCameraEnabled) {}
+    public void tick(boolean active) {}
 }
