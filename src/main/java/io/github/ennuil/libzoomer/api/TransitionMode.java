@@ -22,7 +22,6 @@ public interface TransitionMode {
     /**
      * Applies the zoom to the FOV.
      * @param fov The original FOV.
-     * @param divisor The zoom divisor.
      * @param tickDelta The current tick delta.
      * @return The zoomed FOV.
      */
