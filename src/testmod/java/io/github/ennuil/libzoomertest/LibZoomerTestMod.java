@@ -5,6 +5,7 @@ import org.lwjgl.glfw.GLFW;
 import io.github.ennuil.libzoomer.api.ZoomInstance;
 import io.github.ennuil.libzoomer.api.ZoomRegistry;
 import io.github.ennuil.libzoomer.api.modifiers.CinematicCameraMouseModifier;
+import io.github.ennuil.libzoomer.api.modifiers.SpyglassMouseModifier;
 import io.github.ennuil.libzoomer.api.modifiers.ZoomDivisorMouseModifier;
 import io.github.ennuil.libzoomer.api.overlays.NoZoomOverlay;
 import io.github.ennuil.libzoomer.api.overlays.SpyglassZoomOverlay;
@@ -33,7 +34,7 @@ public class LibZoomerTestMod implements ModInitializer {
         ZoomInstance zoomInstance = ZoomRegistry.registerInstance(new ZoomInstance(
             new Identifier("libzoomertest:zoom"),
             10.0F, new SmoothTransitionMode(),
-            new ZoomDivisorMouseModifier(),
+            new SpyglassMouseModifier(),
             new SpyglassZoomOverlay(new Identifier("libzoomertest:textures/misc/michael.png"))
         ));
         ZoomInstance electricBoogaloo = ZoomRegistry.registerInstance(new ZoomInstance(

@@ -30,35 +30,23 @@ public class CinematicCameraMouseModifier implements MouseModifier {
     }
 
     @Override
-    public double applyXModifier(double rawCursorDeltaX, double cursorDeltaX, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
+    public double applyXModifier(double cursorDeltaX, double cursorSensitivity, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
         if (this.cinematicCameraEnabled) {
             this.cursorXZoomSmoother.clear();
             return cursorDeltaX;
         }
-        double multiplier = mouseUpdateTimeDelta;
-        if (rawCursorDeltaX != 0) {
-            multiplier *= (cursorDeltaX / rawCursorDeltaX);
-        } else {
-            multiplier = this.oldMultiplierX;
-        }
-        this.oldMultiplierX = multiplier;
-        return this.cursorXZoomSmoother.smooth(cursorDeltaX, multiplier);
+        double smoother = mouseUpdateTimeDelta * cursorSensitivity;
+        return this.cursorXZoomSmoother.smooth(cursorDeltaX, smoother);
     }
 
     @Override
-    public double applyYModifier(double rawCursorDeltaY, double cursorDeltaY, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
+    public double applyYModifier(double cursorDeltaY, double cursorSensitivity, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
         if (this.cinematicCameraEnabled) {
             this.cursorYZoomSmoother.clear();
             return cursorDeltaY;
         }
-        double multiplier = mouseUpdateTimeDelta;
-        if (rawCursorDeltaY != 0) {
-            multiplier *= (cursorDeltaY / rawCursorDeltaY);
-        } else {
-            multiplier = this.oldMultiplierY;
-        }
-        this.oldMultiplierY = multiplier;
-        return this.cursorYZoomSmoother.smooth(cursorDeltaY, multiplier);
+        double smoother = mouseUpdateTimeDelta * cursorSensitivity;
+        return this.cursorYZoomSmoother.smooth(cursorDeltaY, smoother);
     }
 
     @Override

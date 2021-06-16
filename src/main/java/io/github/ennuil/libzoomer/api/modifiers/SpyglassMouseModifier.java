@@ -3,11 +3,11 @@ package io.github.ennuil.libzoomer.api.modifiers;
 import io.github.ennuil.libzoomer.api.MouseModifier;
 import net.minecraft.util.Identifier;
 
-public class ZoomDivisorMouseModifier implements MouseModifier {
-    private Identifier transitionId = new Identifier("libzoomer:zoom_divisor");
+public class SpyglassMouseModifier implements MouseModifier {
+    private Identifier transitionId = new Identifier("libzoomer:spyglass");
     private boolean active;
 
-    public ZoomDivisorMouseModifier() {
+    public SpyglassMouseModifier() {
         this.active = false;
     }
 
@@ -24,13 +24,13 @@ public class ZoomDivisorMouseModifier implements MouseModifier {
     @Override
     public double applyXModifier(double cursorDeltaX, double cursorSensitivity, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
         if (!this.active) return cursorDeltaX;
-        return cursorDeltaX * transitionMultiplier;
+        return cursorDeltaX / 8;
     }
 
     @Override
     public double applyYModifier(double cursorDeltaY, double cursorSensitivity, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
         if (!this.active) return cursorDeltaY;
-        return cursorDeltaY * transitionMultiplier;
+        return cursorDeltaY / 8;
     }
 
     @Override
