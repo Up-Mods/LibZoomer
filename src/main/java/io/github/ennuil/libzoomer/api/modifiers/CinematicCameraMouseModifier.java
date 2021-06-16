@@ -1,22 +1,21 @@
 package io.github.ennuil.libzoomer.api.modifiers;
 
 import io.github.ennuil.libzoomer.api.MouseModifier;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.SmoothUtil;
 import net.minecraft.util.Identifier;
 
 public class CinematicCameraMouseModifier implements MouseModifier {
     private Identifier transitionId = new Identifier("libzoomer:cinematic_camera");
     private boolean active;
+    private MinecraftClient client;
     private boolean cinematicCameraEnabled;
     private final SmoothUtil cursorXZoomSmoother = new SmoothUtil();
     private final SmoothUtil cursorYZoomSmoother = new SmoothUtil();
-    private double oldMultiplierX;
-    private double oldMultiplierY;
 
     public CinematicCameraMouseModifier() {
         this.active = false;
-        this.oldMultiplierX = 1.0F;
-        this.oldMultiplierY = 1.0F;
+        this.client = MinecraftClient.getInstance();
     }
     
     @Override
@@ -50,9 +49,9 @@ public class CinematicCameraMouseModifier implements MouseModifier {
     }
 
     @Override
-    public void tick(boolean active, boolean cinematicCameraEnabled) {
-        this.cinematicCameraEnabled = cinematicCameraEnabled;
+    public void tick(boolean active) {
         this.active = active;
+        this.cinematicCameraEnabled = this.client.options.smoothCameraEnabled;
         if (this.active == false) {
             this.cursorXZoomSmoother.clear();
             this.cursorYZoomSmoother.clear();

@@ -43,7 +43,6 @@ public interface MouseModifier {
     /**
      * The tick method. Used in order to keep the internal variables accurate.
      * @param active The zoom state.
-     * @param cinematicCameraEnabled The state of Vanilla's cinematic camera.
      */
-    void tick(boolean active, boolean cinematicCameraEnabled);
+    void tick(boolean active);
 }

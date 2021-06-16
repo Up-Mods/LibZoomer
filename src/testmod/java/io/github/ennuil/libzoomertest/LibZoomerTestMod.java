@@ -6,7 +6,6 @@ import io.github.ennuil.libzoomer.api.ZoomInstance;
 import io.github.ennuil.libzoomer.api.ZoomRegistry;
 import io.github.ennuil.libzoomer.api.modifiers.CinematicCameraMouseModifier;
 import io.github.ennuil.libzoomer.api.modifiers.SpyglassMouseModifier;
-import io.github.ennuil.libzoomer.api.modifiers.ZoomDivisorMouseModifier;
 import io.github.ennuil.libzoomer.api.overlays.NoZoomOverlay;
 import io.github.ennuil.libzoomer.api.overlays.SpyglassZoomOverlay;
 import io.github.ennuil.libzoomer.api.transitions.InstantTransitionMode;

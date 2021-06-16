@@ -33,11 +33,7 @@ public class GameRendererMixin {
         for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             boolean zoom = instance.getZoom();
             if (zoom || (instance.isTransitionActive() || instance.isOverlayActive())) {
-                double divisor = 1.0F;
-                if (zoom) {
-                    divisor = instance.getZoomDivisor();
-                }
-    
+                double divisor = zoom ? instance.getZoomDivisor() : 1.0F;
                 instance.getZoomOverlay().tick(zoom, divisor, instance.getTransitionMode().getInternalMultiplier());
                 instance.getTransitionMode().tick(zoom, divisor);
             }
@@ -64,9 +60,7 @@ public class GameRendererMixin {
         }
 
         if (zoomedFov > formerFov) {
-            if (changingFov) {
-                this.client.worldRenderer.scheduleTerrainUpdate();
-            }
+            if (changingFov) this.client.worldRenderer.scheduleTerrainUpdate();
         }
 
         this.formerFov = zoomedFov;
