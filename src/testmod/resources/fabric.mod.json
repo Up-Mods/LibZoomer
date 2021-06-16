@@ -1,23 +1,22 @@
 {
-    "schemaVersion": 1,
-    "id": "libzoomertest",
-    "version": "${version}",
-    "name": "LibZoomer Testmod",
-    "description": "LibZoomer's testmod. Contains Michael and friends!",
-    "authors": [
-      "EnnuiL"
-    ],
-    "license": "MIT",
-    "icon": "assets/libzoomer/icon.png",
-    "environment": "*",
-    "entrypoints": {
-      "main": [
-        "io.github.ennuil.libzoomertest.LibZoomerTestMod"
-      ]
-    },
-    "depends": {
-      "fabricloader": ">=0.11.3",
-      "fabric": ">=0.34.0"
-    }
+  "schemaVersion": 1,
+  "id": "libzoomertest",
+  "version": "${version}",
+  "name": "LibZoomer Testmod",
+  "description": "LibZoomer's testmod. Contains Michael and friends!",
+  "authors": [
+    "EnnuiL"
+  ],
+  "license": "MIT",
+  "icon": "assets/libzoomer/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.ennuil.libzoomertest.LibZoomerTestMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": ">=0.34.0"
   }
-  
+}
