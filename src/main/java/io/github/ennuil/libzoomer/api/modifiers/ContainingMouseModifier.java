@@ -12,7 +12,7 @@ public class ContainingMouseModifier implements MouseModifier {
     private boolean active;
     private MouseModifier[] modifiers;
 
-    public ContainingMouseModifier(MouseModifier[] modifiers) {
+    public ContainingMouseModifier(MouseModifier... modifiers) {
         this.active = false;
         this.modifiers = modifiers;
     }
