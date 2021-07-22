@@ -1,20 +1,19 @@
 plugins {
 	id 'fabric-loom' version '0.9-SNAPSHOT'
-	id 'io.github.juuxel.loom-quiltflower' version '1.1.2'
+	// id 'io.github.juuxel.loom-quiltflower' version '1.1.2'
 	id 'maven-publish'
 }
 
+// Visual Studio Code completely ignores options.release.
+// So, we still have those two.
 sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
+version = System.env.GITHUB_ACTIONS == "true"
+	? "${project.mod_version}.github.${System.env.GITHUB_RUN_NUMBER}"
+	: project.mod_version
 group = project.maven_group
-
-if (System.env.GITHUB_ACTIONS == "true") {
-	version = "${project.mod_version}-github.${System.env.GITHUB_RUN_NUMBER}"
-} else {
-	version = project.mod_version
-}
 
 sourceSets {
 	testmod {
@@ -23,15 +22,10 @@ sourceSets {
 	}
 }
 
-repositories {
-	maven { url "https://maven.quiltmc.org/repository/release" }
-	mavenCentral()
-}
-
 dependencies {
 	// To change the versions, see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "org.quiltmc:yarn:${project.yarn_mappings}:v2"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
@@ -64,6 +58,7 @@ java {
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
 	// If you remove this line, sources will not be generated.
+	withJavadocJar()
 	withSourcesJar()
 }
 
@@ -79,8 +74,32 @@ publishing {
 			artifact(remapJar) {
 				builtBy remapJar
 			}
+			artifact(javadocJar) {}
 			artifact(sourcesJar) {
 				builtBy remapSourcesJar
+			}
+
+			pom {
+				name = 'LibZoomer'
+				description = 'A library that allows other Minecraft mods to have powerful zooming easily.'
+				url = 'https://github.com/EnnuiL/LibZoomer'
+				licenses {
+					license {
+						name = 'The MIT License'
+						url = 'https://opensource.org/licenses/MIT'
+					}
+				}
+				developers {
+					developer {
+						id = 'EnnuiL'
+						name = 'Ennui Langeweile'
+					}
+				}
+				scm {
+					connection = 'scm:git:https://github.com/EnnuiL/LibZoomer.git'
+					developerConnection = 'scm:git:git@github.com:EnnuiL/LibZoomer.git'
+					url = 'https://github.com/EnnuiL/LibZoomer'
+				}
 			}
 		}
 	}
