@@ -1,15 +1,16 @@
 package io.github.ennuil.libzoomer.mixin;
 
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.tutorial.TutorialManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import io.github.ennuil.libzoomer.api.ZoomInstance;
 import io.github.ennuil.libzoomer.api.ZoomRegistry;
@@ -81,29 +82,33 @@ public class MouseMixin {
         this.finalCursorDeltaY = p;
     }
 
-    @ModifyArgs(
+    @Redirect(
         at = @At(
             value = "INVOKE",
             target = "net/minecraft/client/tutorial/TutorialManager.onUpdateMouse(DD)V"
         ),
         method = "updateMouse()V"
     )
-    private void modifyTutorialUpdate(Args args) {
-        if (this.modifyMouse == false) return;
-        args.set(0, finalCursorDeltaX);
-        args.set(1, finalCursorDeltaY);
+    private void modifyTutorialUpdate(TutorialManager tutorialManager, double deltaX, double deltaY) {
+        if (!this.modifyMouse) {
+            tutorialManager.onUpdateMouse(deltaX, deltaY);
+        } else {
+            tutorialManager.onUpdateMouse(finalCursorDeltaX, finalCursorDeltaY);
+        }
     }
 
-    @ModifyArgs(
+    @Redirect(
         at = @At(
             value = "INVOKE",
             target = "net/minecraft/client/network/ClientPlayerEntity.changeLookDirection(DD)V"
         ),
         method = "updateMouse()V"
     )
-    private void modifyLookDirection(Args args) {
-        if (this.modifyMouse == false) return;
-        args.set(0, finalCursorDeltaX);
-        args.set(1, finalCursorDeltaY * (this.client.options.invertYMouse ? -1 : 1));
+    private void modifyLookDirection(ClientPlayerEntity player, double cursorDeltaX, double cursorDeltaY) {
+        if (!this.modifyMouse) {
+            player.changeLookDirection(cursorDeltaX, cursorDeltaY);
+        } else {
+            player.changeLookDirection(finalCursorDeltaX, finalCursorDeltaY * (this.client.options.invertYMouse ? -1 : 1));
+        }
     }
 }
