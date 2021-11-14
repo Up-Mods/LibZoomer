@@ -45,7 +45,7 @@ public class GameRendererMixin {
         method = "getFov(Lnet/minecraft/client/render/Camera;FZ)D",
         cancellable = true
     )
-    private double getZoomedFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
+    private void getZoomedFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
         double fov = cir.getReturnValue();
         double zoomedFov = fov;
         
@@ -64,7 +64,5 @@ public class GameRendererMixin {
         }
 
         this.formerFov = zoomedFov;
-
-        return fov;
     }
 }

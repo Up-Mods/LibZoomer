@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
  * A mouse modifier that contains multiple mouse modifiers.
  */
 public class ContainingMouseModifier implements MouseModifier {
-    private Identifier transitionId = new Identifier("libzoomer:modifier_container");
+    private static final Identifier TRANSITION_ID = new Identifier("libzoomer:modifier_container");
     private boolean active;
     private MouseModifier[] modifiers;
 
@@ -19,7 +19,7 @@ public class ContainingMouseModifier implements MouseModifier {
 
     @Override
     public Identifier getIdentifier() {
-        return this.transitionId;
+        return TRANSITION_ID;
     }
 
     @Override

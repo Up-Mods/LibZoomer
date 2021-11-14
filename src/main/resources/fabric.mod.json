@@ -4,11 +4,10 @@
   "version": "${version}",
   "name": "LibZoomer",
   "description": "A library that allows for easy and powerful zooming.",
-  "authors": [
-    "EnnuiL"
-  ],
+  "authors": ["EnnuiL"],
   "contact": {
     "homepage": "https://modrinth.com/mod/libzoomer",
+    "issues": "https://github.com/EnnuiL/LibZoomer/issues",
     "sources": "https://github.com/EnnuiL/LibZoomer"
   },
   "license": "MIT",
