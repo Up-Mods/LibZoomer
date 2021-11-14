@@ -29,7 +29,11 @@ public class LibZoomerTestMod implements ModInitializer {
     @Override
     public void onInitialize() {
         // Michelle. She's an implementation of a very simple zoom key. Tests if there are zoom instance conflicts and spyglass-unrelated things.
-        KeyBinding michelle = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.libzoomertest.michelle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.libzoomertest.category"));
+        KeyBinding michelle = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.libzoomertest.michelle",
+            InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V,
+            "key.libzoomertest.category"
+        ));
         
         // Michael's Zoom Instance
         ZoomInstance zoomInstance = ZoomRegistry.registerInstance(new ZoomInstance(

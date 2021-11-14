@@ -4,7 +4,7 @@ import io.github.ennuil.libzoomer.api.MouseModifier;
 import net.minecraft.util.Identifier;
 
 public class SpyglassMouseModifier implements MouseModifier {
-    private Identifier transitionId = new Identifier("libzoomer:spyglass");
+    private static final Identifier TRANSITION_ID = new Identifier("libzoomer:spyglass");
     private boolean active;
 
     public SpyglassMouseModifier() {
@@ -13,7 +13,7 @@ public class SpyglassMouseModifier implements MouseModifier {
 
     @Override
     public Identifier getIdentifier() {
-        return this.transitionId;
+        return TRANSITION_ID;
     }
 
     @Override

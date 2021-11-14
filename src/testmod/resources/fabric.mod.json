@@ -4,9 +4,7 @@
   "version": "${version}",
   "name": "LibZoomer Testmod",
   "description": "LibZoomer's testmod. Contains Michael and friends!",
-  "authors": [
-    "EnnuiL"
-  ],
+  "authors": ["EnnuiL"],
   "license": "MIT",
   "icon": "assets/libzoomer/icon.png",
   "environment": "*",

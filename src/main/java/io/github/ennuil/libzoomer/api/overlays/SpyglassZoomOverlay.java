@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class SpyglassZoomOverlay implements ZoomOverlay {
-    private Identifier transitionId = new Identifier("libzoomer:spyglass_zoom");
+    private static final Identifier TRANSITION_ID = new Identifier("libzoomer:spyglass_zoom");
     private Identifier textureId;
     private MinecraftClient client;
     private float scale;
@@ -28,7 +28,7 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
 
     @Override
     public Identifier getIdentifier() {
-        return this.transitionId;
+        return TRANSITION_ID;
     }
 
     @Override

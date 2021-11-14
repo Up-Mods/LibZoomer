@@ -22,12 +22,6 @@ public class MouseMixin {
     @Shadow
     private MinecraftClient client;
 
-    @Shadow
-    private double cursorDeltaX;
-    
-    @Shadow
-    private double cursorDeltaY;
-
     @Unique
     private double cursorSensitivity;
 
@@ -64,7 +58,7 @@ public class MouseMixin {
         locals = LocalCapture.CAPTURE_FAILHARD,
         cancellable = true
     )
-    public void applyZoomChanges(CallbackInfo ci, double e, double o, double p) {
+    public void applyZoomChanges(CallbackInfo ci, double e, double k, double l) {
         this.modifyMouse = false;
         for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             boolean zoom = instance.getZoom();
@@ -72,13 +66,13 @@ public class MouseMixin {
                 instance.getMouseModifier().tick(zoom);
                 double zoomDivisor = zoom ? instance.getZoomDivisor() : 1.0F;
                 double transitionDivisor = instance.getTransitionMode().getInternalMultiplier();
-                o = instance.getMouseModifier().applyXModifier(o, cursorSensitivity, e, zoomDivisor, transitionDivisor);
-                p = instance.getMouseModifier().applyYModifier(p, cursorSensitivity, e, zoomDivisor, transitionDivisor);
+                k = instance.getMouseModifier().applyXModifier(k, cursorSensitivity, e, zoomDivisor, transitionDivisor);
+                l = instance.getMouseModifier().applyYModifier(l, cursorSensitivity, e, zoomDivisor, transitionDivisor);
                 this.modifyMouse = true;
             }
         }
-        this.finalCursorDeltaX = o;
-        this.finalCursorDeltaY = p;
+        this.finalCursorDeltaX = k;
+        this.finalCursorDeltaY = l;
     }
 
     @ModifyArgs(

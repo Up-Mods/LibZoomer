@@ -4,7 +4,7 @@ import io.github.ennuil.libzoomer.api.TransitionMode;
 import net.minecraft.util.Identifier;
 
 public class InstantTransitionMode implements TransitionMode {
-    private Identifier transitionId = new Identifier("libzoomer:no_transition");
+    private static final Identifier TRANSITION_ID = new Identifier("libzoomer:no_transition");
     private boolean active;
     private double divisor;
     private double internalMultiplier;
@@ -16,7 +16,7 @@ public class InstantTransitionMode implements TransitionMode {
     
     @Override
     public Identifier getIdentifier() {
-        return this.transitionId;
+        return TRANSITION_ID;
     }
 
     @Override

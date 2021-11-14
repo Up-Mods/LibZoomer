@@ -5,7 +5,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class SmoothTransitionMode implements TransitionMode {
-    private Identifier transitionId = new Identifier("libzoomer:smooth_transition");
+    private static final Identifier TRANSITION_ID = new Identifier("libzoomer:smooth_transition");
     private boolean active;
     private double fovMultiplier;
     private float smoothMultiplier;
@@ -24,7 +24,7 @@ public class SmoothTransitionMode implements TransitionMode {
     
     @Override
     public Identifier getIdentifier() {
-        return this.transitionId;
+        return TRANSITION_ID;
     }
 
     @Override
