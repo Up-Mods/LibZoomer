@@ -1,6 +1,5 @@
 package io.github.ennuil.libzoomer.api;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
 
 /**
@@ -18,14 +17,6 @@ public interface ZoomOverlay {
      * @return The zoom overlay's active state.
      */
     boolean getActive();
-
-    /**
-     * Sets the internal Minecraft client.
-     * While not always mandatory, the client is usually used internally in order to help with rendering.
-     * @param newClient The new MinecraftClient instance.
-     * @return The MinecraftClient that has been set.
-     */
-    MinecraftClient setClient(MinecraftClient newClient);
 
     /**
      * Determines if the zoom overlay should cancel the rendering of anything rendered after that.
