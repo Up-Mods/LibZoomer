@@ -18,7 +18,7 @@ import net.minecraft.util.math.MathHelper;
 public class SpyglassZoomOverlay implements ZoomOverlay {
     private static final Identifier OVERLAY_ID = new Identifier("libzoomer:spyglass_zoom");
     private final Identifier textureId;
-    private MinecraftClient client;
+    private final MinecraftClient client;
     private float scale;
     private boolean active;
 
@@ -41,11 +41,6 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
     @Override
     public boolean getActive() {
         return this.active;
-    }
-
-    @Override
-    public MinecraftClient setClient(MinecraftClient newClient) {
-        return this.client = newClient;
     }
 
     @Override
