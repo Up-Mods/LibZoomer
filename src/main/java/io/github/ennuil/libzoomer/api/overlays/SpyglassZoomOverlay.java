@@ -12,13 +12,20 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
+/**
+ * An implementation of the spyglass overlay as a zoom overlay
+ */
 public class SpyglassZoomOverlay implements ZoomOverlay {
-    private static final Identifier TRANSITION_ID = new Identifier("libzoomer:spyglass_zoom");
-    private Identifier textureId;
+    private static final Identifier OVERLAY_ID = new Identifier("libzoomer:spyglass_zoom");
+    private final Identifier textureId;
     private MinecraftClient client;
     private float scale;
     private boolean active;
 
+    /**
+     * Initializes an instance of the spyglass mouse modifier with the specified texture identifier
+     * @param textureId The texture identifier for the spyglass overlay
+    */
     public SpyglassZoomOverlay(Identifier textureId) {
         this.textureId = textureId;
         this.client = MinecraftClient.getInstance();
@@ -28,7 +35,7 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
 
     @Override
     public Identifier getIdentifier() {
-        return TRANSITION_ID;
+        return OVERLAY_ID;
     }
 
     @Override

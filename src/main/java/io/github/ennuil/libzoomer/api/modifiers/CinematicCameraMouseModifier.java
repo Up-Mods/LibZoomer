@@ -5,14 +5,20 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.SmoothUtil;
 import net.minecraft.util.Identifier;
 
+/**
+ * An implemenation of Vanilla's Cinematic Camera as a mouse modifier
+ */
 public class CinematicCameraMouseModifier implements MouseModifier {
-    private static final Identifier TRANSITION_ID = new Identifier("libzoomer:cinematic_camera");
+    private static final Identifier MODIFIER_ID = new Identifier("libzoomer:cinematic_camera");
     private boolean active;
-    private MinecraftClient client;
+    private final MinecraftClient client;
     private boolean cinematicCameraEnabled;
     private final SmoothUtil cursorXZoomSmoother = new SmoothUtil();
     private final SmoothUtil cursorYZoomSmoother = new SmoothUtil();
 
+    /**
+     * Initializes an instance of the cinematic camera mouse modifier
+    */
     public CinematicCameraMouseModifier() {
         this.active = false;
         this.client = MinecraftClient.getInstance();
@@ -20,7 +26,7 @@ public class CinematicCameraMouseModifier implements MouseModifier {
     
     @Override
     public Identifier getIdentifier() {
-        return TRANSITION_ID;
+        return MODIFIER_ID;
     }
 
     @Override
@@ -50,11 +56,11 @@ public class CinematicCameraMouseModifier implements MouseModifier {
 
     @Override
     public void tick(boolean active) {
-        this.active = active;
         this.cinematicCameraEnabled = this.client.options.smoothCameraEnabled;
-        if (this.active == false) {
+        if (!active && active != this.active) {
             this.cursorXZoomSmoother.clear();
             this.cursorYZoomSmoother.clear();
         }
+        this.active = active;
     }
 }

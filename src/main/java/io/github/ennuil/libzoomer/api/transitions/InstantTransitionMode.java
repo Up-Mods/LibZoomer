@@ -3,15 +3,20 @@ package io.github.ennuil.libzoomer.api.transitions;
 import io.github.ennuil.libzoomer.api.TransitionMode;
 import net.minecraft.util.Identifier;
 
+/**
+ * An implementation of a simple zoom as a transition mode
+ */
 public class InstantTransitionMode implements TransitionMode {
     private static final Identifier TRANSITION_ID = new Identifier("libzoomer:no_transition");
     private boolean active;
     private double divisor;
-    private double internalMultiplier;
 
+    /**
+     * Initializes an instance of the instant transition mode
+    */
     public InstantTransitionMode() {
         this.active = false;
-        this.internalMultiplier = 1.0;
+        this.divisor = 1.0;
     }
     
     @Override
@@ -26,7 +31,6 @@ public class InstantTransitionMode implements TransitionMode {
 
     @Override
     public double applyZoom(double fov, float tickDelta) {
-        this.internalMultiplier = 1.0 / this.divisor;
         return fov / this.divisor;
     }
 
@@ -38,6 +42,6 @@ public class InstantTransitionMode implements TransitionMode {
 
     @Override
     public double getInternalMultiplier() {
-        return this.internalMultiplier;
+        return 1.0 / this.divisor;
     }
 }

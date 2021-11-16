@@ -8,10 +8,14 @@ import net.minecraft.util.Identifier;
  * A mouse modifier that contains multiple mouse modifiers.
  */
 public class ContainingMouseModifier implements MouseModifier {
-    private static final Identifier TRANSITION_ID = new Identifier("libzoomer:modifier_container");
+    private static final Identifier MODIFIER_ID = new Identifier("libzoomer:modifier_container");
     private boolean active;
     private MouseModifier[] modifiers;
 
+    /**
+     * Initializes an instance of the containing mouse modifier
+     * @param modifiers The contained mouse modifiers
+    */
     public ContainingMouseModifier(MouseModifier... modifiers) {
         this.active = false;
         this.modifiers = modifiers;
@@ -19,7 +23,7 @@ public class ContainingMouseModifier implements MouseModifier {
 
     @Override
     public Identifier getIdentifier() {
-        return TRANSITION_ID;
+        return MODIFIER_ID;
     }
 
     @Override
@@ -49,6 +53,7 @@ public class ContainingMouseModifier implements MouseModifier {
     public void tick(boolean active) {
         boolean generalActive = false;
         for (MouseModifier modifier : modifiers) {
+            if (modifier == null) continue;
             modifier.tick(active);
             if (!generalActive) {
                 generalActive = modifier.getActive();

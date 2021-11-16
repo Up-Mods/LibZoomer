@@ -28,10 +28,12 @@ public class InGameHudMixin {
         shouldCancelOverlay = false;
         for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             ZoomOverlay overlay = instance.getZoomOverlay();
-            overlay.tickBeforeRender();
-            if (overlay.getActive()) {
-                if (overlay.cancelOverlayRendering()) shouldCancelOverlay = true;
-                overlay.renderOverlay();
+            if (overlay != null) {
+                overlay.tickBeforeRender();
+                if (overlay.getActive()) {
+                    if (overlay.cancelOverlayRendering()) shouldCancelOverlay = true;
+                    overlay.renderOverlay();
+                }
             }
         }
     }
