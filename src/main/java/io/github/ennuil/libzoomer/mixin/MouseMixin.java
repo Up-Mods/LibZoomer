@@ -61,14 +61,16 @@ public class MouseMixin {
     public void applyZoomChanges(CallbackInfo ci, double e, double k, double l) {
         this.modifyMouse = false;
         for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
-            boolean zoom = instance.getZoom();
-            if (zoom || instance.isModifierActive()) {
-                instance.getMouseModifier().tick(zoom);
-                double zoomDivisor = zoom ? instance.getZoomDivisor() : 1.0F;
-                double transitionDivisor = instance.getTransitionMode().getInternalMultiplier();
-                k = instance.getMouseModifier().applyXModifier(k, cursorSensitivity, e, zoomDivisor, transitionDivisor);
-                l = instance.getMouseModifier().applyYModifier(l, cursorSensitivity, e, zoomDivisor, transitionDivisor);
-                this.modifyMouse = true;
+            if (instance.getMouseModifier() != null) {
+                boolean zoom = instance.getZoom();
+                if (zoom || instance.isModifierActive()) {
+                    instance.getMouseModifier().tick(zoom);
+                    double zoomDivisor = zoom ? instance.getZoomDivisor() : 1.0F;
+                    double transitionDivisor = instance.getTransitionMode().getInternalMultiplier();
+                    k = instance.getMouseModifier().applyXModifier(k, cursorSensitivity, e, zoomDivisor, transitionDivisor);
+                    l = instance.getMouseModifier().applyYModifier(l, cursorSensitivity, e, zoomDivisor, transitionDivisor);
+                    this.modifyMouse = true;
+                }
             }
         }
         this.finalCursorDeltaX = k;

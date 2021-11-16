@@ -34,7 +34,9 @@ public class GameRendererMixin {
             boolean zoom = instance.getZoom();
             if (zoom || (instance.isTransitionActive() || instance.isOverlayActive())) {
                 double divisor = zoom ? instance.getZoomDivisor() : 1.0F;
-                instance.getZoomOverlay().tick(zoom, divisor, instance.getTransitionMode().getInternalMultiplier());
+                if (instance.getZoomOverlay() != null) {
+                    instance.getZoomOverlay().tick(zoom, divisor, instance.getTransitionMode().getInternalMultiplier());
+                }
                 instance.getTransitionMode().tick(zoom, divisor);
             }
         }

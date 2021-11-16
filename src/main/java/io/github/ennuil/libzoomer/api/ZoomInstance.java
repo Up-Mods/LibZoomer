@@ -1,7 +1,7 @@
 package io.github.ennuil.libzoomer.api;
 
-import io.github.ennuil.libzoomer.api.modifiers.NoMouseModifier;
-import io.github.ennuil.libzoomer.api.overlays.NoZoomOverlay;
+import org.jetbrains.annotations.Nullable;
+
 import io.github.ennuil.libzoomer.api.transitions.InstantTransitionMode;
 import net.minecraft.util.Identifier;
 
@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
  * The zoom instance is essentially the zoom. It contains all the values and sub-instances required to zoom.
  */
 public class ZoomInstance {
-    private Identifier instanceId;
+    private final Identifier instanceId;
     private boolean zoom;
     private double defaultZoomDivisor;
     private double zoomDivisor;
@@ -21,21 +21,13 @@ public class ZoomInstance {
      * Initializes a zoom instance. It must be registered by the instance registry before being functional
      * @param instanceId The identifier for this zoom instance.
      * @param defaultZoomDivisor The default zoom divisor. It will be this instance's initial zoom divisor value.
-     * @param transition The zoom instance's transition mode. InstantTransitionMode is used if null.
-     * @param modifier The zoom instance's mouse modifier. NoMouseModifier is used if null.
-     * @param overlay The zoom instance's zoom overlay. NoZoomOverlay is used if null.
+     * @param transition The zoom instance's transition mode. {@link io.github.ennuil.libzoomer.api.transitions.InstantTransitionMode} is used if null.
+     * @param modifier The zoom instance's mouse modifier. If null, no mouse modifier will be applied.
+     * @param overlay The zoom instance's zoom overlay. If null, no zoom overlay will be applied.
      */
-    public ZoomInstance(Identifier instanceId, float defaultZoomDivisor, TransitionMode transition, MouseModifier modifier, ZoomOverlay overlay) {
+    public ZoomInstance(Identifier instanceId, float defaultZoomDivisor, TransitionMode transition, @Nullable MouseModifier modifier, @Nullable ZoomOverlay overlay) {
         if (transition == null) {
             transition = new InstantTransitionMode();
-        }
-
-        if (modifier == null) {
-            modifier = new NoMouseModifier();
-        }
-
-        if (overlay == null) {
-            overlay = new NoZoomOverlay();
         }
 
         this.instanceId = instanceId;
@@ -146,6 +138,7 @@ public class ZoomInstance {
      * Gets the instance's mouse modifier.
      * @return The mouse modifier.
      */
+    @Nullable
     public MouseModifier getMouseModifier() {
         return this.modifier;
     }
@@ -161,16 +154,21 @@ public class ZoomInstance {
 
     /**
      * Gets the mouse modifier's active state.
-     * @return The mouse modifier's active state.
+     * @return The mouse modifier's active state. If the modifier's null, return {@code false}.
      */
     public boolean isModifierActive() {
-        return this.modifier.getActive();
+        if (this.modifier != null) {
+            return this.modifier.getActive();
+        } else {
+            return false;
+        }
     }
 
     /**
      * Gets the instance's zoom overlay.
      * @return The zoom overlay.
      */
+    @Nullable
     public ZoomOverlay getZoomOverlay() {
         return this.overlay;
     }
@@ -186,9 +184,13 @@ public class ZoomInstance {
 
     /**
      * Gets the zoom overlay's active state.
-     * @return The zoom overlay's active state.
+     * @return The zoom overlay's active state. If the overlay's null, return {@code false}.
      */
     public boolean isOverlayActive() {
-        return this.overlay.getActive();
+        if (this.overlay != null) {
+            return this.overlay.getActive();
+        } else {
+            return false;
+        }
     }
 }

@@ -6,7 +6,6 @@ import io.github.ennuil.libzoomer.api.ZoomInstance;
 import io.github.ennuil.libzoomer.api.ZoomRegistry;
 import io.github.ennuil.libzoomer.api.modifiers.CinematicCameraMouseModifier;
 import io.github.ennuil.libzoomer.api.modifiers.SpyglassMouseModifier;
-import io.github.ennuil.libzoomer.api.overlays.NoZoomOverlay;
 import io.github.ennuil.libzoomer.api.overlays.SpyglassZoomOverlay;
 import io.github.ennuil.libzoomer.api.transitions.InstantTransitionMode;
 import io.github.ennuil.libzoomer.api.transitions.SmoothTransitionMode;
@@ -47,7 +46,7 @@ public class LibZoomerTestMod implements ModInitializer {
             new Identifier("libzoomertest:zoom2"),
             3.0F, new InstantTransitionMode(),
             new CinematicCameraMouseModifier(),
-            new NoZoomOverlay()
+            null
         ));
 
         // This prints out all zoom instances registered so far and some extra info
