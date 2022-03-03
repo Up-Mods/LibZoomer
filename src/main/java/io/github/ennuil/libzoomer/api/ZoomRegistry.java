@@ -15,7 +15,7 @@ public class ZoomRegistry {
      * @param instance An unregistered zoom instance.
      * @return The zoom instance if registered, else, null.
      */
-    public static ZoomInstance registerInstance(ZoomInstance instance) {
+    protected static ZoomInstance registerInstance(ZoomInstance instance) {
         for (ZoomInstance zoomInstance : zoomInstances) {
             if (zoomInstance.getInstanceId().equals(instance.getInstanceId())) {
                 throw new RuntimeException("Multiple zoom instances with the ID " + zoomInstance.getInstanceId() + " were found!");
