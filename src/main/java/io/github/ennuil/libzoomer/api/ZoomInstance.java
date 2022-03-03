@@ -37,6 +37,8 @@ public class ZoomInstance {
         this.transition = transition;
         this.modifier = modifier;
         this.overlay = overlay;
+
+        ZoomRegistry.registerInstance(this);
     }
 
     /**

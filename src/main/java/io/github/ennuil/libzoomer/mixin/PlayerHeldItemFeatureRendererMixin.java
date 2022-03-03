@@ -16,13 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 
 @Mixin(PlayerHeldItemFeatureRenderer.class)
-public class PlayerHeldItemFeatureRendererMixin {
-    @Inject(
-        at = @At("HEAD"),
-        method = "renderItem",
-        cancellable = true
-    )
-    private void renderItem(LivingEntity entity, ItemStack stack, ModelTransformation.Mode transformationMode, Arm arm, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
+public abstract class PlayerHeldItemFeatureRendererMixin {
+    @Inject(at = @At("HEAD"), method = "renderItem", cancellable = true)
+    private void renderCustomSpyglassesAsSpyglass(LivingEntity entity, ItemStack stack, ModelTransformation.Mode transformationMode, Arm arm, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
         if (stack.isIn(SpyglassHelper.SPYGLASSES) && entity.getActiveItem() == stack && entity.handSwingTicks == 0) {
             this.renderSpyglass(entity, stack, arm, matrices, vertexConsumers, light);
             ci.cancel();
@@ -30,5 +26,5 @@ public class PlayerHeldItemFeatureRendererMixin {
     }
 
     @Shadow
-    private void renderSpyglass(LivingEntity livingEntity, ItemStack itemStack, Arm arm, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {}
+    abstract void renderSpyglass(LivingEntity livingEntity, ItemStack itemStack, Arm arm, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i);
 }

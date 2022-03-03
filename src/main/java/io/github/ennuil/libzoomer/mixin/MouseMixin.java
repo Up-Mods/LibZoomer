@@ -18,8 +18,8 @@ import net.minecraft.client.Mouse;
 
 @Mixin(Mouse.class)
 public class MouseMixin {
-    @Final
     @Shadow
+    @Final
     private MinecraftClient client;
 
     @Unique
@@ -38,9 +38,9 @@ public class MouseMixin {
     @Inject(
         at = @At(
             value = "FIELD",
-            target = "net.minecraft.client.option/GameOptions.smoothCameraEnabled:Z"
+            target = "net.minecraft.client.option/GameOptions.cinematicCamera:Z"
         ),
-        method = "updateMouse()V",
+        method = "updateLookDirection()V",
         locals = LocalCapture.CAPTURE_FAILHARD,
         cancellable = true
     )
@@ -54,7 +54,7 @@ public class MouseMixin {
             target = "net/minecraft/client/Mouse.cursorDeltaX:D",
             ordinal = 4
         ),
-        method = "updateMouse()V",
+        method = "updateLookDirection()V",
         locals = LocalCapture.CAPTURE_FAILHARD,
         cancellable = true
     )
@@ -82,7 +82,7 @@ public class MouseMixin {
             value = "INVOKE",
             target = "net/minecraft/client/tutorial/TutorialManager.onUpdateMouse(DD)V"
         ),
-        method = "updateMouse()V"
+        method = "updateLookDirection()V"
     )
     private void modifyTutorialUpdate(Args args) {
         if (this.modifyMouse == false) return;
@@ -95,7 +95,7 @@ public class MouseMixin {
             value = "INVOKE",
             target = "net/minecraft/client/network/ClientPlayerEntity.changeLookDirection(DD)V"
         ),
-        method = "updateMouse()V"
+        method = "updateLookDirection()V"
     )
     private void modifyLookDirection(Args args) {
         if (this.modifyMouse == false) return;
