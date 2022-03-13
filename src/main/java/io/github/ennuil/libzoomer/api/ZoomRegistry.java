@@ -1,13 +1,12 @@
 package io.github.ennuil.libzoomer.api;
 
-import java.util.HashSet;
-import java.util.Set;
+import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 
 /**
  * The class responsible for the handling the zoom instance registry.
  */
 public class ZoomRegistry {
-    private static final Set<ZoomInstance> zoomInstances = new HashSet<>();
+    private static final ReferenceArraySet<ZoomInstance> zoomInstances = new ReferenceArraySet<>();
 
     /**
      * Registers a zoom instance into the internal set of zoom instances.
@@ -28,7 +27,7 @@ public class ZoomRegistry {
      * Gets a set of all the registered zoom instances.
      * @return A set of registered zoom instances.
      */
-    public static Set<ZoomInstance> getZoomInstances() {
+    public static ReferenceArraySet<ZoomInstance> getZoomInstances() {
         return zoomInstances;
     }
 }
