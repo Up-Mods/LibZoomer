@@ -10,8 +10,8 @@ import net.minecraft.util.math.MathHelper;
 public class SmoothTransitionMode implements TransitionMode {
     private static final Identifier TRANSITION_ID = new Identifier("libzoomer:smooth_transition");
     private boolean active;
+    private final float smoothMultiplier;
     private double fovMultiplier;
-    private float smoothMultiplier;
     private float internalMultiplier;
     private float lastInternalMultiplier;
 

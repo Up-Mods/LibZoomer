@@ -1,7 +1,5 @@
 package io.github.ennuil.libzoomertest;
 
-import com.mojang.blaze3d.platform.InputUtil;
-
 import org.lwjgl.glfw.GLFW;
 
 import io.github.ennuil.libzoomer.api.ZoomInstance;
