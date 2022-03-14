@@ -7,7 +7,6 @@ import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,9 +20,6 @@ public class GameRendererMixin {
     @Final
     @Shadow
     private MinecraftClient client;
-    
-    @Unique
-    private double formerFov;
 
     @Inject(
         at = @At("HEAD"),
@@ -33,7 +29,7 @@ public class GameRendererMixin {
         for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             boolean zoom = instance.getZoom();
             if (zoom || (instance.isTransitionActive() || instance.isOverlayActive())) {
-                double divisor = zoom ? instance.getZoomDivisor() : 1.0F;
+                double divisor = zoom ? instance.getZoomDivisor() : 1.0;
                 if (instance.getZoomOverlay() != null) {
                     instance.getZoomOverlay().tick(zoom, divisor, instance.getTransitionMode().getInternalMultiplier());
                 }
@@ -60,11 +56,5 @@ public class GameRendererMixin {
         if (fov != zoomedFov) {
             cir.setReturnValue(zoomedFov);
         }
-
-        if (zoomedFov > formerFov) {
-            if (changingFov) this.client.worldRenderer.scheduleTerrainUpdate();
-        }
-
-        this.formerFov = zoomedFov;
     }
 }
