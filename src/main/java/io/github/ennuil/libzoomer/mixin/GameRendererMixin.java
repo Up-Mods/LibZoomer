@@ -17,8 +17,7 @@ import io.github.ennuil.libzoomer.api.ZoomRegistry;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
-    @Final
-    @Shadow
+    @Shadow @Final
     private MinecraftClient client;
 
     @Inject(
@@ -26,6 +25,11 @@ public class GameRendererMixin {
         method = "tick()V"
     )
     private void tickInstances(CallbackInfo info) {
+        boolean iterateZoom = false;
+        boolean iterateTransitions = false;
+        boolean iterateModifiers = false;
+        boolean iterateOverlays = false;
+        
         for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             boolean zoom = instance.getZoom();
             if (zoom || (instance.isTransitionActive() || instance.isOverlayActive())) {
@@ -35,7 +39,17 @@ public class GameRendererMixin {
                 }
                 instance.getTransitionMode().tick(zoom, divisor);
             }
+
+            iterateZoom = iterateZoom || zoom;
+            iterateTransitions = iterateTransitions || instance.isTransitionActive();
+            iterateModifiers = iterateModifiers || instance.isModifierActive();
+            iterateOverlays = iterateOverlays || instance.isOverlayActive();
         }
+
+        ZoomRegistry.setIterateZoom(iterateZoom);
+        ZoomRegistry.setIterateTransitions(iterateTransitions);
+        ZoomRegistry.setIterateModifiers(iterateModifiers);
+        ZoomRegistry.setIterateOverlays(iterateOverlays);
     }
 
     @Inject(
@@ -47,9 +61,11 @@ public class GameRendererMixin {
         double fov = cir.getReturnValue();
         double zoomedFov = fov;
         
-        for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
-            if (instance.isTransitionActive()) {
-                zoomedFov = instance.getTransitionMode().applyZoom(zoomedFov, tickDelta);   
+        if (ZoomRegistry.shouldIterateTransitions()) {
+            for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
+                if (instance.isTransitionActive()) {
+                    zoomedFov = instance.getTransitionMode().applyZoom(zoomedFov, tickDelta);   
+                }
             }
         }
 
