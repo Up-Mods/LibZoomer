@@ -25,13 +25,13 @@ public class InGameHudMixin {
         method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V"
     )
     public void injectZoomOverlay(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
-        shouldCancelOverlay = false;
+        this.shouldCancelOverlay = false;
         for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
             ZoomOverlay overlay = instance.getZoomOverlay();
             if (overlay != null) {
                 overlay.tickBeforeRender();
                 if (overlay.getActive()) {
-                    if (overlay.cancelOverlayRendering()) shouldCancelOverlay = true;
+                    if (overlay.cancelOverlayRendering()) this.shouldCancelOverlay = true;
                     overlay.renderOverlay();
                 }
             }
@@ -48,7 +48,7 @@ public class InGameHudMixin {
         cancellable = true
     )
     public void cancelOverlay(float scale, CallbackInfo ci) {
-        if (shouldCancelOverlay) ci.cancel();
+        if (this.shouldCancelOverlay) ci.cancel();
     }
 
     // ...which is why we set cancelOverlayRender to false before that!
@@ -60,6 +60,8 @@ public class InGameHudMixin {
         method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V"
     )
     public void disableOverlayCancelling(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
-        if (shouldCancelOverlay) shouldCancelOverlay = false;
+        if (this.shouldCancelOverlay) {
+            this.shouldCancelOverlay = false;
+        }
     }
 }

@@ -1,15 +1,15 @@
 package io.github.ennuil.libzoomer.mixin;
 
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import io.github.ennuil.libzoomer.api.ZoomInstance;
 import io.github.ennuil.libzoomer.api.ZoomRegistry;
@@ -17,7 +17,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 
 @Mixin(Mouse.class)
-public class MouseMixin {
+public abstract class MouseMixin {
     @Shadow
     @Final
     private MinecraftClient client;
@@ -51,25 +51,26 @@ public class MouseMixin {
     @Inject(
         at = @At(
             value = "FIELD",
-            target = "net/minecraft/client/Mouse.cursorDeltaX:D",
-            ordinal = 4
+            target = "net/minecraft/client/option/GameOptions.invertYMouse:Z",
+            opcode = Opcodes.GETFIELD
         ),
         method = "updateLookDirection()V",
-        locals = LocalCapture.CAPTURE_FAILHARD,
-        cancellable = true
+        locals = LocalCapture.CAPTURE_FAILHARD
     )
-    public void applyZoomChanges(CallbackInfo ci, double e, double k, double l) {
+    public void applyZoomChanges(CallbackInfo ci, double e, double k, double l, int m) {
         this.modifyMouse = false;
-        for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
-            if (instance.getMouseModifier() != null) {
-                boolean zoom = instance.getZoom();
-                if (zoom || instance.isModifierActive()) {
-                    instance.getMouseModifier().tick(zoom);
-                    double zoomDivisor = zoom ? instance.getZoomDivisor() : 1.0F;
-                    double transitionDivisor = instance.getTransitionMode().getInternalMultiplier();
-                    k = instance.getMouseModifier().applyXModifier(k, cursorSensitivity, e, zoomDivisor, transitionDivisor);
-                    l = instance.getMouseModifier().applyYModifier(l, cursorSensitivity, e, zoomDivisor, transitionDivisor);
-                    this.modifyMouse = true;
+        if (ZoomRegistry.shouldIterateZoom() || ZoomRegistry.shouldIterateModifiers()) {
+            for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
+                if (instance.getMouseModifier() != null) {
+                    boolean zoom = instance.getZoom();
+                    if (zoom || instance.isModifierActive()) {
+                        instance.getMouseModifier().tick(zoom);
+                        double zoomDivisor = zoom ? instance.getZoomDivisor() : 1.0F;
+                        double transitionDivisor = instance.getTransitionMode().getInternalMultiplier();
+                        k = instance.getMouseModifier().applyXModifier(k, cursorSensitivity, e, zoomDivisor, transitionDivisor);
+                        l = instance.getMouseModifier().applyYModifier(l, cursorSensitivity, e, zoomDivisor, transitionDivisor);
+                        this.modifyMouse = true;
+                    }
                 }
             }
         }
@@ -77,29 +78,31 @@ public class MouseMixin {
         this.finalCursorDeltaY = l;
     }
 
-    @ModifyArgs(
+    @ModifyVariable(
         at = @At(
-            value = "INVOKE",
-            target = "net/minecraft/client/tutorial/TutorialManager.onUpdateMouse(DD)V"
+            value = "FIELD",
+            target = "net/minecraft/client/option/GameOptions.invertYMouse:Z",
+            opcode = Opcodes.GETFIELD
         ),
-        method = "updateLookDirection()V"
+        method = "updateLookDirection()V",
+        ordinal = 1
     )
-    private void modifyTutorialUpdate(Args args) {
-        if (this.modifyMouse == false) return;
-        args.set(0, finalCursorDeltaX);
-        args.set(1, finalCursorDeltaY);
+    private double modifyFinalCursorDeltaX(double k) {
+        if (!this.modifyMouse) return k;
+        return finalCursorDeltaX;
     }
 
-    @ModifyArgs(
+    @ModifyVariable(
         at = @At(
-            value = "INVOKE",
-            target = "net/minecraft/client/network/ClientPlayerEntity.changeLookDirection(DD)V"
+            value = "FIELD",
+            target = "net/minecraft/client/option/GameOptions.invertYMouse:Z",
+            opcode = Opcodes.GETFIELD
         ),
-        method = "updateLookDirection()V"
+        method = "updateLookDirection()V",
+        ordinal = 2
     )
-    private void modifyLookDirection(Args args) {
-        if (this.modifyMouse == false) return;
-        args.set(0, finalCursorDeltaX);
-        args.set(1, finalCursorDeltaY * (this.client.options.invertYMouse ? -1 : 1));
+    private double modifyFinalCursorDeltaY(double l) {
+        if (!this.modifyMouse) return l;
+        return finalCursorDeltaY;
     }
 }

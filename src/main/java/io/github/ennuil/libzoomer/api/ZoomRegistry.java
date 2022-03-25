@@ -9,6 +9,10 @@ import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
  */
 public class ZoomRegistry {
     private static final Set<ZoomInstance> zoomInstances = new ReferenceArraySet<>();
+    private static boolean iterateZoom;
+    private static boolean iterateTransitions;
+    private static boolean iterateModifiers;
+    private static boolean iterateOverlays;
 
     /**
      * Registers a zoom instance into the internal set of zoom instances.
@@ -31,5 +35,38 @@ public class ZoomRegistry {
      */
     public static Set<ZoomInstance> getZoomInstances() {
         return zoomInstances;
+    }
+
+    // TODO - Document!
+    public static boolean shouldIterateZoom() {
+        return iterateZoom;
+    }
+
+    public static void setIterateZoom(boolean iterateZoom) {
+        ZoomRegistry.iterateZoom = iterateZoom;
+    }
+
+    public static boolean shouldIterateTransitions() {
+        return iterateTransitions;
+    }
+
+    public static void setIterateTransitions(boolean iterateTransitions) {
+        ZoomRegistry.iterateTransitions = iterateTransitions;
+    }
+    
+    public static boolean shouldIterateModifiers() {
+        return iterateModifiers;
+    }
+
+    public static void setIterateModifiers(boolean iterateModifiers) {
+        ZoomRegistry.iterateModifiers = iterateModifiers;
+    }
+
+    public static boolean shouldIterateOverlays() {
+        return iterateOverlays;
+    }
+
+    public static void setIterateOverlays(boolean iterateOverlays) {
+        ZoomRegistry.iterateOverlays = iterateOverlays;
     }
 }

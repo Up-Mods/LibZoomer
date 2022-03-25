@@ -12,7 +12,7 @@ import net.minecraft.client.item.UnclampedModelPredicateProvider;
 import net.minecraft.util.Identifier;
 
 @Mixin(ModelPredicateProviderRegistry.class)
-public class ModelPredicateProviderRegistryMixin {
+public abstract class ModelPredicateProviderRegistryMixin {
     @Shadow
     private static UnclampedModelPredicateProvider register(Identifier id, UnclampedModelPredicateProvider provider) {
         return null;
