@@ -38,7 +38,7 @@ public abstract class MouseMixin {
             opcode = Opcodes.GETFIELD
         ),
         method = "updateLookDirection()V",
-        locals = LocalCapture.PRINT
+        locals = LocalCapture.CAPTURE_FAILHARD
     )
     public void applyZoomChanges(CallbackInfo ci, double d, double e, double k, double l, double f, double g, double h, int m) {
         this.modifyMouse = false;
@@ -48,7 +48,7 @@ public abstract class MouseMixin {
                     boolean zoom = instance.getZoom();
                     if (zoom || instance.isModifierActive()) {
                         instance.getMouseModifier().tick(zoom);
-                        double zoomDivisor = zoom ? instance.getZoomDivisor() : 1.0F;
+                        double zoomDivisor = zoom ? instance.getZoomDivisor() : 1.0;
                         double transitionDivisor = instance.getTransitionMode().getInternalMultiplier();
                         k = instance.getMouseModifier().applyXModifier(k, h, e, zoomDivisor, transitionDivisor);
                         l = instance.getMouseModifier().applyYModifier(l, h, e, zoomDivisor, transitionDivisor);
@@ -68,7 +68,7 @@ public abstract class MouseMixin {
             opcode = Opcodes.GETFIELD
         ),
         method = "updateLookDirection()V",
-        ordinal = 1
+        ordinal = 2
     )
     private double modifyFinalCursorDeltaX(double k) {
         if (!this.modifyMouse) return k;
@@ -82,7 +82,7 @@ public abstract class MouseMixin {
             opcode = Opcodes.GETFIELD
         ),
         method = "updateLookDirection()V",
-        ordinal = 2
+        ordinal = 3
     )
     private double modifyFinalCursorDeltaY(double l) {
         if (!this.modifyMouse) return l;
