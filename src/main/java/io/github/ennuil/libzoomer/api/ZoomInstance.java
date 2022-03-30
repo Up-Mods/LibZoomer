@@ -26,15 +26,11 @@ public class ZoomInstance {
      * @param overlay The zoom instance's zoom overlay. If null, no zoom overlay will be applied.
      */
     public ZoomInstance(Identifier instanceId, float defaultZoomDivisor, TransitionMode transition, @Nullable MouseModifier modifier, @Nullable ZoomOverlay overlay) {
-        if (transition == null) {
-            transition = new InstantTransitionMode();
-        }
-
         this.instanceId = instanceId;
         this.zoom = false;
         this.defaultZoomDivisor = defaultZoomDivisor;
         this.zoomDivisor = this.defaultZoomDivisor;
-        this.transition = transition;
+        this.transition = transition == null ? new InstantTransitionMode() : transition;
         this.modifier = modifier;
         this.overlay = overlay;
 

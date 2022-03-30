@@ -31,7 +31,7 @@ dependencies {
 	}
 	modImplementation libs.fabric.loader
 	
-	modImplementation libs.fabric.api
+	testmodImplementation libs.fabric.api
 
 	afterEvaluate {
 		testmodImplementation sourceSets.main.output

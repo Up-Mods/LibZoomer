@@ -23,9 +23,6 @@ public abstract class MouseMixin {
     private MinecraftClient client;
 
     @Unique
-    private double cursorSensitivity;
-
-    @Unique
     private boolean modifyMouse;
 
     @Unique
@@ -34,20 +31,6 @@ public abstract class MouseMixin {
     @Unique
     private double finalCursorDeltaY;
 
-    // Mixin really hates me doing the way saner way of doing this, so, we went with the cursed one
-    @Inject(
-        at = @At(
-            value = "FIELD",
-            target = "net.minecraft.client.option/GameOptions.cinematicCamera:Z"
-        ),
-        method = "updateLookDirection()V",
-        locals = LocalCapture.CAPTURE_FAILHARD,
-        cancellable = true
-    )
-    public void getSensitivity(CallbackInfo ci, double e, double f, double g, double h) {
-        this.cursorSensitivity = h;
-    }
-
     @Inject(
         at = @At(
             value = "FIELD",
@@ -55,9 +38,9 @@ public abstract class MouseMixin {
             opcode = Opcodes.GETFIELD
         ),
         method = "updateLookDirection()V",
-        locals = LocalCapture.CAPTURE_FAILHARD
+        locals = LocalCapture.PRINT
     )
-    public void applyZoomChanges(CallbackInfo ci, double e, double k, double l, int m) {
+    public void applyZoomChanges(CallbackInfo ci, double d, double e, double k, double l, double f, double g, double h, int m) {
         this.modifyMouse = false;
         if (ZoomRegistry.shouldIterateZoom() || ZoomRegistry.shouldIterateModifiers()) {
             for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
@@ -67,8 +50,8 @@ public abstract class MouseMixin {
                         instance.getMouseModifier().tick(zoom);
                         double zoomDivisor = zoom ? instance.getZoomDivisor() : 1.0F;
                         double transitionDivisor = instance.getTransitionMode().getInternalMultiplier();
-                        k = instance.getMouseModifier().applyXModifier(k, cursorSensitivity, e, zoomDivisor, transitionDivisor);
-                        l = instance.getMouseModifier().applyYModifier(l, cursorSensitivity, e, zoomDivisor, transitionDivisor);
+                        k = instance.getMouseModifier().applyXModifier(k, h, e, zoomDivisor, transitionDivisor);
+                        l = instance.getMouseModifier().applyYModifier(l, h, e, zoomDivisor, transitionDivisor);
                         this.modifyMouse = true;
                     }
                 }
