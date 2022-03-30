@@ -2,6 +2,8 @@ package io.github.ennuil.libzoomer.api;
 
 import java.util.Set;
 
+import org.jetbrains.annotations.ApiStatus;
+
 import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 
 /**
@@ -20,6 +22,7 @@ public class ZoomRegistry {
      * @param instance An unregistered zoom instance.
      * @return The zoom instance if registered, else, null.
      */
+    @ApiStatus.Internal
     protected static ZoomInstance registerInstance(ZoomInstance instance) {
         for (ZoomInstance zoomInstance : zoomInstances) {
             if (zoomInstance.getInstanceId().equals(instance.getInstanceId())) {
@@ -37,35 +40,74 @@ public class ZoomRegistry {
         return zoomInstances;
     }
 
-    // TODO - Document!
+    /**
+     * Determines whenever an iteration through all active zoom instances is necessary.
+     * @return {@code true} if an iteration is needed, else {@code false} otherwise.
+     */
     public static boolean shouldIterateZoom() {
         return iterateZoom;
     }
 
+    /**
+     * Sets the state that determines the need for an iteration through all active zoom instances.
+     * This is an internal method and shouldn't be used by other mods.
+     * @param iterateZoom The new iteration state.
+     */
+    @ApiStatus.Internal
     public static void setIterateZoom(boolean iterateZoom) {
         ZoomRegistry.iterateZoom = iterateZoom;
     }
 
+    /**
+     * Determines whenever an iteration through all zoom instances with active transitions is necessary.
+     * @return {@code true} if an iteration is needed, else {@code false} otherwise.
+     */
     public static boolean shouldIterateTransitions() {
         return iterateTransitions;
     }
 
+    /**
+     * Sets the state that determines the need for an iteration through all zoom instances with active transitions.
+     * This is an internal method and shouldn't be used by other mods.
+     * @param iterateZoom The new iteration state.
+     */
+    @ApiStatus.Internal
     public static void setIterateTransitions(boolean iterateTransitions) {
         ZoomRegistry.iterateTransitions = iterateTransitions;
     }
     
+    /**
+     * Determines whenever an iteration through all zoom instances with active modifiers is necessary.
+     * @return {@code true} if an iteration is needed, else {@code false} otherwise.
+     */
     public static boolean shouldIterateModifiers() {
         return iterateModifiers;
     }
 
+    /**
+     * Sets the state that determines the need for an iteration through all zoom instances with active modifiers.
+     * This is an internal method and shouldn't be used by other mods.
+     * @param iterateZoom The new iteration state.
+     */
+    @ApiStatus.Internal
     public static void setIterateModifiers(boolean iterateModifiers) {
         ZoomRegistry.iterateModifiers = iterateModifiers;
     }
 
+    /**
+     * Determines whenever an iteration through all zoom instances with active overlays is necessary.
+     * @return {@code true} if an iteration is needed, else {@code false} otherwise.
+     */
     public static boolean shouldIterateOverlays() {
         return iterateOverlays;
     }
 
+    /**
+     * Sets the state that determines the need for an iteration through all zoom instances with active overlays.
+     * This is an internal method and shouldn't be used by other mods.
+     * @param iterateZoom The new iteration state.
+     */
+    @ApiStatus.Internal
     public static void setIterateOverlays(boolean iterateOverlays) {
         ZoomRegistry.iterateOverlays = iterateOverlays;
     }
