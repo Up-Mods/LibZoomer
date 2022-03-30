@@ -69,7 +69,7 @@ public class ZoomRegistry {
     /**
      * Sets the state that determines the need for an iteration through all zoom instances with active transitions.
      * This is an internal method and shouldn't be used by other mods.
-     * @param iterateZoom The new iteration state.
+     * @param iterateTransitions The new iteration state.
      */
     @ApiStatus.Internal
     public static void setIterateTransitions(boolean iterateTransitions) {
@@ -87,7 +87,7 @@ public class ZoomRegistry {
     /**
      * Sets the state that determines the need for an iteration through all zoom instances with active modifiers.
      * This is an internal method and shouldn't be used by other mods.
-     * @param iterateZoom The new iteration state.
+     * @param iterateModifiers The new iteration state.
      */
     @ApiStatus.Internal
     public static void setIterateModifiers(boolean iterateModifiers) {
@@ -105,7 +105,7 @@ public class ZoomRegistry {
     /**
      * Sets the state that determines the need for an iteration through all zoom instances with active overlays.
      * This is an internal method and shouldn't be used by other mods.
-     * @param iterateZoom The new iteration state.
+     * @param iterateOverlays The new iteration state.
      */
     @ApiStatus.Internal
     public static void setIterateOverlays(boolean iterateOverlays) {

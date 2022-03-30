@@ -31,7 +31,7 @@ public class InGameHudMixin {
             if (overlay != null) {
                 overlay.tickBeforeRender();
                 if (overlay.getActive()) {
-                    if (overlay.cancelOverlayRendering()) this.shouldCancelOverlay = true;
+                    this.shouldCancelOverlay = overlay.cancelOverlayRendering() || true;
                     overlay.renderOverlay();
                 }
             }
