@@ -1,6 +1,6 @@
 {
     "textures": {
-        "michael": "libzoomertest:item/michael_scoping"
+        "michael": "libzoomer_test:item/michael_scoping"
     },
 	"elements": [
 		{

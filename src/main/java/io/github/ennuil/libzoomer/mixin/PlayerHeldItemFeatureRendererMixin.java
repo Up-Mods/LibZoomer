@@ -17,14 +17,14 @@ import net.minecraft.util.Arm;
 
 @Mixin(PlayerHeldItemFeatureRenderer.class)
 public abstract class PlayerHeldItemFeatureRendererMixin {
-    @Inject(at = @At("HEAD"), method = "renderItem", cancellable = true)
-    private void renderCustomSpyglassesAsSpyglass(LivingEntity entity, ItemStack stack, ModelTransformation.Mode transformationMode, Arm arm, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-        if (stack.isIn(SpyglassHelper.SPYGLASSES) && entity.getActiveItem() == stack && entity.handSwingTicks == 0) {
-            this.renderSpyglass(entity, stack, arm, matrices, vertexConsumers, light);
-            ci.cancel();
-        }
-    }
+	@Inject(at = @At("HEAD"), method = "renderItem", cancellable = true)
+	private void renderCustomSpyglassesAsSpyglass(LivingEntity entity, ItemStack stack, ModelTransformation.Mode transformationMode, Arm arm, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
+		if (stack.isIn(SpyglassHelper.SPYGLASSES) && entity.getActiveItem() == stack && entity.handSwingTicks == 0) {
+			this.renderSpyglass(entity, stack, arm, matrices, vertexConsumers, light);
+			ci.cancel();
+		}
+	}
 
-    @Shadow
-    abstract void renderSpyglass(LivingEntity livingEntity, ItemStack itemStack, Arm arm, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i);
+	@Shadow
+	abstract void renderSpyglass(LivingEntity livingEntity, ItemStack itemStack, Arm arm, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i);
 }

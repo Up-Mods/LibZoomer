@@ -17,60 +17,60 @@ import io.github.ennuil.libzoomer.api.ZoomRegistry;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
-    @Shadow @Final
-    private MinecraftClient client;
+	@Shadow @Final
+	private MinecraftClient client;
 
-    @Inject(
-        at = @At("HEAD"),
-        method = "tick()V"
-    )
-    private void tickInstances(CallbackInfo info) {
-        boolean iterateZoom = false;
-        boolean iterateTransitions = false;
-        boolean iterateModifiers = false;
-        boolean iterateOverlays = false;
-        
-        for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
-            boolean zoom = instance.getZoom();
-            if (zoom || (instance.isTransitionActive() || instance.isOverlayActive())) {
-                double divisor = zoom ? instance.getZoomDivisor() : 1.0;
-                if (instance.getZoomOverlay() != null) {
-                    instance.getZoomOverlay().tick(zoom, divisor, instance.getTransitionMode().getInternalMultiplier());
-                }
-                instance.getTransitionMode().tick(zoom, divisor);
-            }
+	@Inject(
+		at = @At("HEAD"),
+		method = "tick()V"
+	)
+	private void tickInstances(CallbackInfo info) {
+		boolean iterateZoom = false;
+		boolean iterateTransitions = false;
+		boolean iterateModifiers = false;
+		boolean iterateOverlays = false;
 
-            iterateZoom = iterateZoom || zoom;
-            iterateTransitions = iterateTransitions || instance.isTransitionActive();
-            iterateModifiers = iterateModifiers || instance.isModifierActive();
-            iterateOverlays = iterateOverlays || instance.isOverlayActive();
-        }
+		for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
+			boolean zoom = instance.getZoom();
+			if (zoom || (instance.isTransitionActive() || instance.isOverlayActive())) {
+				double divisor = zoom ? instance.getZoomDivisor() : 1.0;
+				if (instance.getZoomOverlay() != null) {
+					instance.getZoomOverlay().tick(zoom, divisor, instance.getTransitionMode().getInternalMultiplier());
+				}
+				instance.getTransitionMode().tick(zoom, divisor);
+			}
 
-        ZoomRegistry.setIterateZoom(iterateZoom);
-        ZoomRegistry.setIterateTransitions(iterateTransitions);
-        ZoomRegistry.setIterateModifiers(iterateModifiers);
-        ZoomRegistry.setIterateOverlays(iterateOverlays);
-    }
+			iterateZoom = iterateZoom || zoom;
+			iterateTransitions = iterateTransitions || instance.isTransitionActive();
+			iterateModifiers = iterateModifiers || instance.isModifierActive();
+			iterateOverlays = iterateOverlays || instance.isOverlayActive();
+		}
 
-    @Inject(
-        at = @At("RETURN"),
-        method = "getFov(Lnet/minecraft/client/render/Camera;FZ)D",
-        cancellable = true
-    )
-    private void getZoomedFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
-        double fov = cir.getReturnValue();
-        double zoomedFov = fov;
-        
-        if (ZoomRegistry.shouldIterateTransitions()) {
-            for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
-                if (instance.isTransitionActive()) {
-                    zoomedFov = instance.getTransitionMode().applyZoom(zoomedFov, tickDelta);   
-                }
-            }
-        }
+		ZoomRegistry.setIterateZoom(iterateZoom);
+		ZoomRegistry.setIterateTransitions(iterateTransitions);
+		ZoomRegistry.setIterateModifiers(iterateModifiers);
+		ZoomRegistry.setIterateOverlays(iterateOverlays);
+	}
 
-        if (fov != zoomedFov) {
-            cir.setReturnValue(zoomedFov);
-        }
-    }
+	@Inject(
+		at = @At("RETURN"),
+		method = "getFov(Lnet/minecraft/client/render/Camera;FZ)D",
+		cancellable = true
+	)
+	private void getZoomedFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
+		double fov = cir.getReturnValue();
+		double zoomedFov = fov;
+
+		if (ZoomRegistry.shouldIterateTransitions()) {
+			for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
+				if (instance.isTransitionActive()) {
+					zoomedFov = instance.getTransitionMode().applyZoom(zoomedFov, tickDelta);
+				}
+			}
+		}
+
+		if (fov != zoomedFov) {
+			cir.setReturnValue(zoomedFov);
+		}
+	}
 }

@@ -1,14 +1,14 @@
 package io.github.ennuil.libzoomer.api.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.Tessellator;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormats;
 
 import io.github.ennuil.libzoomer.api.ZoomOverlay;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
@@ -18,7 +18,7 @@ import net.minecraft.util.math.MathHelper;
 public class SpyglassZoomOverlay implements ZoomOverlay {
     private static final Identifier OVERLAY_ID = new Identifier("libzoomer:spyglass_zoom");
     private final Identifier textureId;
-    private final MinecraftClient client;
+    private MinecraftClient client;
     private float scale;
     private boolean active;
 
@@ -28,9 +28,9 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
     */
     public SpyglassZoomOverlay(Identifier textureId) {
         this.textureId = textureId;
-        this.client = MinecraftClient.getInstance();
         this.scale = 0.5F;
         this.active = false;
+		this.ensureClient();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, this.textureId);
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.getBuffer();
+        BufferBuilder bufferBuilder = tessellator.getBufferBuilder();
         float f = Math.min(scaledWidth, scaledHeight);
         float h = Math.min(scaledWidth / f, scaledHeight / f) * this.scale;
         float i = f * h;
@@ -67,10 +67,10 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
         float l = j + i;
         float m = k + i;
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-        bufferBuilder.vertex(j, m, -90.0D).texture(0.0F, 1.0F).next();
-        bufferBuilder.vertex(l, m, -90.0D).texture(1.0F, 1.0F).next();
-        bufferBuilder.vertex(l, k, -90.0D).texture(1.0F, 0.0F).next();
-        bufferBuilder.vertex(j, k, -90.0D).texture(0.0F, 0.0F).next();
+        bufferBuilder.vertex(j, m, -90.0D).uv(0.0F, 1.0F).next();
+        bufferBuilder.vertex(l, m, -90.0D).uv(1.0F, 1.0F).next();
+        bufferBuilder.vertex(l, k, -90.0D).uv(1.0F, 0.0F).next();
+        bufferBuilder.vertex(j, k, -90.0D).uv(0.0F, 0.0F).next();
         tessellator.draw();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
         RenderSystem.disableTexture();
@@ -105,6 +105,7 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
 
     @Override
     public void tickBeforeRender() {
+		this.ensureClient();
         if (this.client.options.getPerspective().isFirstPerson()) {
             if (!this.active) {
                 this.scale = 0.5F;
@@ -114,4 +115,10 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
             }
         }
     }
+
+	private void ensureClient() {
+		if (this.client == null) {
+			this.client = MinecraftClient.getInstance();
+		}
+	}
 }
