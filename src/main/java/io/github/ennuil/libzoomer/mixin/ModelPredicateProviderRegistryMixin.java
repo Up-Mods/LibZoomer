@@ -13,15 +13,15 @@ import net.minecraft.util.Identifier;
 
 @Mixin(ModelPredicateProviderRegistry.class)
 public abstract class ModelPredicateProviderRegistryMixin {
-    @Shadow
-    private static UnclampedModelPredicateProvider register(Identifier id, UnclampedModelPredicateProvider provider) {
-        return null;
-    }
+	@Shadow
+	private static UnclampedModelPredicateProvider register(Identifier id, UnclampedModelPredicateProvider provider) {
+		return null;
+	}
 
-    @Inject(at = @At("TAIL"), method = "<clinit>")
-    private static void addScopingPredicateToModdedSpyglasses(CallbackInfo ci) {
-        register(new Identifier("scoping"), (stack, clientWorld, entity, i) -> {
-            return entity != null && entity.isUsingItem() && entity.getActiveItem() == stack && entity.getActiveItem().isIn(SpyglassHelper.SPYGLASSES) ? 1.0F : 0.0F;
-        });
-    }
+	@Inject(at = @At("TAIL"), method = "<clinit>")
+	private static void addScopingPredicateToModdedSpyglasses(CallbackInfo ci) {
+		register(new Identifier("scoping"), (stack, clientWorld, entity, i) -> {
+			return entity != null && entity.isUsingItem() && entity.getActiveItem() == stack && entity.getActiveItem().isIn(SpyglassHelper.SPYGLASSES) ? 1.0F : 0.0F;
+		});
+	}
 }
