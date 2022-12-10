@@ -19,6 +19,7 @@ public class ZoomRegistry {
 	/**
 	 * Registers a zoom instance into the internal set of zoom instances.
 	 * Mandatory in order to make a zoom instance functional.
+	 *
 	 * @param instance An unregistered zoom instance.
 	 * @return The zoom instance if registered, else, null.
 	 */
@@ -34,6 +35,7 @@ public class ZoomRegistry {
 
 	/**
 	 * Gets a set of all the registered zoom instances.
+	 *
 	 * @return A set of registered zoom instances.
 	 */
 	public static Set<ZoomInstance> getZoomInstances() {
@@ -42,6 +44,7 @@ public class ZoomRegistry {
 
 	/**
 	 * Determines whenever an iteration through all active zoom instances is necessary.
+	 *
 	 * @return {@code true} if an iteration is needed, else {@code false} otherwise.
 	 */
 	public static boolean shouldIterateZoom() {
@@ -60,6 +63,7 @@ public class ZoomRegistry {
 
 	/**
 	 * Determines whenever an iteration through all zoom instances with active transitions is necessary.
+	 *
 	 * @return {@code true} if an iteration is needed, else {@code false} otherwise.
 	 */
 	public static boolean shouldIterateTransitions() {
@@ -69,6 +73,7 @@ public class ZoomRegistry {
 	/**
 	 * Sets the state that determines the need for an iteration through all zoom instances with active transitions.
 	 * This is an internal method and shouldn't be used by other mods.
+	 *
 	 * @param iterateTransitions The new iteration state.
 	 */
 	@ApiStatus.Internal
@@ -78,6 +83,7 @@ public class ZoomRegistry {
 
 	/**
 	 * Determines whenever an iteration through all zoom instances with active modifiers is necessary.
+	 *
 	 * @return {@code true} if an iteration is needed, else {@code false} otherwise.
 	 */
 	public static boolean shouldIterateModifiers() {
@@ -87,6 +93,7 @@ public class ZoomRegistry {
 	/**
 	 * Sets the state that determines the need for an iteration through all zoom instances with active modifiers.
 	 * This is an internal method and shouldn't be used by other mods.
+	 *
 	 * @param iterateModifiers The new iteration state.
 	 */
 	@ApiStatus.Internal
@@ -96,6 +103,7 @@ public class ZoomRegistry {
 
 	/**
 	 * Determines whenever an iteration through all zoom instances with active overlays is necessary.
+	 *
 	 * @return {@code true} if an iteration is needed, else {@code false} otherwise.
 	 */
 	public static boolean shouldIterateOverlays() {
@@ -105,6 +113,7 @@ public class ZoomRegistry {
 	/**
 	 * Sets the state that determines the need for an iteration through all zoom instances with active overlays.
 	 * This is an internal method and shouldn't be used by other mods.
+	 *
 	 * @param iterateOverlays The new iteration state.
 	 */
 	@ApiStatus.Internal

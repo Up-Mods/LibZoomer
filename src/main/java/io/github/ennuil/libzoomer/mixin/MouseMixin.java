@@ -1,8 +1,6 @@
 package io.github.ennuil.libzoomer.mixin;
 
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,15 +10,10 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import io.github.ennuil.libzoomer.api.ZoomInstance;
 import io.github.ennuil.libzoomer.api.ZoomRegistry;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 
 @Mixin(Mouse.class)
 public abstract class MouseMixin {
-	@Shadow
-	@Final
-	private MinecraftClient client;
-
 	@Unique
 	private boolean modifyMouse;
 
@@ -31,11 +24,11 @@ public abstract class MouseMixin {
 	private double finalCursorDeltaY;
 
 	@Inject(
-		method = "updateLookDirection()V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/option/GameOptions;getInvertYMouse()Lnet/minecraft/client/option/Option;"
 		),
+		method = "updateLookDirection()V",
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	public void applyZoomChanges(CallbackInfo ci, double d, double e, double k, double l, double f, double g, double h, int m) {
@@ -60,11 +53,11 @@ public abstract class MouseMixin {
 	}
 
 	@ModifyVariable(
-		method = "updateLookDirection()V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/option/GameOptions;getInvertYMouse()Lnet/minecraft/client/option/Option;"
 		),
+		method = "updateLookDirection()V",
 		ordinal = 2
 	)
 	private double modifyFinalCursorDeltaX(double k) {
@@ -72,11 +65,11 @@ public abstract class MouseMixin {
 	}
 
 	@ModifyVariable(
-		method = "updateLookDirection()V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/option/GameOptions;getInvertYMouse()Lnet/minecraft/client/option/Option;"
 		),
+		method = "updateLookDirection()V",
 		ordinal = 3
 	)
 	private double modifyFinalCursorDeltaY(double l) {

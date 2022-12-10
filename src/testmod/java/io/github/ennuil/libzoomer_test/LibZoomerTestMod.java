@@ -1,5 +1,7 @@
 package io.github.ennuil.libzoomer_test;
 
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import org.lwjgl.glfw.GLFW;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
@@ -20,7 +22,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpyglassItem;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class LibZoomerTestMod implements ModInitializer, ClientTickEvents.End {
 	// Michael's Zoom Instance
@@ -40,7 +41,7 @@ public class LibZoomerTestMod implements ModInitializer, ClientTickEvents.End {
 	);
 
 	// Michael. He's a reimplementation of the spyglass. Tests if the spyglass can be replicated.
-	private static final Item MICHAEL_ITEM = new SpyglassItem(new QuiltItemSettings().group(ItemGroup.TOOLS).maxCount(1));
+	private static final Item MICHAEL_ITEM = new SpyglassItem(new QuiltItemSettings().maxCount(1));
 
 	// Michelle. She's an implementation of a very simple zoom key. Tests if there are zoom instance conflicts and spyglass-unrelated things.
 	private static final KeyBind MICHELLE_KEY = KeyBindingHelper.registerKeyBinding(new KeyBind(
@@ -57,18 +58,22 @@ public class LibZoomerTestMod implements ModInitializer, ClientTickEvents.End {
 		}
 
 		// Register the Michael item
-		Registry.register(Registry.ITEM, new Identifier("libzoomer_test:michael"), MICHAEL_ITEM);
+		Registry.register(Registries.ITEM, new Identifier("libzoomer_test:michael"), MICHAEL_ITEM);
 	}
 
 	@Override
 	public void endClientTick(MinecraftClient client) {
 		// This is how you get a spyglass-like zoom working
 		if (client.player == null) return;
-		if (client.options.getPerspective().isFirstPerson() && (client.player.isUsingItem() && client.player.getActiveItem().isOf(MICHAEL_ITEM))) {
-			MICHAEL_ZOOM.setZoom(true);
-		} else {
-			MICHAEL_ZOOM.setZoom(false);
-		}
+
+		// FIXME - midnight ennui definitely ruined this
+		MICHAEL_ZOOM.setZoom(
+			client.options.getPerspective().isFirstPerson()
+			&& (
+				client.player.isUsingItem()
+				&& client.player.getActiveItem().isOf(MICHAEL_ITEM)
+			)
+		);
 
 		// And this is how you get a simple zoom button working
 		MICHELLE_ZOOM.setZoom(MICHELLE_KEY.isPressed());

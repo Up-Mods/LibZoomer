@@ -18,7 +18,7 @@ public abstract class ModelPredicateProviderRegistryMixin {
 		return null;
 	}
 
-	@Inject(at = @At("TAIL"), method = "<clinit>")
+	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void addScopingPredicateToModdedSpyglasses(CallbackInfo ci) {
 		register(new Identifier("scoping"), (stack, clientWorld, entity, i) -> {
 			return entity != null && entity.isUsingItem() && entity.getActiveItem() == stack && entity.getActiveItem().isIn(SpyglassHelper.SPYGLASSES) ? 1.0F : 0.0F;

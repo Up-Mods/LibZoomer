@@ -9,16 +9,17 @@ import net.minecraft.util.Identifier;
  */
 public class ContainingMouseModifier implements MouseModifier {
 	private static final Identifier MODIFIER_ID = new Identifier("libzoomer:modifier_container");
+	private final MouseModifier[] modifiers;
 	private boolean active;
-	private MouseModifier[] modifiers;
 
 	/**
 	 * Initializes an instance of the containing mouse modifier
+	 *
 	 * @param modifiers The contained mouse modifiers
 	*/
 	public ContainingMouseModifier(MouseModifier... modifiers) {
-		this.active = false;
 		this.modifiers = modifiers;
+		this.active = false;
 	}
 
 	@Override

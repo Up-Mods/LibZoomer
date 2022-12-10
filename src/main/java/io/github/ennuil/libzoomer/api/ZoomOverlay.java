@@ -8,12 +8,14 @@ import net.minecraft.util.Identifier;
 public interface ZoomOverlay {
 	/**
 	 * Gets the identifier of the zoom overlay.
+	 *
 	 * @return The zoom overlay's identifier.
 	 */
 	Identifier getIdentifier();
 
 	/**
 	 * Gets the active state of the zoom overlay.
+	 *
 	 * @return The zoom overlay's active state.
 	 */
 	boolean getActive();
@@ -21,6 +23,7 @@ public interface ZoomOverlay {
 	/**
 	 * Determines if the zoom overlay should cancel the rendering of anything rendered after that.
 	 * By default, it returns false.
+	 *
 	 * @return The state that will be used in order to cancel the rendering or not.
 	 */
 	default boolean cancelOverlayRendering() { return false; }
@@ -32,6 +35,7 @@ public interface ZoomOverlay {
 
 	/**
 	 * The tick method. Used in order to keep the internal variables accurate and the overlay functional.
+	 *
 	 * @param active The zoom state.
 	 * @param divisor The zoom divisor.
 	 * @param transitionMultiplier The transition mode's internal multiplier.

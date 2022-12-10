@@ -17,6 +17,7 @@ public class SmoothTransitionMode implements TransitionMode {
 
 	/**
 	 * Initializes an instance of the smooth transition mode with the specified smooth multiplier
+	 *
 	 * @param smoothMultiplier The smooth multiplier, used internally by the smooth transition
 	*/
 	public SmoothTransitionMode(float smoothMultiplier) {
@@ -57,7 +58,7 @@ public class SmoothTransitionMode implements TransitionMode {
 
 		this.internalMultiplier += (zoomMultiplier - internalMultiplier) * smoothMultiplier;
 
-		if ((!active && fovMultiplier == this.internalMultiplier) || active) {
+		if (active || fovMultiplier == this.internalMultiplier) {
 			this.active = active;
 		}
 	}

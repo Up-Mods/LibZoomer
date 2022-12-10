@@ -18,11 +18,11 @@ public class InGameHudMixin {
 	private boolean shouldCancelOverlay = false;
 
 	@Inject(
+		method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V",
 		at = @At(
 			value = "INVOKE",
 			target = "net/minecraft/client/MinecraftClient.getLastFrameDuration()F"
-		),
-		method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V"
+		)
 	)
 	public void injectZoomOverlay(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
 		this.shouldCancelOverlay = false;
@@ -40,24 +40,24 @@ public class InGameHudMixin {
 
 	// Yes, there is a renderOverlay for being frozen...
 	@Inject(
-		at = @At("HEAD"),
 		method = {
 			"renderSpyglassOverlay",
 			"renderOverlay"
 		},
+		at = @At("HEAD"),
 		cancellable = true
 	)
-	public void cancelOverlay(float scale, CallbackInfo ci) {
+	public void cancelOverlay(CallbackInfo ci) {
 		if (this.shouldCancelOverlay) ci.cancel();
 	}
 
 	// ...which is why we set cancelOverlayRender to false before that!
 	@Inject(
+		method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V",
 		at = @At(
 			value = "INVOKE",
 			target = "net/minecraft/client/network/ClientPlayerEntity.getFrozenTicks()I"
-		),
-		method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V"
+		)
 	)
 	public void disableOverlayCancelling(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
 		if (this.shouldCancelOverlay) {
