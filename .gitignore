@@ -5,6 +5,7 @@ out/
 classes/
 
 # Quilt Loom
+remappedSrc/
 run/
 
 # Eclipse
@@ -16,12 +17,18 @@ run/
 *.ipr
 *.iws
 
+# Fleet
+.fleet/
+
 # Visual Studio Code
 .settings/
 .vscode/
 bin/
 .classpath
 .project
+
+# Eclipse JDT LS
+workspace/
 
 # macOS
 *.DS_Store

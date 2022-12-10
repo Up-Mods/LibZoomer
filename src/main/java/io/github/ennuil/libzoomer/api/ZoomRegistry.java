@@ -30,6 +30,7 @@ public class ZoomRegistry {
 				throw new RuntimeException("Multiple zoom instances with the ID " + zoomInstance.getInstanceId() + " were found!");
 			}
 		}
+
 		return ZOOM_INSTANCES.add(instance) ? instance : null;
 	}
 
@@ -53,7 +54,8 @@ public class ZoomRegistry {
 
 	/**
 	 * Sets the state that determines the need for an iteration through all active zoom instances.
-	 * This is an internal method and shouldn't be used by other mods.
+	 *
+	 * @apiNote This is an internal method that shouldn't be used by other mods.
 	 * @param iterateZoom The new iteration state.
 	 */
 	@ApiStatus.Internal
@@ -92,8 +94,8 @@ public class ZoomRegistry {
 
 	/**
 	 * Sets the state that determines the need for an iteration through all zoom instances with active modifiers.
-	 * This is an internal method and shouldn't be used by other mods.
 	 *
+	 * @apiNote This is an internal method that shouldn't be used by other mods.
 	 * @param iterateModifiers The new iteration state.
 	 */
 	@ApiStatus.Internal
@@ -112,8 +114,8 @@ public class ZoomRegistry {
 
 	/**
 	 * Sets the state that determines the need for an iteration through all zoom instances with active overlays.
-	 * This is an internal method and shouldn't be used by other mods.
 	 *
+	 * @apiNote This is an internal method that shouldn't be used by other mods.
 	 * @param iterateOverlays The new iteration state.
 	 */
 	@ApiStatus.Internal

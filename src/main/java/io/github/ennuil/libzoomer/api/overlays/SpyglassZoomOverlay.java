@@ -24,7 +24,8 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
 
     /**
      * Initializes an instance of the spyglass mouse modifier with the specified texture identifier
-     * @param textureId The texture identifier for the spyglass overlay
+     *
+	 * @param textureId The texture identifier for the spyglass overlay
     */
     public SpyglassZoomOverlay(Identifier textureId) {
         this.textureId = textureId;
