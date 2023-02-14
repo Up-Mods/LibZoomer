@@ -2,7 +2,7 @@
 
 # LibZoomer
 
-A library that allows other mods to create zooms and custom spyglasses easily. The current supported version is Minecraft 1.18.2.
+A library that allows other mods to create zooms and custom spyglasses easily. The current supported version is Minecraft 1.19.3.
 
 ## Usage
 
