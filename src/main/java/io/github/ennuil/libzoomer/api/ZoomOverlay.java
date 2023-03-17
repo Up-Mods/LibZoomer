@@ -31,6 +31,8 @@ public interface ZoomOverlay {
 
 	/**
 	 * Renders the overlay itself. It's injected by LibZoomer itself.
+	 *
+	 * @param matrices the in-game HUD's matrices
 	 */
 	void renderOverlay(MatrixStack matrices);
 
