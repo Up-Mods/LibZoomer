@@ -31,8 +31,8 @@ public class InGameHudMixin {
 			if (overlay != null) {
 				overlay.tickBeforeRender();
 				if (overlay.getActive()) {
-					this.shouldCancelOverlay = overlay.cancelOverlayRendering() || true;
-					overlay.renderOverlay();
+					this.shouldCancelOverlay = overlay.cancelOverlayRendering();
+					overlay.renderOverlay(matrices);
 				}
 			}
 		}
@@ -40,10 +40,7 @@ public class InGameHudMixin {
 
 	// Yes, there is a renderOverlay for being frozen...
 	@Inject(
-		method = {
-			"renderSpyglassOverlay",
-			"renderOverlay"
-		},
+		method = {"renderSpyglassOverlay", "renderOverlay"},
 		at = @At("HEAD"),
 		cancellable = true
 	)

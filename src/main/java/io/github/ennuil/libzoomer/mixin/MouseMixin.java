@@ -24,11 +24,11 @@ public abstract class MouseMixin {
 	private double finalCursorDeltaY;
 
 	@Inject(
+		method = "updateLookDirection()V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/option/GameOptions;getInvertYMouse()Lnet/minecraft/client/option/Option;"
 		),
-		method = "updateLookDirection()V",
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	public void applyZoomChanges(CallbackInfo ci, double d, double e, double k, double l, double f, double g, double h, int m) {
@@ -53,11 +53,11 @@ public abstract class MouseMixin {
 	}
 
 	@ModifyVariable(
+		method = "updateLookDirection()V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/option/GameOptions;getInvertYMouse()Lnet/minecraft/client/option/Option;"
 		),
-		method = "updateLookDirection()V",
 		ordinal = 2
 	)
 	private double modifyFinalCursorDeltaX(double k) {
@@ -65,11 +65,11 @@ public abstract class MouseMixin {
 	}
 
 	@ModifyVariable(
+		method = "updateLookDirection()V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/option/GameOptions;getInvertYMouse()Lnet/minecraft/client/option/Option;"
 		),
-		method = "updateLookDirection()V",
 		ordinal = 3
 	)
 	private double modifyFinalCursorDeltaY(double l) {

@@ -20,11 +20,11 @@ public class ZoomInstance {
 	/**
 	 * Initializes a zoom instance. It must be registered by the instance registry before being functional
 	 *
-	 * @param instanceId The identifier for this zoom instance.
-	 * @param defaultZoomDivisor The default zoom divisor. It will be this instance's initial zoom divisor value.
-	 * @param transition The zoom instance's transition mode. {@link io.github.ennuil.libzoomer.api.transitions.InstantTransitionMode} is used if null.
-	 * @param modifier The zoom instance's mouse modifier. If null, no mouse modifier will be applied.
-	 * @param overlay The zoom instance's zoom overlay. If null, no zoom overlay will be applied.
+	 * @param instanceId the identifier for this zoom instance
+	 * @param defaultZoomDivisor the default zoom divisor, it will be this instance's initial zoom divisor value
+	 * @param transition the zoom instance's transition mode, if null, {@link InstantTransitionMode} will be used
+	 * @param modifier the zoom instance's mouse modifier, if null, no mouse modifier will be applied
+	 * @param overlay the zoom instance's zoom overlay, if null, no zoom overlay will be applied
 	 */
 	public ZoomInstance(Identifier instanceId, float defaultZoomDivisor, TransitionMode transition, @Nullable MouseModifier modifier, @Nullable ZoomOverlay overlay) {
 		this.instanceId = instanceId;
@@ -41,7 +41,7 @@ public class ZoomInstance {
 	/**
 	 * Obtains the identifier of this zoom instance.
 	 *
-	 * @return This zoom instance's identifier.
+	 * @return this zoom instance's identifier
 	 */
 	public Identifier getInstanceId() {
 		return this.instanceId;
@@ -51,7 +51,7 @@ public class ZoomInstance {
 	 * Gets the zoom instance's zoom state.
 	 * This is used to check if this instance's sub-instances should be active or not.
 	 *
-	 * @return The current zoom state.
+	 * @return the current zoom state
 	 */
 	public boolean getZoom() {
 		return this.zoom;
@@ -61,7 +61,7 @@ public class ZoomInstance {
 	 * Sets the zoom instance's zoom state.
 	 *
 	 * @param newZoom The new zoom state.
-	 * @return The zoom state with the new value.
+	 * @return the zoom state with the new value
 	 */
 	public boolean setZoom(boolean newZoom) {
 		return this.zoom = newZoom;
@@ -71,7 +71,7 @@ public class ZoomInstance {
 	 * Gets the zoom instance's current zoom divisor.
 	 * Do note that this isn't the same as the transition mode's internal multiplier.
 	 *
-	 * @return The current zoom divisor.
+	 * @return the current zoom divisor
 	 */
 	public double getZoomDivisor() {
 		return this.zoomDivisor;
@@ -80,8 +80,8 @@ public class ZoomInstance {
 	/**
 	 * Sets the zoom instance's current zoom divisor.
 	 *
-	 * @param newDivisor The new zoom divisor.
-	 * @return The zoom divisor with the new value.
+	 * @param newDivisor the new zoom divisor
+	 * @return the zoom divisor with the new value
 	 */
 	public double setZoomDivisor(double newDivisor) {
 		return this.zoomDivisor = newDivisor;
@@ -90,7 +90,7 @@ public class ZoomInstance {
 	/**
 	 * Sets the instance's zoom divisor to the default zoom divisor.
 	 *
-	 * @return The zoom divisor with the new value.
+	 * @return the zoom divisor with the new value
 	 */
 	public double resetZoomDivisor() {
 		return this.zoomDivisor = this.defaultZoomDivisor;
@@ -100,7 +100,7 @@ public class ZoomInstance {
 	 * Gets the instance's default zoom divisor.
 	 * This is used as the initial zoom divisor and as the value used on {@link #resetZoomDivisor()}.
 	 *
-	 * @return The default zoom divisor.
+	 * @return the default zoom divisor
 	 */
 	public double getDefaultZoomDivisor() {
 		return this.defaultZoomDivisor;
@@ -109,8 +109,8 @@ public class ZoomInstance {
 	/**
 	 * Sets the instance's default zoom divisor.
 	 *
-	 * @param newDivisor The new default zoom divisor.
-	 * @return The default zoom divisor with the new value.
+	 * @param newDivisor the new default zoom divisor
+	 * @return the default zoom divisor with the new value
 	 */
 	public double setDefaultZoomDivisor(double newDivisor) {
 		return this.defaultZoomDivisor = newDivisor;
@@ -119,7 +119,7 @@ public class ZoomInstance {
 	/**
 	 * Gets the instance's transition mode.
 	 *
-	 * @return The transition mode.
+	 * @return the transition mode
 	 */
 	public TransitionMode getTransitionMode() {
 		return this.transition;
@@ -128,8 +128,8 @@ public class ZoomInstance {
 	/**
 	 * Sets the instance's transition mode.
 	 *
-	 * @param transition The new transition mode.
-	 * @return The transition mode with the new mode.
+	 * @param transition the new transition mode
+	 * @return the transition mode with the new mode
 	 */
 	public TransitionMode setTransitionMode(TransitionMode transition) {
 		return this.transition = transition;
@@ -138,7 +138,7 @@ public class ZoomInstance {
 	/**
 	 * Gets the active state from the instance's transition mode.
 	 *
-	 * @return The transition mode's active state.
+	 * @return the transition mode's active state
 	 */
 	public boolean isTransitionActive() {
 		return this.transition.getActive();
@@ -147,7 +147,7 @@ public class ZoomInstance {
 	/**
 	 * Gets the instance's mouse modifier.
 	 *
-	 * @return The mouse modifier.
+	 * @return the mouse modifier
 	 */
 	@Nullable
 	public MouseModifier getMouseModifier() {
@@ -157,8 +157,8 @@ public class ZoomInstance {
 	/**
 	 * Sets the mouse modifier.
 	 *
-	 * @param modifier The new mouse modifier.
-	 * @return The mouse modifier with the new modifier.
+	 * @param modifier the new mouse modifier
+	 * @return the mouse modifier with the new modifier
 	 */
 	public MouseModifier setMouseModifier(MouseModifier modifier) {
 		return this.modifier = modifier;
@@ -167,7 +167,7 @@ public class ZoomInstance {
 	/**
 	 * Gets the mouse modifier's active state.
 	 *
-	 * @return The mouse modifier's active state. If the modifier's null, return {@code false}.
+	 * @return the mouse modifier's active state if the modifier isn't null, or {@code false} otherwise
 	 */
 	public boolean isModifierActive() {
 		return this.modifier != null && this.modifier.getActive();
@@ -176,7 +176,7 @@ public class ZoomInstance {
 	/**
 	 * Gets the instance's zoom overlay.
 	 *
-	 * @return The zoom overlay.
+	 * @return the zoom overlay
 	 */
 	@Nullable
 	public ZoomOverlay getZoomOverlay() {
@@ -186,8 +186,8 @@ public class ZoomInstance {
 	/**
 	 * Sets the zoom overlay.
 	 *
-	 * @param overlay The new zoom overlay.
-	 * @return The zoom overlay with the new overlay.
+	 * @param overlay the new zoom overlay
+	 * @return the zoom overlay with the new overlay
 	 */
 	public ZoomOverlay setZoomOverlay(ZoomOverlay overlay) {
 		return this.overlay = overlay;
@@ -196,7 +196,7 @@ public class ZoomInstance {
 	/**
 	 * Gets the zoom overlay's active state.
 	 *
-	 * @return The zoom overlay's active state. If the overlay's null, return {@code false}.
+	 * @return the zoom overlay's active state if the overlay isn't null, or {@code false} otherwise
 	 */
 	public boolean isOverlayActive() {
 		return this.overlay != null && this.overlay.getActive();

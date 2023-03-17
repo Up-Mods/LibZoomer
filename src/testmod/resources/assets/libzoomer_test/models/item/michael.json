@@ -6,7 +6,7 @@
     "overrides": [
         {
             "predicate": {
-                "scoping": 1
+                "libzoomer:scoping": 1
             },
             "model": "libzoomer_test:item/michael_active"
         }

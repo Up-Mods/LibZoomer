@@ -1,14 +1,11 @@
 package io.github.ennuil.libzoomer.api.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.Tessellator;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormats;
 
 import io.github.ennuil.libzoomer.api.ZoomOverlay;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
@@ -25,7 +22,7 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
     /**
      * Initializes an instance of the spyglass mouse modifier with the specified texture identifier
      *
-	 * @param textureId The texture identifier for the spyglass overlay
+	 * @param textureId the texture identifier for the spyglass overlay
     */
     public SpyglassZoomOverlay(Identifier textureId) {
         this.textureId = textureId;
@@ -50,53 +47,27 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
     }
 
     @Override
-    public void renderOverlay() {
+    public void renderOverlay(MatrixStack matrices) {
         int scaledWidth = this.client.getWindow().getScaledWidth();
         int scaledHeight = this.client.getWindow().getScaledHeight();
-        RenderSystem.disableDepthTest();
-        RenderSystem.depthMask(false);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, this.textureId);
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.getBufferBuilder();
-        float f = Math.min(scaledWidth, scaledHeight);
-        float h = Math.min(scaledWidth / f, scaledHeight / f) * this.scale;
-        float i = f * h;
-        float j = (scaledWidth - i) / 2.0F;
-        float k = (scaledHeight - i) / 2.0F;
-        float l = j + i;
-        float m = k + i;
-        bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-        bufferBuilder.vertex(j, m, -90.0D).uv(0.0F, 1.0F).next();
-        bufferBuilder.vertex(l, m, -90.0D).uv(1.0F, 1.0F).next();
-        bufferBuilder.vertex(l, k, -90.0D).uv(1.0F, 0.0F).next();
-        bufferBuilder.vertex(j, k, -90.0D).uv(0.0F, 0.0F).next();
-        tessellator.draw();
-        RenderSystem.setShader(GameRenderer::getPositionColorShader);
-        RenderSystem.disableTexture();
-        bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-        bufferBuilder.vertex(0.0D, scaledHeight, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(scaledWidth, scaledHeight, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(scaledWidth, m, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(0.0D, m, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(0.0D, k, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(scaledWidth, k, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(scaledWidth, 0.0D, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(0.0D, 0.0D, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(0.0D, m, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(j, m, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(j, k, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(0.0D, k, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(l, m, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(scaledWidth, m, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(scaledWidth, k, -90.0D).color(0, 0, 0, 255).next();
-        bufferBuilder.vertex(l, k, -90.0D).color(0, 0, 0, 255).next();
-        tessellator.draw();
-        RenderSystem.enableTexture();
-        RenderSystem.depthMask(true);
-        RenderSystem.enableDepthTest();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.disableDepthTest();
+		RenderSystem.depthMask(false);
+		float f = (float) Math.min(scaledWidth, scaledHeight);
+		float h = Math.min((float) scaledWidth / f, (float) scaledHeight / f) * this.scale;
+		int i = MathHelper.floor(f * h);
+		int j = MathHelper.floor(f * h);
+		int k = (scaledWidth - i) / 2;
+		int l = (scaledHeight - j) / 2;
+		int m = k + i;
+		int n = l + j;
+		RenderSystem.setShaderTexture(0, this.textureId);
+		DrawableHelper.drawTexture(matrices, k, l, -90, 0.0F, 0.0F, i, j, i, j);
+		DrawableHelper.fill(matrices, 0, n, scaledWidth, scaledHeight, -90, 0xFF000000);
+		DrawableHelper.fill(matrices, 0, 0, scaledWidth, l, -90, 0xFF000000);
+		DrawableHelper.fill(matrices, 0, l, k, n, -90, 0xFF000000);
+		DrawableHelper.fill(matrices, m, l, scaledWidth, n, -90, 0xFF000000);
+		RenderSystem.depthMask(true);
+		RenderSystem.enableDepthTest();
     }
 
     @Override

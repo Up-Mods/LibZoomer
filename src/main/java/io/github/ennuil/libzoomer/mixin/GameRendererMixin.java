@@ -15,10 +15,7 @@ import io.github.ennuil.libzoomer.api.ZoomRegistry;
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
 
-	@Inject(
-		method = "tick()V",
-		at = @At("HEAD")
-	)
+	@Inject(method = "tick()V", at = @At("HEAD"))
 	private void tickInstances(CallbackInfo info) {
 		boolean iterateZoom = false;
 		boolean iterateTransitions = false;
@@ -47,11 +44,7 @@ public class GameRendererMixin {
 		ZoomRegistry.setIterateOverlays(iterateOverlays);
 	}
 
-	@Inject(
-		at = @At("RETURN"),
-		method = "getFov(Lnet/minecraft/client/render/Camera;FZ)D",
-		cancellable = true
-	)
+	@Inject(method = "getFov(Lnet/minecraft/client/render/Camera;FZ)D", at = @At("RETURN"), cancellable = true)
 	private void getZoomedFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
 		double fov = cir.getReturnValue();
 		double zoomedFov = fov;

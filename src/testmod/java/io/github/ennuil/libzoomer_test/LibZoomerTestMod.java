@@ -5,6 +5,7 @@ import net.minecraft.registry.Registry;
 import org.lwjgl.glfw.GLFW;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
+import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 
@@ -19,11 +20,10 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBind;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpyglassItem;
 import net.minecraft.util.Identifier;
 
-public class LibZoomerTestMod implements ModInitializer, ClientTickEvents.End {
+public class LibZoomerTestMod implements ModInitializer, ClientModInitializer, ClientTickEvents.End {
 	// Michael's Zoom Instance
 	private static final ZoomInstance MICHAEL_ZOOM = new ZoomInstance(
 		new Identifier("libzoomer_test:zoom"),
@@ -34,7 +34,7 @@ public class LibZoomerTestMod implements ModInitializer, ClientTickEvents.End {
 
 	// Michelle's Zoom Instance
 	private static final ZoomInstance MICHELLE_ZOOM = new ZoomInstance(
-		new Identifier("libzoomer_test:zoom2"),
+		new Identifier("libzoomer_test:zoom_2"),
 		3.0F, new InstantTransitionMode(),
 		new CinematicCameraMouseModifier(),
 		null
@@ -44,21 +44,26 @@ public class LibZoomerTestMod implements ModInitializer, ClientTickEvents.End {
 	private static final Item MICHAEL_ITEM = new SpyglassItem(new QuiltItemSettings().maxCount(1));
 
 	// Michelle. She's an implementation of a very simple zoom key. Tests if there are zoom instance conflicts and spyglass-unrelated things.
-	private static final KeyBind MICHELLE_KEY = KeyBindingHelper.registerKeyBinding(new KeyBind(
+	private static final KeyBind MICHELLE_KEY = new KeyBind(
 		"key.libzoomer_test.michelle",
 		GLFW.GLFW_KEY_V,
 		"key.libzoomer_test.category"
-	));
+	);
 
 	@Override
 	public void onInitialize(ModContainer mod) {
+		// Register the Michael item
+		Registry.register(Registries.ITEM, new Identifier("libzoomer_test:michael"), MICHAEL_ITEM);
+	}
+
+	@Override
+	public void onInitializeClient(ModContainer mod) {
 		// This prints out all zoom instances registered so far and some extra info
 		for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
 			System.out.println("Id: " + instance.getInstanceId() + " | Zooming: " + instance.getZoom() + " | Divisor: " + instance.getZoomDivisor());
 		}
 
-		// Register the Michael item
-		Registry.register(Registries.ITEM, new Identifier("libzoomer_test:michael"), MICHAEL_ITEM);
+		KeyBindingHelper.registerKeyBinding(MICHELLE_KEY);
 	}
 
 	@Override

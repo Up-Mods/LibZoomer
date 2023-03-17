@@ -15,5 +15,7 @@ public class SpyglassHelper {
     /**
      * The spyglass tag, which is used internally in order to unhardcode behavior specific to vanilla spyglasses
      */
-    public static final TagKey<Item> SPYGLASSES = QuiltTagKey.of(RegistryKeys.ITEM, new Identifier("libzoomer", "spyglasses"), TagType.CLIENT_FALLBACK);
+    public static final TagKey<Item> SPYGLASSES = QuiltTagKey.of(
+			RegistryKeys.ITEM, new Identifier("libzoomer", "spyglasses"), TagType.CLIENT_FALLBACK
+	);
 }

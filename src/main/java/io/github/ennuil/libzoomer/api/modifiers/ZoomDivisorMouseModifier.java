@@ -11,7 +11,7 @@ public class ZoomDivisorMouseModifier implements MouseModifier {
 	private boolean active;
 
 	/**
-	 * Initializes an instance of the zoom divisor mouse modifier
+	 * Initializes an instance of the zoom divisor mouse modifier.
 	*/
 	public ZoomDivisorMouseModifier() {
 		this.active = false;

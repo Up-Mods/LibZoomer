@@ -15,7 +15,7 @@ public class ContainingMouseModifier implements MouseModifier {
 	/**
 	 * Initializes an instance of the containing mouse modifier
 	 *
-	 * @param modifiers The contained mouse modifiers
+	 * @param modifiers the contained mouse modifiers
 	*/
 	public ContainingMouseModifier(MouseModifier... modifiers) {
 		this.modifiers = modifiers;
@@ -38,6 +38,7 @@ public class ContainingMouseModifier implements MouseModifier {
 		for (MouseModifier modifier : modifiers) {
 			returnedValue = modifier.applyXModifier(returnedValue, cursorSensitivity, mouseUpdateTimeDelta, targetDivisor, transitionMultiplier);
 		}
+
 		return returnedValue;
 	}
 
@@ -47,6 +48,7 @@ public class ContainingMouseModifier implements MouseModifier {
 		for (MouseModifier modifier : modifiers) {
 			returnedValue = modifier.applyYModifier(returnedValue, cursorSensitivity, mouseUpdateTimeDelta, targetDivisor, transitionMultiplier);
 		}
+
 		return returnedValue;
 	}
 
@@ -55,7 +57,9 @@ public class ContainingMouseModifier implements MouseModifier {
 		boolean generalActive = false;
 		for (MouseModifier modifier : modifiers) {
 			if (modifier == null) continue;
+
 			modifier.tick(active);
+
 			if (!generalActive) {
 				generalActive = modifier.getActive();
 			}

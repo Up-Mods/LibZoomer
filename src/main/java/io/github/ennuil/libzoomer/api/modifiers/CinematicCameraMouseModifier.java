@@ -6,7 +6,7 @@ import net.minecraft.client.util.SmoothUtil;
 import net.minecraft.util.Identifier;
 
 /**
- * An implemenation of Vanilla's Cinematic Camera as a mouse modifier
+ * An implemenation of Vanilla's Cinematic Camera as a mouse modifier.
  */
 public class CinematicCameraMouseModifier implements MouseModifier {
 	private static final Identifier MODIFIER_ID = new Identifier("libzoomer:cinematic_camera");
@@ -17,7 +17,7 @@ public class CinematicCameraMouseModifier implements MouseModifier {
 	private final SmoothUtil cursorYZoomSmoother = new SmoothUtil();
 
 	/**
-	 * Initializes an instance of the cinematic camera mouse modifier
+	 * Initializes an instance of the cinematic camera mouse modifier.
 	*/
 	public CinematicCameraMouseModifier() {
 		this.active = false;

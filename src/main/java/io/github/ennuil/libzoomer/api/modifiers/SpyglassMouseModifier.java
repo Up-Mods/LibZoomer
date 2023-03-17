@@ -11,7 +11,7 @@ public class SpyglassMouseModifier implements MouseModifier {
 	private boolean active;
 
 	/**
-	 * Initializes an instance of the spyglass mouse modifier
+	 * Initializes an instance of the spyglass mouse modifier.
 	*/
 	public SpyglassMouseModifier() {
 		this.active = false;

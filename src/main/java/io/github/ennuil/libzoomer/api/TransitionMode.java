@@ -10,38 +10,38 @@ public interface TransitionMode {
 	/**
 	 * Gets the identifier of the transition mode.
 	 *
-	 * @return The transition mode's identifier.
+	 * @return the transition mode's identifier
 	 */
 	Identifier getIdentifier();
 
 	/**
 	 * Gets the active state of the transition mode.
 	 *
-	 * @return The transition mode's active state.
+	 * @return the transition mode's active state
 	 */
 	boolean getActive();
 
 	/**
 	 * Applies the zoom to the FOV.
 	 *
-	 * @param fov The original FOV.
-	 * @param tickDelta The current tick delta.
-	 * @return The zoomed FOV.
+	 * @param fov the original FOV
+	 * @param tickDelta the current tick delta
+	 * @return the zoomed FOV
 	 */
 	double applyZoom(double fov, float tickDelta);
 
 	/**
 	 * The tick method. Used in order to keep the internal variables accurate.
 	 *
-	 * @param active The zoom state.
-	 * @param divisor The zoom divisor.
+	 * @param active the zoom state
+	 * @param divisor the zoom divisor
 	 */
 	void tick(boolean active, double divisor);
 
 	/**
 	 * Gets the internal multiplier. Used for purposes other than zooming the FOV.
 	 *
-	 * @return The internal multiplier.
+	 * @return the internal multiplier
 	 */
 	double getInternalMultiplier();
 }
