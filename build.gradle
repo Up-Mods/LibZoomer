@@ -73,8 +73,8 @@ java {
 }
 
 jar {
-	filesMatching('LICENSE') {
-		rename '^(LICENSE.*?)(\\..*)?$', "\$1_${archivesBaseName}\$2"
+	from('LICENSE') {
+		rename { "${it}_${archivesBaseName}" }
 	}
 }
 
