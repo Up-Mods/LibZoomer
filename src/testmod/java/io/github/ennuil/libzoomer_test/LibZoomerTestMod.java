@@ -1,7 +1,5 @@
 package io.github.ennuil.libzoomer_test;
 
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import org.lwjgl.glfw.GLFW;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
@@ -21,6 +19,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBind;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpyglassItem;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class LibZoomerTestMod implements ModInitializer, ClientModInitializer, ClientTickEvents.End {
@@ -71,7 +71,6 @@ public class LibZoomerTestMod implements ModInitializer, ClientModInitializer, C
 		// This is how you get a spyglass-like zoom working
 		if (client.player == null) return;
 
-		// FIXME - midnight ennui definitely ruined this
 		MICHAEL_ZOOM.setZoom(
 			client.options.getPerspective().isFirstPerson()
 			&& (

@@ -1,24 +1,24 @@
 {
-    "textures": {
-        "michael": "libzoomer_test:item/michael_scoping"
-    },
-	"elements": [
-		{
-			"from": [0, 0, 0],
-			"to": [16, 16, 0],
-			"color": 5,
-			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#michael"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#michael"}
-			}
-		}
-	],
-	"display": {
-        "firstperson_righthand": {
-            "scale": [ 0.0, 0.0, 0.0 ]
-        },
-        "firstperson_lefthand": {
-            "scale": [ 0.0, 0.0, 0.0 ]
-        }
+  "textures": {
+    "michael": "libzoomer_test:item/michael_scoping"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 0],
+      "color": 5,
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#michael"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#michael"}
+      }
     }
+  ],
+  "display": {
+    "firstperson_righthand": {
+      "scale": [ 0.0, 0.0, 0.0 ]
+    },
+    "firstperson_lefthand": {
+      "scale": [ 0.0, 0.0, 0.0 ]
+    }
+  }
 }

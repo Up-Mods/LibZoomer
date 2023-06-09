@@ -13,13 +13,13 @@ import net.minecraft.util.Identifier;
 public abstract class ModelPredicateProviderRegistryMixin {
 	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void addScopingPredicateToModdedSpyglasses(CallbackInfo ci) {
-		ModelPredicateProviderRegistry.register(new Identifier("libzoomer", "scoping"), (stack, clientWorld, entity, i) -> {
-			return entity != null
-					&& entity.isUsingItem()
-					&& entity.getActiveItem() == stack
-					&& entity.getActiveItem().isIn(SpyglassHelper.SPYGLASSES)
-					? 1.0F
-					: 0.0F;
-		});
+		ModelPredicateProviderRegistry.register(new Identifier("libzoomer", "scoping"), (stack, clientWorld, entity, i) ->
+			entity != null
+				&& entity.isUsingItem()
+				&& entity.getActiveItem() == stack
+				&& entity.getActiveItem().isIn(SpyglassHelper.SPYGLASSES)
+				? 1.0F
+				: 0.0F
+		);
 	}
 }
