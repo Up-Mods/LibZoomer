@@ -40,8 +40,8 @@ public class CinematicCameraMouseModifier implements MouseModifier {
 			this.cursorXZoomSmoother.clear();
 			return cursorDeltaX;
 		}
-		double smoother = mouseUpdateTimeDelta * cursorSensitivity;
-		return this.cursorXZoomSmoother.smooth(cursorDeltaX, smoother);
+
+		return this.cursorXZoomSmoother.smooth(cursorDeltaX, mouseUpdateTimeDelta * cursorSensitivity);
 	}
 
 	@Override
@@ -50,15 +50,15 @@ public class CinematicCameraMouseModifier implements MouseModifier {
 			this.cursorYZoomSmoother.clear();
 			return cursorDeltaY;
 		}
-		double smoother = mouseUpdateTimeDelta * cursorSensitivity;
-		return this.cursorYZoomSmoother.smooth(cursorDeltaY, smoother);
+
+		return this.cursorYZoomSmoother.smooth(cursorDeltaY, mouseUpdateTimeDelta * cursorSensitivity);
 	}
 
 	@Override
 	public void tick(boolean active) {
 		this.ensureClient();
 		this.cinematicCameraEnabled = this.client.options.cinematicCamera;
-		if (!active && active != this.active) {
+		if (!active && this.active) {
 			this.cursorXZoomSmoother.clear();
 			this.cursorYZoomSmoother.clear();
 		}

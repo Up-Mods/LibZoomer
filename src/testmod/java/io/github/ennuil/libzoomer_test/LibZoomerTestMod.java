@@ -23,7 +23,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-public class LibZoomerTestMod implements ModInitializer, ClientModInitializer, ClientTickEvents.End {
+public class LibZoomerTestMod implements ModInitializer, ClientModInitializer, ClientTickEvents.Start {
 	// Michael's Zoom Instance
 	private static final ZoomInstance MICHAEL_ZOOM = new ZoomInstance(
 		new Identifier("libzoomer_test:zoom"),
@@ -66,8 +66,10 @@ public class LibZoomerTestMod implements ModInitializer, ClientModInitializer, C
 		KeyBindingHelper.registerKeyBinding(MICHELLE_KEY);
 	}
 
+	// ClientTickEvents.Start is desirable in order to reduce latency issues, since the render tick, which happens later,
+	// handles the effects of zooming. Setting the zoom after it means an one tick delay for zooming to apply
 	@Override
-	public void endClientTick(MinecraftClient client) {
+	public void startClientTick(MinecraftClient client) {
 		// This is how you get a spyglass-like zoom working
 		if (client.player == null) return;
 

@@ -56,7 +56,7 @@ public class SmoothTransitionMode implements TransitionMode {
 
 		this.lastInternalMultiplier = this.internalMultiplier;
 
-		this.internalMultiplier += (zoomMultiplier - internalMultiplier) * smoothMultiplier;
+		this.internalMultiplier += (float) ((zoomMultiplier - internalMultiplier) * smoothMultiplier);
 
 		if (active || fovMultiplier == this.internalMultiplier) {
 			this.active = active;
