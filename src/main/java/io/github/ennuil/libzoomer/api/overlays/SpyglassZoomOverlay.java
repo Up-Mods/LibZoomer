@@ -4,6 +4,7 @@ import io.github.ennuil.libzoomer.api.ZoomOverlay;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.util.CommonColors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
@@ -48,19 +49,19 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
     public void renderOverlay(GuiGraphics graphics) {
         int scaledWidth = graphics.getScaledWindowWidth();
         int scaledHeight = graphics.getScaledWindowHeight();
-		float f = (float) Math.min(scaledWidth, scaledHeight);
-		float h = Math.min((float) scaledWidth / f, (float) scaledHeight / f) * scale;
-		int i = MathHelper.floor(f * h);
-		int j = MathHelper.floor(f * h);
-		int k = (scaledWidth - i) / 2;
-		int l = (scaledHeight - j) / 2;
-		int m = k + i;
-		int n = l + j;
-		graphics.drawTexture(textureId, k, l, -90, 0.0F, 0.0F, i, j, i, j);
-		graphics.fill(RenderLayer.getGuiOverlay(), 0, n, scaledWidth, scaledHeight, -90, 0xFF000000);
-		graphics.fill(RenderLayer.getGuiOverlay(), 0, 0, scaledWidth, l, -90, 0xFF000000);
-		graphics.fill(RenderLayer.getGuiOverlay(), 0, l, k, n, -90, 0xFF000000);
-		graphics.fill(RenderLayer.getGuiOverlay(), m, l, scaledWidth, n, -90, 0xFF000000);
+		float smallerLength = (float) Math.min(scaledWidth, scaledHeight);
+		float scaledSmallerLength = Math.min((float) scaledWidth / smallerLength, (float) scaledHeight / smallerLength) * scale;
+		int width = MathHelper.floor(smallerLength * scaledSmallerLength);
+		int height = MathHelper.floor(smallerLength * scaledSmallerLength);
+		int x = (scaledWidth - width) / 2;
+		int y = (scaledHeight - height) / 2;
+		int borderX = x + width;
+		int borderY = y + height;
+		graphics.drawTexture(textureId, x, y, -90, 0.0F, 0.0F, width, height, width, height);
+		graphics.fill(RenderLayer.getGuiOverlay(), 0, borderY, scaledWidth, scaledHeight, -90, CommonColors.BLACK);
+		graphics.fill(RenderLayer.getGuiOverlay(), 0, 0, scaledWidth, y, -90, CommonColors.BLACK);
+		graphics.fill(RenderLayer.getGuiOverlay(), 0, y, x, borderY, -90, CommonColors.BLACK);
+		graphics.fill(RenderLayer.getGuiOverlay(), borderX, y, scaledWidth, borderY, -90, CommonColors.BLACK);
     }
 
     @Override
