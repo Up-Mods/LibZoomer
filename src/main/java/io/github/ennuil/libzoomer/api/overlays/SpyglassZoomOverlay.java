@@ -1,20 +1,20 @@
 package io.github.ennuil.libzoomer.api.overlays;
 
 import io.github.ennuil.libzoomer.api.ZoomOverlay;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.CommonColors;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 
 /**
  * An implementation of the spyglass overlay as a zoom overlay
  */
 public class SpyglassZoomOverlay implements ZoomOverlay {
-    private static final Identifier OVERLAY_ID = new Identifier("libzoomer:spyglass_zoom");
-    private final Identifier textureId;
-    private MinecraftClient client;
+    private static final ResourceLocation OVERLAY_LOCATION = new ResourceLocation("libzoomer:spyglass_zoom");
+    private final ResourceLocation textureId;
+    private Minecraft minecraft;
     private float scale;
     private boolean active;
 
@@ -23,7 +23,7 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
      *
 	 * @param textureId the texture identifier for the spyglass overlay
     */
-    public SpyglassZoomOverlay(Identifier textureId) {
+    public SpyglassZoomOverlay(ResourceLocation textureId) {
         this.textureId = textureId;
         this.scale = 0.5F;
         this.active = false;
@@ -31,8 +31,8 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
     }
 
     @Override
-    public Identifier getIdentifier() {
-        return OVERLAY_ID;
+    public ResourceLocation getId() {
+        return OVERLAY_LOCATION;
     }
 
     @Override
@@ -47,21 +47,21 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
 
     @Override
     public void renderOverlay(GuiGraphics graphics) {
-        int scaledWidth = graphics.getScaledWindowWidth();
-        int scaledHeight = graphics.getScaledWindowHeight();
-		float smallerLength = (float) Math.min(scaledWidth, scaledHeight);
-		float scaledSmallerLength = Math.min((float) scaledWidth / smallerLength, (float) scaledHeight / smallerLength) * scale;
-		int width = MathHelper.floor(smallerLength * scaledSmallerLength);
-		int height = MathHelper.floor(smallerLength * scaledSmallerLength);
-		int x = (scaledWidth - width) / 2;
-		int y = (scaledHeight - height) / 2;
+        int guiWidth = graphics.guiWidth();
+        int guiHeight = graphics.guiHeight();
+		float smallerLength = (float) Math.min(guiWidth, guiHeight);
+		float scaledSmallerLength = Math.min((float) guiWidth / smallerLength, (float) guiHeight / smallerLength) * scale;
+		int width = Mth.floor(smallerLength * scaledSmallerLength);
+		int height = Mth.floor(smallerLength * scaledSmallerLength);
+		int x = (guiWidth - width) / 2;
+		int y = (guiHeight - height) / 2;
 		int borderX = x + width;
 		int borderY = y + height;
-		graphics.drawTexture(textureId, x, y, -90, 0.0F, 0.0F, width, height, width, height);
-		graphics.fill(RenderLayer.getGuiOverlay(), 0, borderY, scaledWidth, scaledHeight, -90, CommonColors.BLACK);
-		graphics.fill(RenderLayer.getGuiOverlay(), 0, 0, scaledWidth, y, -90, CommonColors.BLACK);
-		graphics.fill(RenderLayer.getGuiOverlay(), 0, y, x, borderY, -90, CommonColors.BLACK);
-		graphics.fill(RenderLayer.getGuiOverlay(), borderX, y, scaledWidth, borderY, -90, CommonColors.BLACK);
+		graphics.blit(textureId, x, y, -90, 0.0F, 0.0F, width, height, width, height);
+		graphics.fill(RenderType.guiOverlay(), 0, borderY, guiWidth, guiHeight, -90, CommonColors.BLACK);
+		graphics.fill(RenderType.guiOverlay(), 0, 0, guiWidth, y, -90, CommonColors.BLACK);
+		graphics.fill(RenderType.guiOverlay(), 0, y, x, borderY, -90, CommonColors.BLACK);
+		graphics.fill(RenderType.guiOverlay(), borderX, y, guiWidth, borderY, -90, CommonColors.BLACK);
     }
 
     @Override
@@ -72,19 +72,19 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
     @Override
     public void tickBeforeRender() {
 		this.ensureClient();
-        if (this.client.options.getPerspective().isFirstPerson()) {
+        if (this.minecraft.options.getCameraType().isFirstPerson()) {
             if (!this.active) {
                 this.scale = 0.5F;
             } else {
-                float lastFrameDuration = this.client.getLastFrameDuration();
-                this.scale = MathHelper.lerp(0.5F * lastFrameDuration, this.scale, 1.125F);
+                float lastFrameDuration = this.minecraft.getDeltaFrameTime();
+                this.scale = Mth.lerp(0.5F * lastFrameDuration, this.scale, 1.125F);
             }
         }
     }
 
 	private void ensureClient() {
-		if (this.client == null) {
-			this.client = MinecraftClient.getInstance();
+		if (this.minecraft == null) {
+			this.minecraft = Minecraft.getInstance();
 		}
 	}
 }

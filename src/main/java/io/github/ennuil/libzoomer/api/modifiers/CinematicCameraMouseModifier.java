@@ -1,20 +1,20 @@
 package io.github.ennuil.libzoomer.api.modifiers;
 
 import io.github.ennuil.libzoomer.api.MouseModifier;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.SmoothUtil;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.SmoothDouble;
 
 /**
  * An implemenation of Vanilla's Cinematic Camera as a mouse modifier.
  */
 public class CinematicCameraMouseModifier implements MouseModifier {
-	private static final Identifier MODIFIER_ID = new Identifier("libzoomer:cinematic_camera");
+	private static final ResourceLocation MODIFIER_LOCATION = new ResourceLocation("libzoomer:cinematic_camera");
 	private boolean active;
-	private MinecraftClient client;
+	private Minecraft minecraft;
 	private boolean cinematicCameraEnabled;
-	private final SmoothUtil cursorXZoomSmoother = new SmoothUtil();
-	private final SmoothUtil cursorYZoomSmoother = new SmoothUtil();
+	private final SmoothDouble cursorXZoomSmoother = new SmoothDouble();
+	private final SmoothDouble cursorYZoomSmoother = new SmoothDouble();
 
 	/**
 	 * Initializes an instance of the cinematic camera mouse modifier.
@@ -25,8 +25,8 @@ public class CinematicCameraMouseModifier implements MouseModifier {
 	}
 
 	@Override
-	public Identifier getIdentifier() {
-		return MODIFIER_ID;
+	public ResourceLocation getId() {
+		return MODIFIER_LOCATION;
 	}
 
 	@Override
@@ -37,37 +37,37 @@ public class CinematicCameraMouseModifier implements MouseModifier {
 	@Override
 	public double applyXModifier(double cursorDeltaX, double cursorSensitivity, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
 		if (this.cinematicCameraEnabled) {
-			this.cursorXZoomSmoother.clear();
+			this.cursorXZoomSmoother.reset();
 			return cursorDeltaX;
 		}
 
-		return this.cursorXZoomSmoother.smooth(cursorDeltaX, mouseUpdateTimeDelta * cursorSensitivity);
+		return this.cursorXZoomSmoother.getNewDeltaValue(cursorDeltaX, mouseUpdateTimeDelta * cursorSensitivity);
 	}
 
 	@Override
 	public double applyYModifier(double cursorDeltaY, double cursorSensitivity, double mouseUpdateTimeDelta, double targetDivisor, double transitionMultiplier) {
 		if (this.cinematicCameraEnabled) {
-			this.cursorYZoomSmoother.clear();
+			this.cursorYZoomSmoother.reset();
 			return cursorDeltaY;
 		}
 
-		return this.cursorYZoomSmoother.smooth(cursorDeltaY, mouseUpdateTimeDelta * cursorSensitivity);
+		return this.cursorYZoomSmoother.getNewDeltaValue(cursorDeltaY, mouseUpdateTimeDelta * cursorSensitivity);
 	}
 
 	@Override
 	public void tick(boolean active) {
 		this.ensureClient();
-		this.cinematicCameraEnabled = this.client.options.cinematicCamera;
+		this.cinematicCameraEnabled = this.minecraft.options.smoothCamera;
 		if (!active && this.active) {
-			this.cursorXZoomSmoother.clear();
-			this.cursorYZoomSmoother.clear();
+			this.cursorXZoomSmoother.reset();
+			this.cursorYZoomSmoother.reset();
 		}
 		this.active = active;
 	}
 
 	private void ensureClient() {
-		if (this.client == null) {
-			this.client = MinecraftClient.getInstance();
+		if (this.minecraft == null) {
+			this.minecraft = Minecraft.getInstance();
 		}
 	}
 }

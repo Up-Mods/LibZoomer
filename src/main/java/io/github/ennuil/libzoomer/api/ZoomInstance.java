@@ -1,15 +1,14 @@
 package io.github.ennuil.libzoomer.api;
 
-import org.jetbrains.annotations.Nullable;
-
 import io.github.ennuil.libzoomer.api.transitions.InstantTransitionMode;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The zoom instance is essentially the zoom. It contains all the values and sub-instances required to zoom.
  */
 public class ZoomInstance {
-	private final Identifier instanceId;
+	private final ResourceLocation instanceId;
 	private boolean zoom;
 	private double defaultZoomDivisor;
 	private double zoomDivisor;
@@ -26,7 +25,7 @@ public class ZoomInstance {
 	 * @param modifier the zoom instance's mouse modifier, if null, no mouse modifier will be applied
 	 * @param overlay the zoom instance's zoom overlay, if null, no zoom overlay will be applied
 	 */
-	public ZoomInstance(Identifier instanceId, float defaultZoomDivisor, TransitionMode transition, @Nullable MouseModifier modifier, @Nullable ZoomOverlay overlay) {
+	public ZoomInstance(ResourceLocation instanceId, float defaultZoomDivisor, TransitionMode transition, @Nullable MouseModifier modifier, @Nullable ZoomOverlay overlay) {
 		this.instanceId = instanceId;
 		this.zoom = false;
 		this.defaultZoomDivisor = defaultZoomDivisor;
@@ -43,7 +42,7 @@ public class ZoomInstance {
 	 *
 	 * @return this zoom instance's identifier
 	 */
-	public Identifier getInstanceId() {
+	public ResourceLocation getInstanceId() {
 		return this.instanceId;
 	}
 

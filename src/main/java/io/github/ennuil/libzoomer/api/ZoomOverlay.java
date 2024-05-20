@@ -1,7 +1,7 @@
 package io.github.ennuil.libzoomer.api;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * The zoom overlay is a sub-instance that handles the rendering of an overlay.
@@ -12,7 +12,7 @@ public interface ZoomOverlay {
 	 *
 	 * @return the zoom overlay's identifier
 	 */
-	Identifier getIdentifier();
+	ResourceLocation getId();
 
 	/**
 	 * Gets the active state of the zoom overlay.

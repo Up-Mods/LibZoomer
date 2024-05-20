@@ -1,8 +1,7 @@
 package io.github.ennuil.libzoomer.mixin;
 
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.GameRenderer;
-
+import net.minecraft.client.Camera;
+import net.minecraft.client.renderer.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -46,15 +45,15 @@ public class GameRendererMixin {
 		ZoomRegistry.setIterateOverlays(iterateOverlays);
 	}
 
-	@Inject(method = "getFov(Lnet/minecraft/client/render/Camera;FZ)D", at = @At("RETURN"), cancellable = true)
-	private void getZoomedFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
+	@Inject(method = "getFov", at = @At("RETURN"), cancellable = true)
+	private void getZoomedFov(Camera activeRenderInfo, float partialTicks, boolean useFOVSetting, CallbackInfoReturnable<Double> cir) {
 		double fov = cir.getReturnValue();
 		double zoomedFov = fov;
 
 		if (ZoomRegistry.shouldIterateTransitions()) {
 			for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
 				if (instance.isTransitionActive()) {
-					zoomedFov = instance.getTransitionMode().applyZoom(zoomedFov, tickDelta);
+					zoomedFov = instance.getTransitionMode().applyZoom(zoomedFov, partialTicks);
 				}
 			}
 		}

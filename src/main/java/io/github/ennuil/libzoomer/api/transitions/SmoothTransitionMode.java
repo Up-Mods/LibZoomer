@@ -1,14 +1,14 @@
 package io.github.ennuil.libzoomer.api.transitions;
 
 import io.github.ennuil.libzoomer.api.TransitionMode;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 /**
  * An implementation of Ok Zoomer's smooth transitions (and Vanilla's spyglass zoom) as a transition mode
  */
 public class SmoothTransitionMode implements TransitionMode {
-	private static final Identifier TRANSITION_ID = new Identifier("libzoomer:smooth_transition");
+	private static final ResourceLocation TRANSITION_LOCATION = new ResourceLocation("libzoomer:smooth_transition");
 	private boolean active;
 	private final float smoothMultiplier;
 	private double fovMultiplier;
@@ -35,8 +35,8 @@ public class SmoothTransitionMode implements TransitionMode {
 	}
 
 	@Override
-	public Identifier getIdentifier() {
-		return TRANSITION_ID;
+	public ResourceLocation getId() {
+		return TRANSITION_LOCATION;
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class SmoothTransitionMode implements TransitionMode {
 
 	@Override
 	public double applyZoom(double fov, float tickDelta) {
-		fovMultiplier = MathHelper.lerp(tickDelta, this.lastInternalMultiplier, this.internalMultiplier);
+		fovMultiplier = Mth.lerp(tickDelta, this.lastInternalMultiplier, this.internalMultiplier);
 		return fov * fovMultiplier;
 	}
 

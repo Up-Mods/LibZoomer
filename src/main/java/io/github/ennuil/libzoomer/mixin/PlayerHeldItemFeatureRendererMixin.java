@@ -1,32 +1,29 @@
 package io.github.ennuil.libzoomer.mixin;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import io.github.ennuil.libzoomer.impl.SpyglassHelper;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.layers.PlayerItemInHandLayer;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.github.ennuil.libzoomer.impl.SpyglassHelper;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.feature.PlayerHeldItemFeatureRenderer;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Arm;
-
-@Mixin(PlayerHeldItemFeatureRenderer.class)
+@Mixin(PlayerItemInHandLayer.class)
 public abstract class PlayerHeldItemFeatureRendererMixin {
-	@Inject(method = "renderItem", at = @At("HEAD"), cancellable = true)
-	private void renderCustomSpyglassesAsSpyglass(LivingEntity entity, ItemStack stack, ModelTransformationMode modelTransformationMode, Arm arm,
-												  MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-		if (stack.isIn(SpyglassHelper.SPYGLASSES) && entity.getActiveItem() == stack && entity.handSwingTicks == 0) {
-			this.renderSpyglass(entity, stack, arm, matrices, vertexConsumers, light);
+	@Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
+	private void renderCustomSpyglassesAsSpyglass(LivingEntity entity, ItemStack stack, ItemDisplayContext displayContext, HumanoidArm arm, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
+		if (stack.is(SpyglassHelper.SPYGLASSES) && entity.getUseItem() == stack && entity.swingTime == 0) {
+			this.renderArmWithSpyglass(entity, stack, arm, poseStack, buffer, packedLight);
 			ci.cancel();
 		}
 	}
 
 	@Shadow
-	protected abstract void renderSpyglass(LivingEntity livingEntity, ItemStack itemStack, Arm arm, MatrixStack matrixStack,
-										   VertexConsumerProvider vertexConsumerProvider, int light);
+	protected abstract void renderArmWithSpyglass(LivingEntity livingEntity, ItemStack itemStack, HumanoidArm arm, PoseStack poseStack, MultiBufferSource buffer, int packedLight);
 }

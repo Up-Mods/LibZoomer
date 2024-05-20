@@ -1,13 +1,13 @@
 package io.github.ennuil.libzoomer.api.modifiers;
 
 import io.github.ennuil.libzoomer.api.MouseModifier;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * A mouse modifier which reduces the cursor sensitivity with the transition mode's internal multiplier
  */
 public class ZoomDivisorMouseModifier implements MouseModifier {
-	private static final Identifier MODIFIER_ID = new Identifier("libzoomer:zoom_divisor");
+	private static final ResourceLocation MODIFIER_LOCATION = new ResourceLocation("libzoomer:zoom_divisor");
 	private boolean active;
 
 	/**
@@ -18,8 +18,8 @@ public class ZoomDivisorMouseModifier implements MouseModifier {
 	}
 
 	@Override
-	public Identifier getIdentifier() {
-		return MODIFIER_ID;
+	public ResourceLocation getId() {
+		return MODIFIER_LOCATION;
 	}
 
 	@Override

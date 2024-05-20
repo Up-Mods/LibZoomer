@@ -1,6 +1,6 @@
 package io.github.ennuil.libzoomer.api;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * The mouse modifier is the sub-instance that handles any change of behavior of the mouse.
@@ -11,7 +11,7 @@ public interface MouseModifier {
 	 *
 	 * @return the mouse modifier's identifier
 	 */
-	Identifier getIdentifier();
+	ResourceLocation getId();
 
 	/**
 	 * Gets the active state of the mouse modifier.

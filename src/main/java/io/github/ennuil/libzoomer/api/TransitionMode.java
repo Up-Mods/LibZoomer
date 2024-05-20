@@ -1,6 +1,6 @@
 package io.github.ennuil.libzoomer.api;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * The transition mode is a sub-instance that handles zooming itself.
@@ -12,7 +12,7 @@ public interface TransitionMode {
 	 *
 	 * @return the transition mode's identifier
 	 */
-	Identifier getIdentifier();
+	ResourceLocation getId();
 
 	/**
 	 * Gets the active state of the transition mode.
