@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Gui.class)
 public class GuiMixin {
 	@Inject(
-		method = "render(Lnet/minecraft/client/gui/GuiGraphics;F)V",
+		method = "renderCameraOverlays",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/Minecraft;getDeltaFrameTime()F"
@@ -36,7 +36,7 @@ public class GuiMixin {
 	}
 
 	// Cancel the cancellable overlays
-	@ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/CameraType;isFirstPerson()Z"))
+	@ModifyExpressionValue(method = "renderCameraOverlays", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/CameraType;isFirstPerson()Z"))
 	private boolean cancelOverlay(boolean original, @Share("cancelOverlay") LocalBooleanRef cancelOverlay) {
 		return original && !cancelOverlay.get();
 	}

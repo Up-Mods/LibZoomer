@@ -1,0 +1,29 @@
+{
+	"schemaVersion": 1,
+	"id": "libzoomer",
+	"version": "${version}",
+	"name": "LibZoomer",
+	"description": "A library that allows for easy and powerful zooming.",
+	"authors": [
+		"Ennui Langeweile"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/libzoomer",
+		"issues": "https://github.com/Up-Mods/LibZoomer/issues",
+		"sources": "https://github.com/Up-Mods/LibZoomer"
+	},
+	"license": "MIT",
+	"icon": "assets/libzoomer/icon.png",
+	"environment": "client",
+	"mixins": ["libzoomer.mixins.json"],
+	"depends": {
+		"fabricloader": ">=0.15.10",
+		"minecraft": ">=1.20.5",
+		"fabric-api": ">=0.99.0"
+	},
+	"custom": {
+		"modmenu": {
+			"badges": ["library"]
+		}
+	}
+}

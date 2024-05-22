@@ -2,6 +2,7 @@ package io.github.ennuil.libzoomer.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.ennuil.libzoomer.impl.SpyglassHelper;
+import net.fabricmc.fabric.api.tag.client.v1.ClientTags;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.PlayerItemInHandLayer;
 import net.minecraft.world.entity.HumanoidArm;
@@ -15,10 +16,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerItemInHandLayer.class)
-public abstract class PlayerHeldItemFeatureRendererMixin {
+public abstract class PlayerItemInHandMixin {
 	@Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
 	private void renderCustomSpyglassesAsSpyglass(LivingEntity entity, ItemStack stack, ItemDisplayContext displayContext, HumanoidArm arm, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
-		if (stack.is(SpyglassHelper.SPYGLASSES) && entity.getUseItem() == stack && entity.swingTime == 0) {
+		if (ClientTags.isInWithLocalFallback(SpyglassHelper.SPYGLASSES, stack.getItem()) && entity.getUseItem() == stack && entity.swingTime == 0) {
 			this.renderArmWithSpyglass(entity, stack, arm, poseStack, buffer, packedLight);
 			ci.cancel();
 		}

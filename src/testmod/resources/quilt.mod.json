@@ -14,9 +14,8 @@
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "io.github.ennuil.libzoomer_test.LibZoomerTestMod",
-			"client_init": "io.github.ennuil.libzoomer_test.LibZoomerTestMod",
-			"client_events": "io.github.ennuil.libzoomer_test.LibZoomerTestMod"
+			"main": "io.github.ennuil.libzoomer_test.LibZoomerTestMod",
+			"client": "io.github.ennuil.libzoomer_test.LibZoomerTestMod"
 		}
 	}
 }

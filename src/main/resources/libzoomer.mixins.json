@@ -6,8 +6,8 @@
     "GameRendererMixin",
     "GuiMixin",
 		"ItemPropertiesMixin",
-    "MouseMixin",
-    "PlayerHeldItemFeatureRendererMixin"
+    "MouseHandlerMixin",
+    "PlayerItemInHandMixin"
   ],
   "injectors": {
     "defaultRequire": 1

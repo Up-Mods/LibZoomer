@@ -7,22 +7,19 @@ import io.github.ennuil.libzoomer.api.modifiers.SpyglassMouseModifier;
 import io.github.ennuil.libzoomer.api.overlays.SpyglassZoomOverlay;
 import io.github.ennuil.libzoomer.api.transitions.InstantTransitionMode;
 import io.github.ennuil.libzoomer.api.transitions.SmoothTransitionMode;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpyglassItem;
 import org.lwjgl.glfw.GLFW;
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
-import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
-import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
-import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 
-public class LibZoomerTestMod implements ModInitializer, ClientModInitializer, ClientTickEvents.Start {
+public class LibZoomerTestMod implements ModInitializer, ClientModInitializer {
 	// Michael's Zoom Instance
 	private static final ZoomInstance MICHAEL_ZOOM = new ZoomInstance(
 		new ResourceLocation("libzoomer_test:zoom"),
@@ -40,7 +37,7 @@ public class LibZoomerTestMod implements ModInitializer, ClientModInitializer, C
 	);
 
 	// Michael. He's a reimplementation of the spyglass. Tests if the spyglass can be replicated.
-	private static final Item MICHAEL_ITEM = new SpyglassItem(new QuiltItemSettings().maxCount(1));
+	private static final Item MICHAEL_ITEM = new SpyglassItem(new Item.Properties().stacksTo(1));
 
 	// Michelle. She's an implementation of a very simple zoom key. Tests if there are zoom instance conflicts and spyglass-unrelated things.
 	private static final KeyMapping MICHELLE_KEY = new KeyMapping(
@@ -50,37 +47,36 @@ public class LibZoomerTestMod implements ModInitializer, ClientModInitializer, C
 	);
 
 	@Override
-	public void onInitialize(ModContainer mod) {
+	public void onInitialize() {
 		// Register the Michael item
 		Registry.register(BuiltInRegistries.ITEM, new ResourceLocation("libzoomer_test:michael"), MICHAEL_ITEM);
 	}
 
 	@Override
-	public void onInitializeClient(ModContainer mod) {
+	public void onInitializeClient() {
 		// This prints out all zoom instances registered so far and some extra info
 		for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
 			System.out.println("Id: " + instance.getInstanceId() + " | Zooming: " + instance.getZoom() + " | Divisor: " + instance.getZoomDivisor());
 		}
 
 		KeyBindingHelper.registerKeyBinding(MICHELLE_KEY);
-	}
 
-	// ClientTickEvents.Start is desirable in order to reduce latency issues, since the render tick, which happens later,
-	// handles the effects of zooming. Setting the zoom after it means a one tick delay for zooming to apply
-	@Override
-	public void startClientTick(Minecraft client) {
-		// This is how you get a spyglass-like zoom working
-		if (client.player == null) return;
+		// ClientTickEvents.Start is desirable in order to reduce latency issues, since the render tick, which happens later,
+		// handles the effects of zooming. Setting the zoom after it means a one tick delay for zooming to apply
+		ClientTickEvents.START_CLIENT_TICK.register(minecraft -> {
+			// This is how you get a spyglass-like zoom working
+			if (minecraft.player == null) return;
 
-		MICHAEL_ZOOM.setZoom(
-			client.options.getCameraType().isFirstPerson()
-			&& (
-				client.player.isUsingItem()
-				&& client.player.getUseItem().is(MICHAEL_ITEM)
-			)
-		);
+			MICHAEL_ZOOM.setZoom(
+				minecraft.options.getCameraType().isFirstPerson()
+					&& (
+					minecraft.player.isUsingItem()
+						&& minecraft.player.getUseItem().is(MICHAEL_ITEM)
+				)
+			);
 
-		// And this is how you get a simple zoom button working
-		MICHELLE_ZOOM.setZoom(MICHELLE_KEY.isDown());
+			// And this is how you get a simple zoom button working
+			MICHELLE_ZOOM.setZoom(MICHELLE_KEY.isDown());
+		});
 	}
 }
