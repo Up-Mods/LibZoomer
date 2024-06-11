@@ -28,6 +28,10 @@
 		},
 		"mc-publish": {
 			"modrinth": "UuqHBjf9",
+			"loaders": [
+				"fabric",
+				"quilt"
+			],
 			"dependencies": [
 				"fabric-api(required)#{curseforge:306612}{modrinth:P7dR8mSH}"
 			]
