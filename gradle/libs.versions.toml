@@ -5,7 +5,7 @@ parchment = "2024.06.02"
 quilt_loom = "1.6.8"
 quilt_loader = "0.26.0"
 
-fabric_api = "0.100.0+1.21"
+fabric_api = "0.100.1+1.21"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
