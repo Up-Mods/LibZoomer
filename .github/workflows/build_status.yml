@@ -1,5 +1,9 @@
-name: Build Mod
-on: push
+name: Build Status
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
 
 jobs:
   build:
