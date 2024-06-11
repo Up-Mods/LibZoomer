@@ -1,6 +1,7 @@
 package io.github.ennuil.libzoomer.api.modifiers;
 
 import io.github.ennuil.libzoomer.api.MouseModifier;
+import io.github.ennuil.libzoomer.impl.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.SmoothDouble;
@@ -9,7 +10,7 @@ import net.minecraft.util.SmoothDouble;
  * An implemenation of Vanilla's Cinematic Camera as a mouse modifier.
  */
 public class CinematicCameraMouseModifier implements MouseModifier {
-	private static final ResourceLocation MODIFIER_LOCATION = new ResourceLocation("libzoomer:cinematic_camera");
+	private static final ResourceLocation MODIFIER_LOCATION = ModUtils.id("cinematic_camera");
 	private boolean active;
 	private Minecraft minecraft;
 	private boolean cinematicCameraEnabled;

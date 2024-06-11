@@ -22,15 +22,15 @@ import org.lwjgl.glfw.GLFW;
 public class LibZoomerTestMod implements ModInitializer, ClientModInitializer {
 	// Michael's Zoom Instance
 	private static final ZoomInstance MICHAEL_ZOOM = new ZoomInstance(
-		new ResourceLocation("libzoomer_test:zoom"),
+		ResourceLocation.parse("libzoomer_test:zoom"),
 		10.0F, new SmoothTransitionMode(),
 		new SpyglassMouseModifier(),
-		new SpyglassZoomOverlay(new ResourceLocation("libzoomer_test:textures/misc/michael.png"))
+		new SpyglassZoomOverlay(ResourceLocation.parse("libzoomer_test:textures/misc/michael.png"))
 	);
 
 	// Michelle's Zoom Instance
 	private static final ZoomInstance MICHELLE_ZOOM = new ZoomInstance(
-		new ResourceLocation("libzoomer_test:zoom_2"),
+		ResourceLocation.parse("libzoomer_test:zoom_2"),
 		3.0F, new InstantTransitionMode(),
 		new CinematicCameraMouseModifier(),
 		null
@@ -49,7 +49,7 @@ public class LibZoomerTestMod implements ModInitializer, ClientModInitializer {
 	@Override
 	public void onInitialize() {
 		// Register the Michael item
-		Registry.register(BuiltInRegistries.ITEM, new ResourceLocation("libzoomer_test:michael"), MICHAEL_ITEM);
+		Registry.register(BuiltInRegistries.ITEM, ResourceLocation.parse("libzoomer_test:michael"), MICHAEL_ITEM);
 	}
 
 	@Override

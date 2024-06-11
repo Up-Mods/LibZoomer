@@ -2,6 +2,7 @@ package io.github.ennuil.libzoomer.api.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.ennuil.libzoomer.api.ZoomOverlay;
+import io.github.ennuil.libzoomer.impl.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderType;
@@ -13,7 +14,7 @@ import net.minecraft.util.Mth;
  * An implementation of the spyglass overlay as a zoom overlay
  */
 public class SpyglassZoomOverlay implements ZoomOverlay {
-    private static final ResourceLocation OVERLAY_LOCATION = new ResourceLocation("libzoomer:spyglass_zoom");
+    private static final ResourceLocation OVERLAY_LOCATION = ModUtils.id("spyglass_zoom");
     private final ResourceLocation textureId;
     private Minecraft minecraft;
     private float scale;
@@ -79,7 +80,7 @@ public class SpyglassZoomOverlay implements ZoomOverlay {
             if (!this.active) {
                 this.scale = 0.5F;
             } else {
-                float lastFrameDuration = this.minecraft.getDeltaFrameTime();
+                float lastFrameDuration = this.minecraft.getTimer().getGameTimeDeltaTicks();
                 this.scale = Mth.lerp(0.5F * lastFrameDuration, this.scale, 1.125F);
             }
         }

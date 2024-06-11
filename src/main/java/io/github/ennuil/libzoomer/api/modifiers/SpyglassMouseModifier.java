@@ -1,13 +1,14 @@
 package io.github.ennuil.libzoomer.api.modifiers;
 
 import io.github.ennuil.libzoomer.api.MouseModifier;
+import io.github.ennuil.libzoomer.impl.ModUtils;
 import net.minecraft.resources.ResourceLocation;
 
 /**
  * An implementation of the spyglass' reduction of the mouse sensitivity as a mouse modifier
 */
 public class SpyglassMouseModifier implements MouseModifier {
-	private static final ResourceLocation MODIFIER_ID = new ResourceLocation("libzoomer:spyglass");
+	private static final ResourceLocation MODIFIER_ID = ModUtils.id("spyglass");
 	private boolean active;
 
 	/**

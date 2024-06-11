@@ -23,9 +23,12 @@ loom {
 			sourceSet('testmod')
 		}
 	}
+
 	mixin {
 		useLegacyMixinAp = false
 	}
+
+	accessWidenerPath = file('src/main/resources/libzoomer.accesswidener')
 }
 
 repositories {
@@ -42,10 +45,13 @@ repositories {
 // See https://docs.gradle.org/current/userguide/platforms.html for information on how version catalogs work.
 dependencies {
 	minecraft libs.minecraft
+	mappings loom.officialMojangMappings()
+	/*
 	mappings(loom.layered {
 		it.parchment libs.parchment
 		it.officialMojangMappings()
 	})
+	*/
 	modImplementation libs.quilt.loader
 
 	// Ughhhhhhhhhhh

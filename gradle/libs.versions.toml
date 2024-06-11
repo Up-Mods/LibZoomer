@@ -1,15 +1,15 @@
 [versions]
-minecraft = "1.20.6"
-parchment = "2024.05.01"
+minecraft = "1.21-rc1"
+parchment = "2024.06.02"
 
-quilt_loom = "1.6.7"
-quilt_loader = "0.25.0"
+quilt_loom = "1.6.8"
+quilt_loader = "0.26.0"
 
-fabric_api = "0.99.0+1.20.6"
+fabric_api = "0.100.0+1.21"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
-parchment = { module = "org.parchmentmc.data:parchment-1.20.6", version.ref = "parchment" }
+parchment = { module = "org.parchmentmc.data:parchment-1.21", version.ref = "parchment" }
 quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loader" }
 
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }

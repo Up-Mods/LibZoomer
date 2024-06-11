@@ -1,6 +1,7 @@
 package io.github.ennuil.libzoomer.api.modifiers;
 
 import io.github.ennuil.libzoomer.api.MouseModifier;
+import io.github.ennuil.libzoomer.impl.ModUtils;
 import net.minecraft.resources.ResourceLocation;
 
 //A sin was probably committed by using a lot of for each loops
@@ -8,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
  * A mouse modifier that contains multiple mouse modifiers.
  */
 public class ContainingMouseModifier implements MouseModifier {
-	private static final ResourceLocation MODIFIER_LOCATION = new ResourceLocation("libzoomer:modifier_container");
+	private static final ResourceLocation MODIFIER_LOCATION = ModUtils.id("modifier_container");
 	private final MouseModifier[] modifiers;
 	private boolean active;
 

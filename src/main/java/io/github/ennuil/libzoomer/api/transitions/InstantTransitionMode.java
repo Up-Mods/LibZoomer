@@ -1,13 +1,14 @@
 package io.github.ennuil.libzoomer.api.transitions;
 
 import io.github.ennuil.libzoomer.api.TransitionMode;
+import io.github.ennuil.libzoomer.impl.ModUtils;
 import net.minecraft.resources.ResourceLocation;
 
 /**
  * An implementation of a simple zoom as a transition mode.
  */
 public class InstantTransitionMode implements TransitionMode {
-	private static final ResourceLocation TRANSITION_LOCATION = new ResourceLocation("libzoomer:no_transition");
+	private static final ResourceLocation TRANSITION_LOCATION = ModUtils.id("no_transition");
 	private boolean active;
 	private double divisor;
 

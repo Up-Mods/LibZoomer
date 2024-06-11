@@ -1,5 +1,6 @@
 package io.github.ennuil.libzoomer.mixin;
 
+import io.github.ennuil.libzoomer.impl.ModUtils;
 import io.github.ennuil.libzoomer.impl.SpyglassHelper;
 import net.fabricmc.fabric.api.tag.client.v1.ClientTags;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ItemPropertiesMixin {
 	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void addScopingPredicateToModdedSpyglasses(CallbackInfo ci) {
-		ItemProperties.registerGeneric(new ResourceLocation("libzoomer", "scoping"), (stack, clientLevel, entity, i) ->
+		ItemProperties.registerGeneric(ModUtils.id("scoping"), (stack, clientLevel, entity, i) ->
 			entity != null
 				&& entity.isUsingItem()
 				&& entity.getUseItem() == stack

@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import io.github.ennuil.libzoomer.api.ZoomInstance;
 import io.github.ennuil.libzoomer.api.ZoomRegistry;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,10 +19,10 @@ public class GuiMixin {
 		method = "renderCameraOverlays",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/Minecraft;getDeltaFrameTime()F"
+			target = "Lnet/minecraft/client/DeltaTracker;getGameTimeDeltaTicks()F"
 		)
 	)
-	private void injectZoomOverlay(GuiGraphics graphics, float tickDelta, CallbackInfo ci, @Share("cancelOverlay") LocalBooleanRef cancelOverlay) {
+	private void injectZoomOverlay(GuiGraphics graphics, DeltaTracker deltaTracker, CallbackInfo ci, @Share("cancelOverlay") LocalBooleanRef cancelOverlay) {
 		cancelOverlay.set(false);
 		for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
 			var overlay = instance.getZoomOverlay();
