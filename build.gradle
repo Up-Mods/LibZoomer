@@ -3,9 +3,18 @@ plugins {
 	alias libs.plugins.quilt.loom
 }
 
-base.archivesName = project.archives_base_name
-version = "${project.version}+${libs.versions.minecraft.get()}"
+def ENV = System.getenv()
+def now = new Date()
+
+version = ENV.TAG ?: "development-${now.format('YY.MMdd.HHmm', TimeZone.getTimeZone('UTC'))}+${libs.versions.minecraft.get()}${(!ENV.TAG && ENV.BUILD_NUMBER) ? "-build.${ENV.BUILD_NUMBER}" : ''}"
 group = project.maven_group
+
+// Minecraft 1.20.6 (24w14a) upwards uses Java 21.
+def javaVersion = 21
+
+base {
+	archivesName.set("${rootProject.name}-fabric")
+}
 
 sourceSets {
 	testmod {
@@ -81,8 +90,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	// Minecraft 1.20.6 (24w14a) upwards uses Java 21.
-	it.options.release.set(21)
+	it.options.release.set(javaVersion)
 }
 
 java {
@@ -90,14 +98,18 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	// If this mod is going to be a library, then it should also generate Javadocs in order to aid with developement.
+	// If this mod is going to be a library, then it should also generate Javadocs in order to aid with development.
 	// Uncomment this line to generate them.
 	withJavadocJar()
+
+	toolchain {
+		languageVersion.set(JavaLanguageVersion.of(javaVersion))
+	}
 }
 
 jar {
-	from('LICENSE') {
-		rename { "${it}_${archivesBaseName}" }
+	from('LICENSE*') {
+		rename { "LICENSE_${rootProject.name}" }
 	}
 }
 
@@ -107,10 +119,12 @@ publishing {
 		mavenJava(MavenPublication) {
 			from components.java
 
+			artifactId = "${rootProject.name}-fabric"
+
 			pom {
 				name = 'LibZoomer'
 				description = 'A library that allows other Minecraft mods to have powerful zooming easily.'
-				url = 'https://github.com/EnnuiL/LibZoomer'
+				url = 'https://github.com/Up-Mods/LibZoomer'
 				licenses {
 					license {
 						name = 'The MIT License'
@@ -124,9 +138,9 @@ publishing {
 					}
 				}
 				scm {
-					connection = 'scm:git:https://github.com/EnnuiL/LibZoomer.git'
-					developerConnection = 'scm:git:git@github.com:EnnuiL/LibZoomer.git'
-					url = 'https://github.com/EnnuiL/LibZoomer'
+					connection = 'scm:git:https://github.com/Up-Mods/LibZoomer.git'
+					developerConnection = 'scm:git:git@github.com:Up-Mods/LibZoomer.git'
+					url = 'https://github.com/Up-Mods/LibZoomer'
 				}
 			}
 		}
@@ -138,5 +152,14 @@ publishing {
 		// Notice: This block does NOT have the same function as the block in the top level.
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
+		if (ENV.MAVEN_UPLOAD_URL) {
+			maven {
+				url = ENV.MAVEN_UPLOAD_URL
+				credentials {
+					username = ENV.MAVEN_UPLOAD_USERNAME
+					password = ENV.MAVEN_UPLOAD_PASSWORD
+				}
+			}
+		}
 	}
 }
