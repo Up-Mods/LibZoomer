@@ -8,7 +8,7 @@
 		"Ennui Langeweile"
 	],
 	"contact": {
-		"homepage": "https://modrinth.com/mod/libzoomer",
+		"homepage": "https://modrinth.com/mod/UuqHBjf9",
 		"issues": "https://github.com/Up-Mods/LibZoomer/issues",
 		"sources": "https://github.com/Up-Mods/LibZoomer"
 	},
@@ -19,12 +19,18 @@
 	"accessWidener": "libzoomer.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.15.10",
-		"minecraft": ">=1.20.5",
+		"minecraft": ">=1.21-",
 		"fabric-api": ">=0.99.0"
 	},
 	"custom": {
 		"modmenu": {
 			"badges": ["library"]
+		},
+		"mc-publish": {
+			"modrinth": "UuqHBjf9",
+			"dependencies": [
+				"fabric-api(required)#{curseforge:306612}{modrinth:P7dR8mSH}"
+			]
 		}
 	}
 }
