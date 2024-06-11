@@ -33,13 +33,21 @@ jobs:
           MAVEN_UPLOAD_USERNAME: ${{ secrets.MAVEN_UPLOAD_USERNAME }}
           MAVEN_UPLOAD_PASSWORD: ${{ secrets.MAVEN_UPLOAD_PASSWORD }}
         run: ./gradlew publish
-      - name: Publish
-        id: publish_fabric
+      - name: Publish (GitHub Releases)
+        id: publish_github
         uses: Kir-Antipov/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659 # (new) v3.3.0
         with:
           github-token: ${{ github.token }}
+          version: ${{ env.TAG }}
+          files: |
+            build/libs/!(*-@(dev|sources|javadoc|slim)).jar
+            build/libs/*-@(sources|javadoc).jar
+      - name: Publish (Fabric)
+        id: publish_fabric
+        uses: Kir-Antipov/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659 # (new) v3.3.0
+        with:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          version: ${{ env.TAG }}-Fabric
+          version: ${{ env.TAG }}-fabric
           files: |
             build/libs/!(*-@(dev|sources|javadoc|slim)).jar
             build/libs/*-@(sources|javadoc).jar
