@@ -1,7 +1,7 @@
 {
 	"schema_version": 1,
 	"quilt_loader": {
-		"group": "io.github.ennuil",
+		"group": "${maven_group}",
 		"id": "libzoomer",
 		"version": "${version}",
 		"metadata": {
@@ -12,7 +12,7 @@
 				"Up": "Developer"
 			},
 			"contact": {
-				"homepage": "https://modrinth.com/mod/libzoomer",
+				"homepage": "https://modrinth.com/mod/UuqHBjf9",
 				"issues": "https://github.com/Up-Mods/LibZoomer/issues",
 				"sources": "https://github.com/Up-Mods/LibZoomer"
 			},
