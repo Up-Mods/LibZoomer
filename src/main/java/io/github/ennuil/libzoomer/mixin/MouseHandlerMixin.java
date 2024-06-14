@@ -23,7 +23,7 @@ public abstract class MouseHandlerMixin {
 		if (ZoomRegistry.shouldIterateModifiers()) {
 			for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
 				if (instance.isModifierActive()) {
-					double zoomDivisor = instance.getZoom() ? instance.getZoomDivisor() : 1.0;
+					double zoomDivisor = instance.isZooming() ? instance.getZoomDivisor() : 1.0;
 					double transitionDivisor = instance.getTransitionMode().getInternalMultiplier();
 					i.set(instance.getMouseModifier().applyXModifier(i.get(), f, movementTime, zoomDivisor, transitionDivisor));
 					j.set(instance.getMouseModifier().applyYModifier(j.get(), f, movementTime, zoomDivisor, transitionDivisor));

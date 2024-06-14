@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ZoomInstance {
 	private final ResourceLocation instanceId;
-	private boolean zoom;
+	private boolean zooming;
 	private double defaultZoomDivisor;
 	private double zoomDivisor;
 	private TransitionMode transition;
@@ -27,7 +27,7 @@ public class ZoomInstance {
 	 */
 	public ZoomInstance(ResourceLocation instanceId, float defaultZoomDivisor, TransitionMode transition, @Nullable MouseModifier modifier, @Nullable ZoomOverlay overlay) {
 		this.instanceId = instanceId;
-		this.zoom = false;
+		this.zooming = false;
 		this.defaultZoomDivisor = defaultZoomDivisor;
 		this.zoomDivisor = this.defaultZoomDivisor;
 		this.transition = transition == null ? new InstantTransitionMode() : transition;
@@ -52,8 +52,8 @@ public class ZoomInstance {
 	 *
 	 * @return the current zoom state
 	 */
-	public boolean getZoom() {
-		return this.zoom;
+	public boolean isZooming() {
+		return this.zooming;
 	}
 
 	/**
@@ -62,8 +62,8 @@ public class ZoomInstance {
 	 * @param newZoom The new zoom state.
 	 * @return the zoom state with the new value
 	 */
-	public boolean setZoom(boolean newZoom) {
-		return this.zoom = newZoom;
+	public boolean setZooming(boolean newZoom) {
+		return this.zooming = newZoom;
 	}
 
 	/**

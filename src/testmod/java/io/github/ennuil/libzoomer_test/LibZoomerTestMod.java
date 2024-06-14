@@ -56,7 +56,7 @@ public class LibZoomerTestMod implements ModInitializer, ClientModInitializer {
 	public void onInitializeClient() {
 		// This prints out all zoom instances registered so far and some extra info
 		for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
-			System.out.println("Id: " + instance.getInstanceId() + " | Zooming: " + instance.getZoom() + " | Divisor: " + instance.getZoomDivisor());
+			System.out.println("Id: " + instance.getInstanceId() + " | Zooming: " + instance.isZooming() + " | Divisor: " + instance.getZoomDivisor());
 		}
 
 		KeyBindingHelper.registerKeyBinding(MICHELLE_KEY);
@@ -67,7 +67,7 @@ public class LibZoomerTestMod implements ModInitializer, ClientModInitializer {
 			// This is how you get a spyglass-like zoom working
 			if (minecraft.player == null) return;
 
-			MICHAEL_ZOOM.setZoom(
+			MICHAEL_ZOOM.setZooming(
 				minecraft.options.getCameraType().isFirstPerson()
 					&& (
 					minecraft.player.isUsingItem()
@@ -76,7 +76,7 @@ public class LibZoomerTestMod implements ModInitializer, ClientModInitializer {
 			);
 
 			// And this is how you get a simple zoom button working
-			MICHELLE_ZOOM.setZoom(MICHELLE_KEY.isDown());
+			MICHELLE_ZOOM.setZooming(MICHELLE_KEY.isDown());
 		});
 	}
 }

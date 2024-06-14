@@ -20,19 +20,19 @@ public class GameRendererMixin {
 		boolean iterateOverlays = false;
 
 		for (ZoomInstance instance : ZoomRegistry.getZoomInstances()) {
-			boolean zoom = instance.getZoom();
-			if (zoom || (instance.isTransitionActive() || instance.isModifierActive() || instance.isOverlayActive())) {
-				double divisor = zoom ? instance.getZoomDivisor() : 1.0;
-				instance.getTransitionMode().tick(zoom, divisor);
+			boolean zooming = instance.isZooming();
+			if (zooming || (instance.isTransitionActive() || instance.isModifierActive() || instance.isOverlayActive())) {
+				double divisor = zooming ? instance.getZoomDivisor() : 1.0;
+				instance.getTransitionMode().tick(zooming, divisor);
 				if (instance.getMouseModifier() != null) {
-					instance.getMouseModifier().tick(zoom);
+					instance.getMouseModifier().tick(zooming);
 				}
 				if (instance.getZoomOverlay() != null) {
-					instance.getZoomOverlay().tick(zoom, divisor, instance.getTransitionMode().getInternalMultiplier());
+					instance.getZoomOverlay().tick(zooming, divisor, instance.getTransitionMode().getInternalMultiplier());
 				}
 			}
 
-			iterateZoom = iterateZoom || zoom;
+			iterateZoom = iterateZoom || zooming;
 			iterateTransitions = iterateTransitions || instance.isTransitionActive();
 			iterateModifiers = iterateModifiers || instance.isModifierActive();
 			iterateOverlays = iterateOverlays || instance.isOverlayActive();
