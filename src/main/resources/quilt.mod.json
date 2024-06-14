@@ -31,7 +31,7 @@
 			},
 			{
 				"id": "minecraft",
-				"versions": ">=1.20"
+				"versions": ">=1.21-"
 			}
 		]
 	},
@@ -39,7 +39,6 @@
 		"environment": "client"
 	},
 	"mixin": "libzoomer.mixins.json",
-	"access_widener": "libzoomer.accesswidener",
 	"modmenu": {
 		"badges": ["library"]
 	}

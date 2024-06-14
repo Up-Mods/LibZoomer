@@ -36,8 +36,6 @@ loom {
 	mixin {
 		useLegacyMixinAp = false
 	}
-
-	accessWidenerPath = file('src/main/resources/libzoomer.accesswidener')
 }
 
 repositories {

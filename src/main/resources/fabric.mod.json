@@ -16,7 +16,6 @@
 	"icon": "assets/libzoomer/icon.png",
 	"environment": "client",
 	"mixins": ["libzoomer.mixins.json"],
-	"accessWidener": "libzoomer.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.15.10",
 		"minecraft": ">=1.21-",

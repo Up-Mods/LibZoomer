@@ -4,7 +4,6 @@ import io.github.ennuil.libzoomer.impl.ModUtils;
 import io.github.ennuil.libzoomer.impl.SpyglassHelper;
 import net.fabricmc.fabric.api.tag.client.v1.ClientTags;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
